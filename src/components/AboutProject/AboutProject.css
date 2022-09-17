@@ -1,0 +1,228 @@
+.aboutProject {
+  max-width: 100%;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: center;
+  align-items: left;
+  margin: 0 auto;
+  padding: 70px 0 0 0;
+  background-color: #202020;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutProject {
+    width: 768px;
+    padding: 90px 0 0 0;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutProject {
+    width: 1280px;
+    padding: 110px 0 0 0;
+  }
+}
+
+.aboutProject__title {
+  width: 292px;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  padding-bottom: 28px;
+  margin: 0 18px 0 18px;
+  border-bottom: 1px solid #DADADA;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutProject__title {
+    width: 668px;
+    padding-bottom: 23px;
+    margin: 0 50px 0 50px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutProject__title {
+    width: 1140px;
+    margin: 0 70px 0 70px;
+  }
+}
+
+.aboutProject__box {
+  margin: 0;
+  padding: 60px 18px 0 18px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutProject__box {
+    padding: 70px 50px 0 50px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutProject__box {
+    padding: 70px 70px 0 70px;
+  }
+}
+
+.aboutProject__boxtitle {
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  margin: -4px 0 0 0;
+  padding: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutProject__boxtitle {
+    font-size: 20px;
+    line-height: 24px;
+    margin: -7px 0 0 0;
+  }
+}
+
+.aboutProject__boxtext {
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 400;
+  font-style: normal;
+  color: #ffffff;
+  margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutProject__boxtext {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+.aboutProject__timeline {
+  width: 284px;
+  margin: 0;
+  padding: 60px 18px 0 18px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutProject__timeline {
+    width: 668px;
+    padding: 93px 50px 0 50px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutProject__timeline {
+    width: 1140px;
+    padding: 110px 70px 0 70px;
+  }
+}
+
+.aboutProject__timeline_backend {
+  width: 100px;
+  height: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #3ddc84;
+  margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutProject__timeline_backend {
+    width: 140px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutProject__timeline_backend {
+    width: 228px;
+  }
+}
+
+.aboutProject__timeline_text {
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 400;
+  font-style: normal;
+  color: #a0a0a0;
+  text-align: center;
+  margin: 0;
+  padding: 21px 0 0 0;
+  z-index: 1;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutProject__timeline_text {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.aboutProject__timeline_backend-title {
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 400;
+  font-style: normal;
+  color: #000000;
+  text-align: center;
+  margin: 11px 0 0 0;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutProject__timeline_backend-title {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.aboutProject__timeline_frontend {
+  width: 184px;
+  height: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #303030;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutProject__timeline_frontend {
+    width: 528px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutProject__timeline_frontend {
+    width: 912px;
+  }
+}
+
+.aboutProject__timeline_frontend-title {
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 400;
+  font-style: normal;
+  color: #ffffff;
+  text-align: center;
+  margin: 11px 0 0 0;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutProject__timeline_frontend-title {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

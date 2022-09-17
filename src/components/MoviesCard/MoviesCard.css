@@ -1,0 +1,155 @@
+.movieCard {
+  max-width: 100%;
+  display: grid;
+  row-gap: 20px;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  background-color: #202020;
+}
+
+@media screen and (min-width: 768px) {
+  .movieCard {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 30px;
+    row-gap: 36px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .movieCard {
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 20px;
+    row-gap: 32px;
+    margin: 0;
+  }
+}
+
+.movieCard__box {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 225px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+  .movieCard__box {
+    width: 339px;
+    height: 257px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .movieCard__box {
+    width: 270px;
+    height: 218px;
+  }
+}
+
+.movieCard__pic {
+  width: 300px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+@media screen and (min-width: 768px) {
+  .movieCard__pic {
+    width: 339px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .movieCard__pic {
+    width: 270px;
+  }
+}
+
+.movieCard__about {
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 54px;
+  margin: 0;
+  padding: 14px 0 14px 0;
+  background: #222222;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+@media screen and (min-width: 768px) {
+  .movieCard__about {
+    width: 339px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .movieCard__about {
+    width: 270px;
+    height: 67px;
+  }
+}
+
+.movieCard__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 320px;
+  padding-left: 14px;
+}
+
+@media screen and (min-width: 768px) {
+  .movieCard__info {
+    width: 339px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .movieCard__info {
+    width: 270px;
+  }
+}
+
+.movieCard__title {
+  font-size: 13px;
+  line-height: 16px;
+  font-style: normal;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.movieCard__timeline {
+  width: 34px;
+  height: 13px;
+  font-size: 11px;
+  line-height: 13px;
+  font-style: normal;
+  font-weight: 400;
+  color: #8B8B8B;
+  margin: 0;
+}
+
+.movieCard__add-button {
+  height: 16px;
+  width: 16px;
+  background-image: url(../../images/inactive.svg);
+  border: none;
+  background-color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  margin: 0 14px 0 0;
+}
+
+.movieCard__add-button:hover {
+  opacity: 0.8;
+}
+
+.movieCard__add-button:focus-within {
+  background-image: url(../../images/active.svg);
+}
