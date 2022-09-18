@@ -53,6 +53,12 @@
   }
 }
 
+@media screen and (min-width: 768px) {
+  .aboutProject__mainbox {
+    display: flex;
+  }
+}
+
 .aboutProject__box {
   margin: 0;
   padding: 60px 18px 0 18px;
