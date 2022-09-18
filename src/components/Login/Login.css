@@ -105,6 +105,10 @@
   color: #ffffff;
 }
 
+.login__info:invalid {
+  color: #EE3465;
+}
+
 .login__submit-button {
   width: 260px;
   height: 45px;
