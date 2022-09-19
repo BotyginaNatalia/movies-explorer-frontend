@@ -64,6 +64,7 @@
 
 @media screen and (min-width: 768px) {
   .portfolio__box {
+    width: 668px;
     padding: 0 50px 0 50px;
   }
 }

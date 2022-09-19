@@ -119,6 +119,7 @@
   color: #ffffff;
   background-color: #4285F4;
   border: none;
+  border-radius: 3px;
   cursor: pointer;
   text-decoration: none;
   display: flex;
@@ -190,6 +191,7 @@
   color: #ffffff;
   background-color: #4285F4;
   border: none;
+  border-radius: 3px;
   cursor: pointer;
   text-decoration: none;
   display: flex;

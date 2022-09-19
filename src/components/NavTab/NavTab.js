@@ -3,7 +3,7 @@ import React from "react";
 function NavTab() {
   return (
     <section className="navTab">
-      <div className="navTab__box">
+      <nav className="navTab__box">
         <a href="#aboutProject" className="navTab__link">
           О проекте
         </a>
@@ -13,7 +13,7 @@ function NavTab() {
         <a href="#aboutMe" className="navTab__link">
           Студент
         </a>
-      </div>
+      </nav>
     </section>
   );
 }

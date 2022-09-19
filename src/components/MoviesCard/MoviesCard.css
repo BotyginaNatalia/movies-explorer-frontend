@@ -99,7 +99,7 @@
   flex-direction: column;
   row-gap: 10px;
   width: 320px;
-  padding-left: 14px;
+  padding-left: 12px;
 }
 
 @media screen and (min-width: 768px) {
@@ -135,15 +135,17 @@
 }
 
 .movieCard__add-button {
+  display: inline-block;
   height: 16px;
   width: 16px;
-  background-image: url(../../images/inactive.svg);
-  border: none;
-  background-color: transparent;
-  background-size: contain;
+  border: 3px solid #FFFFFF;
+  background-color: #202020;
+  border-radius: 50px;
+  background-size: auto;
   background-repeat: no-repeat;
   cursor: pointer;
-  margin: 0 14px 0 0;
+  margin: 0 12px 0 12px;
+  padding: 9px 9px 9px 9px;
 }
 
 .movieCard__add-button:hover {
@@ -151,5 +153,5 @@
 }
 
 .movieCard__add-button:focus-within {
-  background-image: url(../../images/active.svg);
+  background-color: #2BE080;
 }

@@ -65,9 +65,9 @@
 
 .menu__link {
   text-decoration: none;
-  font-size: 10px;
-  line-height: 16px;
-  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 500;
   font-style: normal;
   color: #ffffff;
   padding-top: 5px;
@@ -85,12 +85,12 @@
 }
 
 .menu__acc-button {
-  width: 54px;
-  height: 26px;
+  width: 100px;
+  height: 32px;
   text-decoration: none;
-  font-size: 10px;
+  font-size: 14px;
   line-height: 16px;
-  font-weight: 400;
+  font-weight: 500;
   font-style: normal;
   color: #ffffff;
   background-color: #313131;

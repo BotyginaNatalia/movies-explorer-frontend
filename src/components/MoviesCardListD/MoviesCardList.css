@@ -11,6 +11,7 @@
 
 .moviesCardList__box {
   width: 300px;
+  position: relative;
   margin: 0 auto;
   padding: 0 10px 0 10px;
   display: flex;

@@ -1,7 +1,7 @@
 import React from "react";
 import HeaderMovie from "../Header/HeaderMovie";
 import SearchForm from "../SearchForm/SearchForm";
-import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import MoviesCardListD from "../MoviesCardListD/MoviesCardListD";
 import Footer from "../Footer/Footer";
 
 function SavedMovies() {
@@ -10,7 +10,7 @@ function SavedMovies() {
       <HeaderMovie />
       <section className="savedMovies">
         <SearchForm />
-        <MoviesCardList />
+        <MoviesCardListD />
       </section>
       <Footer />
     </>
