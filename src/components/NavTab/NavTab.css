@@ -1,0 +1,68 @@
+.navTab {
+  max-width: 100%;
+  width: 320px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-self: center;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #272727;
+}
+
+@media screen and (min-width: 768px) {
+  .navTab {
+    width: 768px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .navTab {
+    width: 100%;
+  }
+}
+
+.navTab__box {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 25px 53px 25px 53px;
+  column-gap: 24px;
+}
+
+@media screen and (min-width: 768px) {
+  .navTab__box {
+    width: 768px;
+    column-gap: 40px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .navTab__box {
+    width: 1280px;
+  }
+}
+
+.navTab__link {
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 500;
+  font-style: normal;
+  color: #ffffff;
+  margin: 0;
+  text-decoration: underline;
+}
+
+.navTab__link:hover {
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 768px) {
+  .navTab__link {
+    font-size: 13px;
+  }
+}

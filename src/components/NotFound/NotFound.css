@@ -1,0 +1,121 @@
+.nFound {
+  max-width: 100%;
+  width: 320px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  align-items: center;
+  margin: 0 auto 0 auto;
+  background-color: #202020;
+}
+
+@media screen and (min-width: 768px) {
+  .nFound {
+    width: 768px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .nFound {
+    width: 1280px;
+  }
+}
+
+.nFound__box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 329px 0 30px 0;
+}
+
+@media screen and (min-width: 768px) {
+  .nFound__box {
+    margin: 408px 0 222px 0;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .nFound__box {
+    margin: 246px 0 60px 0;
+  }
+}
+
+.nFound__title {
+  font-size: 80px;
+  line-height: 97px;
+  font-weight: 400;
+  font-style: normal;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .nFound__title {
+    font-size: 140px;
+    line-height: 169px;
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .nFound__title {}
+}
+
+.nFound__text {
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 400;
+  font-style: normal;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+  padding: 10px 0 0 0;
+}
+
+@media screen and (min-width: 768px) {
+  .nFound__text {
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    text-align: center;
+    padding: 5px 0 0 0;
+  }
+}
+
+.nFound__button {
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 400;
+  font-style: normal;
+  color: #4285f4;
+  text-align: center;
+  cursor: pointer;
+  margin: 0;
+  padding: 284px 0 0 0;
+}
+
+.nFound__button:hover {
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 768px) {
+  .nFound__button {
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+    font-style: normal;
+    color: #4285f4;
+    text-align: center;
+    cursor: pointer;
+    padding: 184px 0 0 0;
+  }
+}

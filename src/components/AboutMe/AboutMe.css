@@ -1,0 +1,180 @@
+.aboutMe {
+  max-width: 100%;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: center;
+  align-items: left;
+  margin: 0 auto;
+  padding: 70px 0 0 0;
+  background-color: #202020;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutMe {
+    width: 768px;
+    padding: 90px 0 0 0;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutMe {
+    width: 1280px;
+    padding: 110px 0 0 0;
+  }
+}
+
+.aboutMe__title {
+  width: 292px;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  padding-bottom: 28px;
+  margin: 0 18px 0 18px;
+  border-bottom: 1px solid #DADADA;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutMe__title {
+    width: 668px;
+    padding-bottom: 23px;
+    margin: 0 50px 0 50px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutMe__title {
+    width: 1140px;
+    margin: 0 70px 0 70px;
+  }
+}
+
+.aboutMe__box {
+  margin: 0;
+  padding: 60px 14px 70px 14px;
+  display: flex;
+  flex-direction: column-reverse;
+  row-gap: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutMe__box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 49px;
+    padding: 70px 50px 91px 50px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutMe__box {
+    column-gap: 270px;
+    padding: 66px 70px 101px 70px;
+  }
+}
+
+.aboutMe__text {
+  width: 292px;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutMe__text {
+    width: 364px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutMe__text {
+    width: 600px;
+  }
+}
+
+.aboutMe__photo {
+  width: 292px;
+  height: 352px;
+  margin: 0;
+  border: none;
+  border-radius: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutMe__photo {
+    width: 255px;
+    height: 307px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutMe__photo {
+    width: 270px;
+    height: 327px;
+  }
+}
+
+.aboutMe__boxtitle {
+  font-size: 30px;
+  line-height: 36px;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutMe__boxtitle {
+    font-size: 40px;
+    line-height: 40px;
+    margin-bottom: 18px;
+  }
+}
+
+.aboutMe__boxtext {
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 400;
+  font-style: normal;
+  color: #ffffff;
+  margin: 20px 0 0 0;
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutMe__boxtext {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 26px 0 0 0;
+  }
+}
+
+.aboutMe__boxtext_link {
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 500;
+  font-style: normal;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  padding-top: 40px;
+}
+
+.aboutMe__link:hover {
+  opacity: 0.6;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutMe__boxtext_link {
+    padding-top: 91px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutMe__boxtext_link {
+    padding-top: 99px;
+  }
+}
