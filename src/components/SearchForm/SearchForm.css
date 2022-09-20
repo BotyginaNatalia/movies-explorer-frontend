@@ -74,6 +74,14 @@
   padding: 0;
 }
 
+.sForm__search_button:focus-within {
+  background-image: url(../../images/findActive.svg);
+}
+
+.sForm__search_button:hover {
+  opacity: 0.8;
+}
+
 .sForm__switch {
   display: flex;
   flex-direction: row;
