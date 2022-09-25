@@ -1,5 +1,5 @@
 # movies-explorer-frontend
-Frontend part
+Frontend part of diploma project
 
 Ссылка на проект: (https://)
 
