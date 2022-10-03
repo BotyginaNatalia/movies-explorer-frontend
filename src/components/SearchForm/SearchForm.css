@@ -111,7 +111,16 @@
   margin: 0;
 }
 
-.sForm__switch_button {
+.sForm__switch-button_defaultbutton {
+  display: none;
+}
+
+.sForm__switch-button_defaultbutton:checked+.sForm__switch-button_state {
+  background-image: url(../../images/switchOff.svg);
+}
+
+.sForm__switch-button_state {  
+  display: flex;
   width: 36px;
   height: 20px;
   background-image: url(../../images/switchOn.svg);
@@ -120,8 +129,4 @@
   background-size: cover;
   cursor: pointer;
   margin: -1px;
-}
-
-.sForm__switch_button:focus-within {  
-  background-image: url(../../images/switchOff.svg);
 }

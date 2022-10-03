@@ -1,29 +1,38 @@
+import { useState, useEffect, useContext } from "react"
 import HeaderMovie from "../Header/HeaderMovie";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js"
 
 function Profile(props) {
-  const [name, enterName] = useState("");
-  const [email, enterEmail] = useState("");
+  const currentUser = useContext(CurrentUserContext);
+  const [userName, changeUserName] = useState("");
+  const [userEmail, changeUserEmail] = useState("");
+
+  useEffect(() => {
+    changeUserEmail(currentUser.name);
+    changeUserEmail(currentUser.about);
+  }, [currentUser, props.isOpen]);
 
   function handleChangeProfileName(evt) {
-    enterName(evt.target.value);
+    changeUserName(evt.target.value);
   }
 
   function handleChangeProfileEmail(evt) {
-    enterEmail(evt.target.value);
+    changeUserEmail(evt.target.value);
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    props.getProfile(name, email);
+    props.onUpdateUser({
+      "inputName": userName,
+      "inputEmail": userEmail,
+    });
   }
 
   return (
     <>
       <HeaderMovie />
       <div className="profile">
-        <h2 className="profile__title">Привет, {name}</h2>
+        <h2 className="profile__title">Привет, {currentUser.name}!</h2>
         <form className="profile__box" onSubmit={handleSubmit}>
           <div className="profile__input">
             <p className="profile__placeholder">Имя</p>
@@ -32,11 +41,11 @@ function Profile(props) {
               type="name"
               name="name"
               className="profile__info"
-              value={name}
               placeholder=""
               minLength="3"
               maxLength="40"
               required
+              value={userName || ""} 
               onChange={handleChangeProfileName}
             />
           </div>
@@ -47,26 +56,25 @@ function Profile(props) {
               type="email"
               name="email"
               className="profile__info"
-              value={email}
               placeholder=""
               minLength="5"
               maxLength="40"
               required
+              value={userEmail || ""}
               onChange={handleChangeProfileEmail}
             />
           </div>
-          <Link
+          <button
             className="profile__submit-button"
             type="submit"
             aria-label=""
-            to="/"
           >
             Редактировать
-          </Link>
+          </button>
         </form>
-        <Link className={"profile__link"} to="/">
+        <button className={"profile__link"} to="/">
           Выйти из аккаунта
-        </Link>
+        </button>
       </div>
     </>
   );
