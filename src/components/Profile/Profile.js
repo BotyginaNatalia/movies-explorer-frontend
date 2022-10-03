@@ -37,7 +37,7 @@ function Profile(props) {
     <>
       <HeaderMovie />
       <div className="profile">
-        <h2 className="profile__title">Привет, {currentUser.userName}!</h2>
+        <h2 className="profile__title">Привет, {currentUser.name}!</h2>
         <form className="profile__box" onSubmit={handleSubmit}>
           <div className="profile__input">
             <p className="profile__placeholder">Имя</p>
