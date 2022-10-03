@@ -28,11 +28,16 @@ function Profile(props) {
     });
   }
 
+  function handleLogOut(evt) {
+    evt.preventDefault();
+    props.signingOut(userEmail, userEmail)
+  }
+
   return (
     <>
       <HeaderMovie />
       <div className="profile">
-        <h2 className="profile__title">Привет, {currentUser.name}!</h2>
+        <h2 className="profile__title">Привет, {currentUser.userName}!</h2>
         <form className="profile__box" onSubmit={handleSubmit}>
           <div className="profile__input">
             <p className="profile__placeholder">Имя</p>
@@ -72,7 +77,7 @@ function Profile(props) {
             Редактировать
           </button>
         </form>
-        <button className={"profile__link"} to="/">
+        <button className={"profile__link"} onClick={handleLogOut}>
           Выйти из аккаунта
         </button>
       </div>

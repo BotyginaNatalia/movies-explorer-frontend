@@ -2,8 +2,7 @@ import React from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardList(props) {
-  return (
-    <>
+  return (    
       <section className="moviesCardList">
         <div className="moviesCardList__box">
           <div className="moviesCardList__element">
@@ -11,7 +10,7 @@ function MoviesCardList(props) {
               return (
                 <MoviesCard
                   movie={movie}
-                  key={props.favouriteMovies ? movie.movieId : movie.id}
+                  key={movie.movieId || movie.id}
                   isSaved={props.isSaved}
                   favouriteMovies={props.favouriteMovies}
                   onSaveButtonClick={props.onSaveButtonClick}
@@ -28,8 +27,7 @@ function MoviesCardList(props) {
             Ещё
           </button>
         </div>
-      </section>
-    </>
+      </section>    
   );
 }
 

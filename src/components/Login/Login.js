@@ -58,14 +58,13 @@ function Login(props) {
             onChange={handleChangeLoginPassword}
           />
         </div>
-        <Link
+        <button
           className="login__submit-button"
           type="submit"
           aria-label=""
-          to="/movies"
         >
           Войти
-        </Link>
+        </button>
       </form>
       <h3 className="login__text">
         Еще не зарегистрированы?

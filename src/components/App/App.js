@@ -185,7 +185,7 @@ function App() {
         localStorage.setItem("jwt", res.token);
         setIsLoggingIn(true);
         setEmailInfo(email);
-        navigate("/");
+        navigate("/movies");
       })
       .catch((err) => {
         setInfoToolTipState({
@@ -201,6 +201,7 @@ function App() {
     setIsLoggingIn(false);
     localStorage.removeItem("jwt");
     localStorage.clear();
+    navigate("/");
   }
 
   return (
@@ -253,7 +254,7 @@ function App() {
             }
           />
 
-          <Route path="" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <InfoToolTip
           image={infoToolTipState.image}
