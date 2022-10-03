@@ -154,7 +154,7 @@ function App() {
     if (isLoggingIn) {
       navigate("/");
     }
-    // eslint-disable-next-line
+
   }, [isLoggingIn]);
 
   /** registration, entrance and signing out */

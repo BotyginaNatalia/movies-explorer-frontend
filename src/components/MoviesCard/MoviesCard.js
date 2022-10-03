@@ -14,7 +14,7 @@ function MoviesCard(props) {
     <div className="movieCard">
       <div className="movieCard__box">
       <a href={props.movie.trailerLink} rel="noreferrer" target="_blank">
-        <img className="movieCard__pic" src={props.favouriteMovies ? props.movie.image : `https://api.nomoreparties.co/${props.movie.image.url}`} alt="moviePic" />
+        <img className="movieCard__pic" src={`https://api.nomoreparties.co/${props.movie.image.url}`} alt="moviePic" />
       </a>  
       <div className="movieCard__about">
           <div className="movieCard__info">
