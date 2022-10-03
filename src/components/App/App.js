@@ -154,7 +154,6 @@ function App() {
     if (isLoggingIn) {
       navigate("/");
     }
-
   }, [isLoggingIn]);
 
   /** registration, entrance and signing out */

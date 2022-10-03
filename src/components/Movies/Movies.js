@@ -3,15 +3,12 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
-function Movies(props) {  
-
+function Movies(props) {
   return (
     <>
       <HeaderMovie />
       <section className="movies">
-      <SearchForm
-        onSearchButtonClick={props.onSearchButtonClick}
-        />
+        <SearchForm onSearchButtonClick={props.onSearchButtonClick} />
         <MoviesCardList
           movies={props.movies}
           isSaved={props.isSaved}

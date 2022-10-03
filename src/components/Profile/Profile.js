@@ -1,6 +1,6 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect, useContext } from "react";
 import HeaderMovie from "../Header/HeaderMovie";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext.js"
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
 function Profile(props) {
   const currentUser = useContext(CurrentUserContext);
@@ -9,8 +9,8 @@ function Profile(props) {
 
   useEffect(() => {
     changeUserEmail(currentUser.name);
-    changeUserEmail(currentUser.about);
-  }, [currentUser, props.isOpen]);
+    changeUserEmail(currentUser.email);
+  }, [currentUser]);
 
   function handleChangeProfileName(evt) {
     changeUserName(evt.target.value);
@@ -23,8 +23,8 @@ function Profile(props) {
   function handleSubmit(evt) {
     evt.preventDefault();
     props.onUpdateUser({
-      "inputName": userName,
-      "inputEmail": userEmail,
+      inputName: userName,
+      inputEmail: userEmail,
     });
   }
 
@@ -45,7 +45,7 @@ function Profile(props) {
               minLength="3"
               maxLength="40"
               required
-              value={userName || ""} 
+              value={userName || ""}
               onChange={handleChangeProfileName}
             />
           </div>

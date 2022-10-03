@@ -1,31 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function SearchForm(props) {
-  const [movieName, setMovieName] = useState('')
-  const [checkbox, setCheckbox] = useState(false)
+  const [movieName, changeMovieName] = useState("");
+  const [changeCheckButton, setChangeCheckButton] = useState(false);
 
-  function handleChangeMovieName(e) {
-    setMovieName(e.target.value)
-  }
-
-  function handleChangeCheckbox(e) {
-    const isShortFilms = e.target.checked
-    setCheckbox(isShortFilms)
-    props.onSearchButtonClick(movieName, isShortFilms)
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault()
-    props.onSearchButtonClick(movieName, checkbox)
-  }
-  
   useEffect(() => {
-    setMovieName(props.defaultValue)
-    setCheckbox(JSON.parse(localStorage.getItem('shortFilms')) || false)
-  }, [])
-  
+    changeMovieName(props.defaultValue);
+    setChangeCheckButton(JSON.parse(localStorage.getItem("shortFilm")));
+  }, []);
+
+  function handleChangeMovieName(evt) {
+    changeMovieName(evt.target.value);
+  }
+
+  function handleChangeCheckButton(evt) {
+    const shortFilm = evt.target.checked;
+    setChangeCheckButton(shortFilm);
+    props.onSearchButtonClick(movieName, shortFilm);
+  }
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    props.onSearchButtonClick(movieName, changeCheckButton);
+  }
+
   return (
-    <section className="sForm" onSubmit={handleSubmit}>
+    <section className="sForm">
       <form className="sForm__box">
         <input
           className="sForm__search_input"
@@ -33,17 +33,30 @@ function SearchForm(props) {
           placeholder="Фильм"
           name="film"
           required
-          value={movieName} 
+          value={movieName || ""}
           onChange={handleChangeMovieName}
         />
-        <button className="sForm__search_button" type="submit" onSubmit={handleSubmit}></button>
+        <button
+          className="sForm__search_button"
+          type="submit"
+          onSubmit={handleSubmit}
+        ></button>
       </form>
       <div className="sForm__switch">
         <p className="sForm__switch_text">Короткометражки</p>
         <div>
           <div className="sForm__switch-button">
-            <input id="sForm__switch-button" type="checkbox" className="sForm__switch-button_defaultbutton" checked={checkbox} onChange={handleChangeCheckbox} />
-            <label htmlFor="sForm__switch-button" className="sForm__switch-button_state"></label>
+            <input
+              id="sForm__switch-button"
+              type="checkbox"
+              className="sForm__switch-button_defaultbutton"
+              checked={changeCheckButton}
+              onChange={handleChangeCheckButton}
+            />
+            <label
+              htmlFor="sForm__switch-button"
+              className="sForm__switch-button_state"
+            ></label>
           </div>
         </div>
       </div>
