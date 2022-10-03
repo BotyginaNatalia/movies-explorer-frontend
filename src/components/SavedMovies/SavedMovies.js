@@ -11,10 +11,10 @@ function SavedMovies(props) {
       <HeaderMovie />
       <section className="savedMovies">
         <SearchForm
-        onSearchButtonClick={onSearchButtonClick}
+        onSearchButtonClick={props.onSearchButtonClick}
         />
         <MoviesCardList
-          movies={filteredMovies}
+          movies={props.movies}
           isSaved={props.isSaved}
           favourtieMovies={true}
           onDeleteButtonClick={props.onDeleteButtonClick}
