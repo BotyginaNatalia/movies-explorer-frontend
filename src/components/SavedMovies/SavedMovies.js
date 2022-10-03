@@ -5,33 +5,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
 function SavedMovies(props) {
-  const [filteredMovies, setFilteredMovies] = useState([])
-
-  function onSearchButtonClick(movieName, isShortFilms) {
-    const filteredMovies = props.movies.filter((item) => item.nameRU.toLowerCase().includes(movieName.toLowerCase()))
-    if (isShortFilms) {
-      setFilteredMovies(filteredMovies.filter((item) => item.duration <= 40))
-    }
-    else {
-      setFilteredMovies(filteredMovies)
-    }
-  }
-
-  function initFilteredMovies() {
-    setFilteredMovies(props.movies)
-  }
-
-  useEffect(() => {
-    setFilteredMovies(
-      filteredMovies.filter(movie => props.movies.some(movie => movie.movieId === movie.movieId))
-    )
-  }, [props.movies])
-
-  useEffect(() => {
-    initFilteredMovies()
-  }, [])
-
-
+  
   return (
     <>
       <HeaderMovie />
