@@ -118,12 +118,15 @@ function App() {
 
   /** update profile info */
 
-  function handleUpdateProfile(data) {
-    MainApi.changeProfileInfo(data)
-      .then((res) => {
-        setCurrentUser(res);
-        closeAllPopups();
-      })
+  function handleUpdateProfile(email, password) {
+    MainApi.changeProfileInfo(email, password)
+      .then(() => {
+        setCurrentUser();
+        setInfoToolTipState({
+          image: success,
+          text: "Вы успешно обновили данные профиля",
+        });
+        })
       .catch((err) => console.log(err));
   }
 
@@ -158,9 +161,9 @@ function App() {
 
   /** registration, entrance and signing out */
 
-  function getRegistration(email, password) {
+  function getRegistration(name, email, password) {
     auth
-      .regNewUser(email, password)
+      .regNewUser(name, email, password)
       .then(() => {
         setInfoToolTipState({
           image: success,
