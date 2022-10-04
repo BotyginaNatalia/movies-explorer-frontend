@@ -1,6 +1,13 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 function MoviesCard(props) {
+  const location = useLocation();
+
+  const favouriteMovies = props.savedMovies?.some(
+    (i) => i.movieId === props.movie.id
+  );
+
   function handleSaveButtonClick() {
     props.onSaveButtonClick(props.movie);
   }
@@ -15,7 +22,11 @@ function MoviesCard(props) {
         <a href={props.movie.trailerLink} rel="noreferrer" target="_blank">
           <img
             className="movieCard__pic"
-            src={`https://api.nomoreparties.co/${props.movie.image.url}`}
+            src={
+              location.pathname === "/movies"
+                ? `https://api.nomoreparties.co/${props.movie.image.url}`
+                : props.movie.image
+            }
             alt="moviePic"
           />
         </a>
@@ -26,21 +37,19 @@ function MoviesCard(props) {
               props.movie.duration / 60
             )}ч ${props.movie.duration % 60}м`}</p>
           </div>
-          {props.favouriteMovies ? (
+          {location.pathname === "/savedMovies" && (
             <button
               className="movieCard__delete-button"
               onClick={handleDeleteButtonClick}
               type="button"
             ></button>
-          ) : props.isSaved(props.movie) ? (
+          )}
+
+          {location.pathname === "/movies" && (
             <button
-              className="movieCard__add-button_active"
-              onClick={handleSaveButtonClick}
-              type="button"
-            ></button>
-          ) : (
-            <button
-              className="movieCard__add-button"
+              className={`movieCard__add-button ${
+                favouriteMovies && "moviesCard__add-button_active"
+              }`}
               onClick={handleSaveButtonClick}
               type="button"
             ></button>

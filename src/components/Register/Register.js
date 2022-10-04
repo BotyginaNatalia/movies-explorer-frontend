@@ -7,15 +7,36 @@ function Register(props) {
   const [email, enterEmail] = useState("");
   const [password, enterPassword] = useState("");
 
+  const [enterNameError, showEnterNameError] = useState("");
+
   function handleChangeLoginName(evt) {
+    if (evt.target.value.length < 3) {
+      showEnterNameError("Что-то пошло не так");
+    } else {
+      showEnterNameError("");
+    }
     enterName(evt.target.value);
   }
 
+  const [enterEmailError, showEnterEmailError] = useState("");
+
   function handleChangeLoginEmail(evt) {
+    if (evt.target.value.length < 5) {
+      showEnterEmailError("Что-то пошло не так");
+    } else {
+      showEnterEmailError("");
+    }
     enterEmail(evt.target.value);
   }
 
+  const [enterPasswordError, showEnterPasswordError] = useState("");
+
   function handleChangeLoginPassword(evt) {
+    if (evt.target.value.length < 4) {
+      showEnterPasswordError("Что-то пошло не так");
+    } else {
+      showEnterPasswordError("");
+    }
     enterPassword(evt.target.value);
   }
 
@@ -48,6 +69,8 @@ function Register(props) {
             onChange={handleChangeLoginName}
           />
         </div>
+        <span className="login__error">{enterNameError}</span>
+
         <div className="login__input">
           <p className="login__placeholder">E-mail</p>
           <input
@@ -63,6 +86,8 @@ function Register(props) {
             onChange={handleChangeLoginEmail}
           />
         </div>
+        <span className="login__error">{enterEmailError}</span>
+
         <div className="login__input">
           <p className="login__placeholder">Пароль</p>
           <input
@@ -78,6 +103,8 @@ function Register(props) {
             onChange={handleChangeLoginPassword}
           />
         </div>
+        <span className="login__error">{enterPasswordError}</span>
+
         <button
           className="login__reg-submit-button"
           type="submit"
