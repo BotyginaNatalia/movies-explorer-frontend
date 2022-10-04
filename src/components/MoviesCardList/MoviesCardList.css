@@ -93,6 +93,6 @@
 
 @media screen and (min-width: 1280px) {
   .moviesCardList__box-button {
-    display: none;
+    width: 1140px;
   }
 }
