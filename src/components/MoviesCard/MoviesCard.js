@@ -37,14 +37,7 @@ function MoviesCard(props) {
               props.movie.duration / 60
             )}ч ${props.movie.duration % 60}м`}</p>
           </div>
-          {location.pathname === "/savedMovies" && (
-            <button
-              className="movieCard__delete-button"
-              onClick={handleDeleteButtonClick}
-              type="button"
-            ></button>
-          )}
-
+          
           {location.pathname === "/movies" && (
             <button
               className={`movieCard__add-button ${
@@ -54,6 +47,15 @@ function MoviesCard(props) {
               type="button"
             ></button>
           )}
+
+          {location.pathname === "/savedMovies" && (
+            <button
+              className="movieCard__delete-button"
+              onClick={handleDeleteButtonClick}
+              type="button"
+            ></button>
+          )}
+          
         </div>
       </div>
     </div>

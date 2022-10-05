@@ -46,25 +46,25 @@ function App() {
 
   //** Movies */
 
-  function findMovie(data) {
-    MainApi.addNewMovie(data)
-      .then((res) => {
-        setMovies([res, ...movies]);
-        closeAllPopups();
+  function findMovie() {
+    MoviesApi.getOriginalMovies()
+      .then((movies) => {
+        setMovies(movies);        
       })
       .catch((err) => console.log(err));
   }
 
   useEffect(() => {
-    if (isLoggingIn) {
-      Promise.all([MainApi.getMyMovies(), MoviesApi.getOriginalMovies()])
-        .then(([allProfileInfo, allMoviesInfo]) => {
-          setCurrentUser(allProfileInfo);
-          setMovies(allMoviesInfo);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [isLoggingIn]);
+    MainApi.getOriginalProfileInfo()
+      .then((originalProfileInfo) => {
+        setIsLoggingIn(true);
+        setCurrentUser(originalProfileInfo);
+        findMovie();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   function onSearchButtonClick() {
     findMovie();
@@ -88,9 +88,9 @@ function App() {
 
   useEffect(() => {
     MainApi.getOriginalProfileInfo()
-      .then((userData) => {
+      .then((originalProfileInfo) => {
         setIsLoggingIn(true);
-        setCurrentUser(userData);
+        setCurrentUser(originalProfileInfo);
         getSavedMovies();
       })
       .catch((err) => {
@@ -141,6 +141,8 @@ function App() {
           if (res) {
             setIsLoggingIn(true);
             setEmailInfo(res.email);
+            setCurrentUser(res);            
+            navigate("/movies");
           }
         })
         .catch((err) => {

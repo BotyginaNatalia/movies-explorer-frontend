@@ -8,7 +8,7 @@ function Profile(props) {
   const [userEmail, changeUserEmail] = useState("");
 
   useEffect(() => {
-    changeUserEmail(currentUser.name);
+    changeUserName(currentUser.name);
     changeUserEmail(currentUser.email);
   }, [currentUser]);
 
@@ -30,7 +30,7 @@ function Profile(props) {
 
   function handleLogOut(evt) {
     evt.preventDefault();
-    props.signingOut(userEmail, userEmail)
+    props.signingOut(userName, userEmail)
   }
 
   return (

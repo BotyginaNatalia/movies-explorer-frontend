@@ -6,7 +6,7 @@ function SearchForm(props) {
 
   useEffect(() => {
     changeMovieName(props.defaultValue);
-    setChangeCheckButton(JSON.parse(localStorage.getItem("shortFilm")));
+    setChangeCheckButton(JSON.parse(localStorage.getItem("shortFilm")) || false);
   }, []);
 
   function handleChangeMovieName(evt) {
@@ -49,6 +49,7 @@ function SearchForm(props) {
             <input
               id="sForm__switch-button"
               type="checkbox"
+              name="shortFilm"
               className="sForm__switch-button_defaultbutton"
               checked={changeCheckButton}
               onChange={handleChangeCheckButton}
