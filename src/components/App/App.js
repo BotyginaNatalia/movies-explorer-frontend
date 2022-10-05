@@ -161,6 +161,17 @@ function App() {
 
   /** registration, entrance and signing out */
 
+  function getOriginalProfileInfo() {
+    MainApi.getOriginalProfileInfo()
+      .then((originalProfileInfo) => {
+        setIsLoggingIn(true)
+        setCurrentUser(originalProfileInfo)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
   function getRegistration(name, email, password) {
     auth
       .regNewUser(name, email, password)
@@ -187,7 +198,7 @@ function App() {
       .then((res) => {
         localStorage.setItem("jwt", res.token);
         setIsLoggingIn(true);
-        setEmailInfo(email);
+       getOriginalProfileInfo();
         navigate("/movies");
       })
       .catch((err) => {
