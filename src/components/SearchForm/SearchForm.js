@@ -6,7 +6,8 @@ function SearchForm(props) {
 
   useEffect(() => {
     changeMovieName(props.defaultValue);
-    setChangeCheckButton(JSON.parse(localStorage.getItem("shortFilm")) || false);
+    setChangeCheckButton(
+      JSON.parse(localStorage.getItem("shortFilm")) || false);
   }, []);
 
   function handleChangeMovieName(evt) {
@@ -25,15 +26,14 @@ function SearchForm(props) {
   }
 
   return (
-    <section className="sForm">
+    <section className="sForm" onSubmit={handleSubmit}>
       <form className="sForm__box">
         <input
           className="sForm__search_input"
           type="text"
           placeholder="Фильм"
-          name="film"
           required
-          value={movieName || ""}
+          value={movieName}
           onChange={handleChangeMovieName}
         />
         <button
@@ -43,23 +43,20 @@ function SearchForm(props) {
         ></button>
       </form>
       <div className="sForm__switch">
-        <p className="sForm__switch_text">Короткометражки</p>
-        <div>
-          <div className="sForm__switch-button">
-            <input
-              id="sForm__switch-button"
-              type="checkbox"
-              name="shortFilm"
-              className="sForm__switch-button_defaultbutton"
-              checked={changeCheckButton}
-              onChange={handleChangeCheckButton}
-            />
-            <label
-              htmlFor="sForm__switch-button"
-              className="sForm__switch-button_state"
-            ></label>
-          </div>
+        <div className="sForm__switch-button">
+          <input
+            id="sForm__switch-button"
+            type="checkbox"
+            className="sForm__switch-button_defaultbutton"
+            checked={changeCheckButton}
+            onChange={handleChangeCheckButton}
+          />
+          <label
+            htmlFor="sForm__switch-button"
+            className="sForm__switch-button_state"
+          ></label>
         </div>
+        <p className="sForm__switch-button_text">Короткометражки</p>
       </div>
     </section>
   );

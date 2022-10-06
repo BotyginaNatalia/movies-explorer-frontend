@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
@@ -46,10 +46,12 @@ function App() {
 
   //** Movies */
 
-  function findMovie() {
+  /** get original movies */
+
+  function getOriginalMovies() {
     MoviesApi.getOriginalMovies()
       .then((movies) => {
-        setMovies(movies);        
+        setMovies(movies);
       })
       .catch((err) => console.log(err));
   }
@@ -59,16 +61,14 @@ function App() {
       .then((originalProfileInfo) => {
         setIsLoggingIn(true);
         setCurrentUser(originalProfileInfo);
-        findMovie();
+        getOriginalMovies();
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  function onSearchButtonClick() {
-    findMovie();
-  }
+  /** get favourite movies */
 
   function isSaved() {
     return savedMovies.some(
@@ -118,15 +118,12 @@ function App() {
 
   /** update profile info */
 
-  function handleUpdateProfile(email, password) {
-    MainApi.changeProfileInfo(email, password)
-      .then(() => {
-        setCurrentUser();
-        setInfoToolTipState({
-          image: success,
-          text: "Вы успешно обновили данные профиля",
-        });
-        })
+  function handleUpdateProfile(data) {
+    MainApi.changeProfileInfo(data)
+      .then((res) => {        
+        setCurrentUser(res);
+        closeAllPopups();
+      })
       .catch((err) => console.log(err));
   }
 
@@ -141,7 +138,7 @@ function App() {
           if (res) {
             setIsLoggingIn(true);
             setEmailInfo(res.email);
-            setCurrentUser(res);            
+            setCurrentUser(res);
             navigate("/movies");
           }
         })
@@ -166,12 +163,12 @@ function App() {
   function getOriginalProfileInfo() {
     MainApi.getOriginalProfileInfo()
       .then((originalProfileInfo) => {
-        setIsLoggingIn(true)
-        setCurrentUser(originalProfileInfo)
+        setIsLoggingIn(true);
+        setCurrentUser(originalProfileInfo);
       })
       .catch((err) => {
-        console.log(err)
-      })
+        console.log(err);
+      });
   }
 
   function getRegistration(name, email, password) {
@@ -200,7 +197,7 @@ function App() {
       .then((res) => {
         localStorage.setItem("jwt", res.token);
         setIsLoggingIn(true);
-       getOriginalProfileInfo();
+        getOriginalProfileInfo();
         navigate("/movies");
       })
       .catch((err) => {
@@ -251,7 +248,6 @@ function App() {
                 isLoggingIn={isLoggingIn}
                 movies={movies}
                 isSaved={isSaved}
-                onSearchButtonClick={onSearchButtonClick}
                 onSaveButtonClick={handleSaveButtonClick}
                 onDeleteButtonClick={handleDeleteButtonClick}
               />

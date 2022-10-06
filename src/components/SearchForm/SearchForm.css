@@ -84,7 +84,7 @@
 
 .sForm__switch {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   column-gap: 13px;
   padding: 45px 0 50px 0;
 }
@@ -100,15 +100,6 @@
     padding: 0;
 
   }
-}
-
-.sForm__switch_text {
-  font-size: 13px;
-  line-height: 18px;
-  font-weight: 400;
-  font-style: normal;
-  color: #FFFFFF;
-  margin: 0;
 }
 
 .sForm__switch-button_defaultbutton {
@@ -129,4 +120,13 @@
   background-size: cover;
   cursor: pointer;
   margin: -1px;
+}
+
+.sForm__switch-button_text {  
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+  font-style: normal;
+  color: #FFFFFF;
+  margin: 0;
 }
