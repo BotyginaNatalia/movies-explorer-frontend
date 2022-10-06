@@ -7,6 +7,11 @@ function Profile(props) {
   const [userName, changeUserName] = useState("");
   const [userEmail, changeUserEmail] = useState("");
 
+  useEffect(() => {
+    changeUserName(currentUser.name);
+    changeUserEmail(currentUser.email);
+  }, [currentUser]);
+
   function handleChangeProfileName(evt) {
     changeUserName(evt.target.value);
   }
@@ -23,11 +28,6 @@ function Profile(props) {
     });
   }
 
-  useEffect(() => {
-    changeUserName(currentUser.name);
-    changeUserEmail(currentUser.email);
-  }, [currentUser]);
-
   function handleLogOut(evt) {
     evt.preventDefault();
     props.signingOut(userName, userEmail)
@@ -42,9 +42,9 @@ function Profile(props) {
           <div className="profile__input">
             <p className="profile__placeholder">Имя</p>
             <input
-              id="input-name"
-              type="text"
-              name="inputName"
+              id="name"
+              type="name"
+              name="name"
               className="profile__info"
               placeholder=""
               minLength="3"
@@ -57,9 +57,9 @@ function Profile(props) {
           <div className="profile__input">
             <p className="profile__placeholder">E-mail</p>
             <input
-              id="input-email"
+              id="email"
               type="email"
-              name="inputEmail"
+              name="email"
               className="profile__info"
               placeholder=""
               minLength="5"
