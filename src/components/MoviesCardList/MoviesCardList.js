@@ -53,7 +53,7 @@ function MoviesCardList(props) {
             return (
               <MoviesCard
                 movie={movie}
-                key={movie.movieId || movie.id}
+                key={movie.id || movie._id}
                 isSaved={props.isSaved}
                 onSaveButtonClick={props.onSaveButtonClick}
                 onDeleteButtonClick={props.onDeleteButtonClick}
