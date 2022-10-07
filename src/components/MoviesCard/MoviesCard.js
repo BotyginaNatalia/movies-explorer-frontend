@@ -40,8 +40,11 @@ function MoviesCard(props) {
           
           {location.pathname === "/movies" && (
             <button
-            className={`movieCard__add-button ${favouriteMovies && 'movieCard__add-button_active'}`} onClick={handleSaveButtonClick}              
-            type="button"
+              className={`movieCard__add-button ${
+                favouriteMovies && "moviesCard__add-button_active"
+              }`}
+              onClick={handleSaveButtonClick}
+              type="button"
             ></button>
           )}
 

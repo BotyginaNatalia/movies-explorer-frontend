@@ -104,6 +104,10 @@ function App() {
     MainApi.addNewMovie(movie)
       .then((data) => {
         setSavedMovies([data, ...savedMovies]);
+        setInfoToolTipState({
+          image: success,
+          text: "Вы успешно добавили фильм в избранное",
+        });
       })
       .catch((err) => {
         console.log(err);
