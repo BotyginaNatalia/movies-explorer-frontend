@@ -128,8 +128,8 @@ function App() {
 
   /** update profile info */
 
-  function handleUpdateProfile(email, password) {
-    MainApi.changeProfileInfo(email, password)
+  function handleUpdateProfile(name, email) {
+    MainApi.changeProfileInfo(name, email)
       .then(() => {
         setCurrentUser();
         setInfoToolTipState({

@@ -39,7 +39,6 @@ function Movies(props) {
         <SearchForm onSearchButtonClick={onSearchButtonClick} />
         <MoviesCardList
           movies={foundMovies}
-          isSaved={props.isSaved}
           onSaveButtonClick={props.onSaveButtonClick}
           onDeleteButtonClick={props.onDeleteButtonClick}
         />
