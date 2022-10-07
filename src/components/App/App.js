@@ -62,6 +62,7 @@ function App() {
         setIsLoggingIn(true);
         setCurrentUser(originalProfileInfo);
         getOriginalMovies();
+        navigate("/movies")
       })
       .catch((err) => {
         console.log(err);
@@ -92,6 +93,7 @@ function App() {
         setIsLoggingIn(true);
         setCurrentUser(originalProfileInfo);
         getSavedMovies();
+        navigate("/savedMovies")
       })
       .catch((err) => {
         console.log(err);
@@ -100,8 +102,8 @@ function App() {
 
   function handleSaveButtonClick(movie) {
     MainApi.addNewMovie(movie)
-      .then((res) => {
-        setSavedMovies([res, ...savedMovies]);
+      .then((data) => {
+        setSavedMovies([data, ...savedMovies]);
       })
       .catch((err) => {
         console.log(err);
@@ -109,11 +111,15 @@ function App() {
   }
 
   function handleDeleteButtonClick(movie) {
-    MainApi.deleteMyMovie(movie._id)
+    const deleteMovie = savedMovies.find(m => m.movieId === (movie.id || movie.movieId) && m.owner === currentUser._id)
+    if (!deleteMovie) return
+    MainApi.deleteMyMovie(deleteMovie._id)
       .then(() => {
-        setMovies((state) => state.filter((m) => m._id !== movie._id && m));
+        setSavedMovies(savedMovies.filter(m => m._id !== deleteMovie._id))
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   /** update profile info */

@@ -42,9 +42,9 @@ function Profile(props) {
           <div className="profile__input">
             <p className="profile__placeholder">Имя</p>
             <input
-              id="name"
-              type="name"
-              name="name"
+              id="input-name"
+              type="text"
+              name="inputName"
               className="profile__info"
               placeholder=""
               minLength="3"
@@ -57,9 +57,9 @@ function Profile(props) {
           <div className="profile__input">
             <p className="profile__placeholder">E-mail</p>
             <input
-              id="email"
+              id="input-email"
               type="email"
-              name="email"
+              name="inputEmail"
               className="profile__info"
               placeholder=""
               minLength="5"
