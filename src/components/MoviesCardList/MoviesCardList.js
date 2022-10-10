@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList(props) {
+function MoviesCardList({ movies, favouriteMovies,onSaveButtonClick, onDeleteButtonClick }) {
   const location = useLocation();
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -36,12 +36,12 @@ function MoviesCardList(props) {
   }, [windowWidth]);
 
   useEffect(() => {
-    setDisplayedMovies(props.movies.slice(0, moviesQuantity));
-  }, [moviesQuantity, props.movies]);
+    setDisplayedMovies(movies.slice(0, moviesQuantity));
+  }, [moviesQuantity, movies]);
 
   function onMoreButtonClick() {
     setDisplayedMovies(
-      props.movies.slice(0, displayedMovies.length + moreMovies)
+      movies.slice(0, displayedMovies.length + moreMovies)
     );
   }
 
@@ -54,15 +54,15 @@ function MoviesCardList(props) {
               <MoviesCard
                 movie={movie}
                 key={movie.id || movie._id}
-                isSaved={props.isSaved}
-                onSaveButtonClick={props.onSaveButtonClick}
-                onDeleteButtonClick={props.onDeleteButtonClick}
+                favouriteMovies={favouriteMovies}
+                onSaveButtonClick={onSaveButtonClick}
+                onDeleteButtonClick={onDeleteButtonClick}
               />
             );
           })}
         </div>
         {location.pathname === "/movies" &&
-        props.movies.length > displayedMovies.length ? (
+        movies.length > displayedMovies.length ? (
           <button
             type="button"
             className="moviesCardList__box-button"

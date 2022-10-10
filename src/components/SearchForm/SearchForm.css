@@ -107,19 +107,38 @@
 }
 
 .sForm__switch-button_defaultbutton:checked+.sForm__switch-button_state {
-  background-image: url(../../images/switchOff.svg);
+  background: #3DDC84;   
 }
 
+.sForm__switch-button_defaultbutton:checked+.sForm__switch-button_state::after {
+  left: 15px;
+}
+
+
 .sForm__switch-button_state {  
-  display: flex;
-  width: 36px;
-  height: 20px;
-  background-image: url(../../images/switchOn.svg);
+  display: inline-block;
+  width: 36px; 
+  height: 20px; 
+  border-radius: 19px; 
+  background: #bfbfbf; 
+  z-index: 0;
+  margin: 0;
+  padding: 0;
   border: none;
-  background-color: transparent;
-  background-size: cover;
   cursor: pointer;
-  margin: -1px;
+  position: relative;
+  transition-duration: 300ms; 
+}
+
+.sForm__switch-button_state::after {
+  content: "";
+  height: 20px; 
+  width: 20px; 
+  border-radius: 17px;
+  background: #fff; 
+  transition-duration: 300ms; 
+  position: absolute;
+  z-index: 1;
 }
 
 .sForm__switch-button_text {  
@@ -129,4 +148,25 @@
   font-style: normal;
   color: #FFFFFF;
   margin: 0;
+}
+
+.sForm__error {
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 400;
+  font-style: normal;
+  color: #EE3465;
+  margin: 11% 0 0 -95%;
+}
+
+@media screen and (min-width: 768px) {
+  .sForm__error {
+    margin: 4% 0 0 -98%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .sForm__error {
+    margin: 3.5% 0 0 -98.5%;
+  }
 }

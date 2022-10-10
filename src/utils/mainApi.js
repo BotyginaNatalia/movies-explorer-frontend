@@ -18,22 +18,22 @@ class mainApi {
     }).then(this._checkResponse);
   }
 
-  addNewMovie(data) {
+  addNewMovie(movie) {
     return fetch(`${this._url}/movies`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        country: data.country,
-        director: data.director,
-        duration: data.duration,
-        year: data.year,
-        description: data.description,
-        image: `https://api.nomoreparties.co${data.image.url}`,
-        trailerLink: data.trailerLink,
-        thumbnail: `https://api.nomoreparties.co${data.image.formats.thumbnail.url}`,
-        movieId: data.id,
-        nameRU: data.nameRU,
-        nameEN: data.nameEN,
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: `https://api.nomoreparties.co${movie.image.url}`,
+        trailerLink: movie.trailerLink,
+        thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
       }),
     }).then(this._checkResponse);
   }
@@ -56,8 +56,8 @@ class mainApi {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: data["inputName"],
-        email: data["inputEmail"],
+        name: data["name"],
+        email: data["email"],
       }),
     }).then(this._checkResponse);
   }

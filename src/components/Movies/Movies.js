@@ -24,7 +24,7 @@ function Movies(props) {
 
   useEffect(() => {
     setFoundMovies(
-      foundMovies.filter(movie => props.movies.some(movie => movie.movieId === movie.movieId))
+      foundMovies.filter(film => props.movies.some(movie => film.movieId === movie.movieId))
     )
   }, [props.movies])
 
@@ -36,12 +36,13 @@ function Movies(props) {
     <>
       <HeaderMovie />
       <section className="movies">
-        <SearchForm onSearchButtonClick={onSearchButtonClick} />
+        <SearchForm onSearchButtonClick={onSearchButtonClick}
+        defaultValue={props.defaultSearchValue} />
         <MoviesCardList
           movies={foundMovies}
           isSaved={props.isSaved}
+          favouriteMovies={false}
           onSaveButtonClick={props.onSaveButtonClick}
-          onDeleteButtonClick={props.onDeleteButtonClick}
         />
       </section>
       <Footer />

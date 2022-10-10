@@ -1,28 +1,34 @@
 import { useState, useEffect } from "react";
 
-function SearchForm(props) {
+function SearchForm({ defaultValue, onSearchButtonClick }) {
   const [movieName, changeMovieName] = useState("");
   const [changeCheckButton, setChangeCheckButton] = useState(false);
+  const [enterMovieNameError, showEnterMovieNameError] = useState("");
 
   useEffect(() => {
-    changeMovieName(props.defaultValue);
+    changeMovieName(defaultValue);
     setChangeCheckButton(
       JSON.parse(localStorage.getItem("shortFilm")) || false);
   }, []);
 
   function handleChangeMovieName(evt) {
+    if (evt.target.value.length < 1) {
+      showEnterMovieNameError("Нужно ввести ключевое слово");
+    } else {
+      showEnterMovieNameError("");
+    }
     changeMovieName(evt.target.value);
   }
 
   function handleChangeCheckButton(evt) {
     const shortFilm = evt.target.checked;
     setChangeCheckButton(shortFilm);
-    props.onSearchButtonClick(movieName, shortFilm);
+    onSearchButtonClick(movieName, shortFilm);
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    props.onSearchButtonClick(movieName, changeCheckButton);
+    onSearchButtonClick(movieName, changeCheckButton);
   }
 
   return (
@@ -33,9 +39,10 @@ function SearchForm(props) {
           type="text"
           placeholder="Фильм"
           required
-          value={movieName}
+          value={movieName || ""}
           onChange={handleChangeMovieName}
         />
+        <span className="sForm__error">{enterMovieNameError}</span> 
         <button
           className="sForm__search_button"
           type="submit"
@@ -53,8 +60,8 @@ function SearchForm(props) {
           />
           <label
             htmlFor="sForm__switch-button"
-            className="sForm__switch-button_state"
-          ></label>
+            className="sForm__switch-button_state">
+          </label>
         </div>
         <p className="sForm__switch-button_text">Короткометражки</p>
       </div>

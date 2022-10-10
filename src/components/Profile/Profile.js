@@ -4,33 +4,35 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
 function Profile(props) {
   const currentUser = useContext(CurrentUserContext);
-  const [userName, changeUserName] = useState("");
-  const [userEmail, changeUserEmail] = useState("");
+  
+  const [commonProfileInfo, setCommonProfileInfo] = useState({
+    name: currentUser.name || "",
+    email: currentUser.email || "",
+  });
 
   useEffect(() => {
-    changeUserName(currentUser.name);
-    changeUserEmail(currentUser.email);
+    setCommonProfileInfo({
+      name: currentUser.name || "",
+      email: currentUser.email || "",
+    });
   }, [currentUser]);
-
-  function handleChangeProfileName(evt) {
-    changeUserName(evt.target.value);
-  }
-
-  function handleChangeProfileEmail(evt) {
-    changeUserEmail(evt.target.value);
-  }
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    props.onUpdateUser({
-      inputName: userName,
-      inputEmail: userEmail,
+    props.onUpdateUser(commonProfileInfo);
+  }
+
+  function handleChange(evt) {
+    const { name, value } = evt.target;
+    setCommonProfileInfo({
+      ...commonProfileInfo,
+      [name]: value,
     });
   }
 
   function handleLogOut(evt) {
     evt.preventDefault();
-    props.signingOut(userName, userEmail)
+    props.signingOut(commonProfileInfo)
   }
 
   return (
@@ -42,31 +44,31 @@ function Profile(props) {
           <div className="profile__input">
             <p className="profile__placeholder">Имя</p>
             <input
-              id="input-name"
+              id="name"
               type="text"
-              name="inputName"
+              name="name"
               className="profile__info"
               placeholder=""
               minLength="3"
               maxLength="40"
               required
-              value={userName || ""}
-              onChange={handleChangeProfileName}
+              value={commonProfileInfo.name}
+              onChange={handleChange}
             />
           </div>
           <div className="profile__input">
             <p className="profile__placeholder">E-mail</p>
             <input
-              id="input-email"
+              id="email"
               type="email"
-              name="inputEmail"
+              name="email"
               className="profile__info"
               placeholder=""
               minLength="5"
               maxLength="40"
               required
-              value={userEmail || ""}
-              onChange={handleChangeProfileEmail}
+              value={commonProfileInfo.email}
+              onChange={handleChange}
             />
           </div>
           <button
