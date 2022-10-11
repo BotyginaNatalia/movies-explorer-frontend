@@ -33,8 +33,6 @@ function App() {
 
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-  const [moreMovies, showMoreMovies] = useState(0);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const navigate = useNavigate();
 
@@ -110,7 +108,9 @@ function App() {
             (movie) => movie.owner === originalProfileInfo._id
           );
           setCurrentUser(originalProfileInfo);
-          setSavedMovies(profileSavedMovies);          
+          setSavedMovies(profileSavedMovies);
+          if ("movies" in localStorage)
+            setMovies(JSON.parse(localStorage.getItem("movies")));
         })
         .catch((err) => {
           console.log(err);
@@ -170,8 +170,8 @@ function App() {
 
   function getOriginalMovies() {
     MoviesApi.getOriginalMovies()
-      .then((movies) => {
-        setMovies(movies);
+      .then((displayedMovies) => {
+        setMovies(displayedMovies);
       })
       .catch((err) => console.log(err));
   }
@@ -204,7 +204,7 @@ function App() {
   useEffect(() => {
     MainApi.getOriginalProfileInfo()
     .then((originalProfileInfo) => {
-      setLoggingIn(true);      
+      setLoggedIn(true);      
       setCurrentUser(originalProfileInfo);
       getSavedMovies();
       navigate("/savedMovies");

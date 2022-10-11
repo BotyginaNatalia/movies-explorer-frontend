@@ -5,32 +5,33 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
 function Movies(props) {
-
-  const [foundMovies, setFoundMovies] = useState([]);
+  const [displayedMovies, setDisplayedMovies] = useState([]);
 
   function onSearchButtonClick(movieName, shortFilm) {
-    const foundMovies = props.films.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
-    if (shortFilm) {
-      setFoundMovies(foundMovies.filter((movie) => movie.duration <= 40))
+    
+    const searchOptions = props.films.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
+    const displayedMovies = shortFilm ? searchOptions.filter((movie) => movie.duration <= 40) : searchOptions
+        localStorage.setItem("displayedMovies", JSON.stringify(displayedMovies))
+        localStorage.setItem("movieName", movieName)
+        localStorage.setItem("shortFilm", shortFilm)
+    if (movieName, shortFilm) {
+      setDisplayedMovies(displayedMovies)
     }
     else {
-      setFoundMovies(foundMovies)
+      setDisplayedMovies(displayedMovies)
     }
   }
 
-  function showFoundMovies() {
-    setFoundMovies(props.films)
+  function showDisplayedMovies() {
+    const displayedMovies = JSON.parse(localStorage.getItem("displayedMovies"))
+    setDisplayedMovies(displayedMovies)
   }
 
-  useEffect(() => {
-    setFoundMovies(
-      foundMovies.filter(movie => props.films.some(film => movie.movieId === film.movieId))
-    )
-  }, [props.films])
+ 
 
   useEffect(() => {
-    showFoundMovies()
-  }, [])
+    showDisplayedMovies()
+  }, [props.displayedMovies])
 
   return (
     <>
@@ -38,7 +39,7 @@ function Movies(props) {
       <section className="movies">
         <SearchForm onSearchButtonClick={onSearchButtonClick} />
         <MoviesCardList
-          films={foundMovies}
+          films={displayedMovies}
           onMoreButtonClick={props.onMoreButtonClick}
           isSaved={props.isSaved}
           savedFilm={false}
