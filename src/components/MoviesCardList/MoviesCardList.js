@@ -74,7 +74,7 @@ function MoviesCardList(props) {
           <button
             type="button"
             className="moviesCardList__box-button"
-            onClick={props.onMoreButtonClick}
+            onClick={onMoreButtonClick}
           >
             Ещё
           </button>

@@ -107,12 +107,10 @@ function App() {
       Promise.all([MainApi.getOriginalProfileInfo(), MainApi.getMyMovies()])
         .then(([originalProfileInfo, allMoviesInfo]) => {
           const profileSavedMovies = allMoviesInfo.filter(
-            (film) => film.owner === originalProfileInfo._id
+            (movie) => movie.owner === originalProfileInfo._id
           );
           setCurrentUser(originalProfileInfo);
-          setSavedMovies(profileSavedMovies);
-          if ("movies" in localStorage)
-            setMovies(JSON.parse(localStorage.getItem("movies")));
+          setSavedMovies(profileSavedMovies);          
         })
         .catch((err) => {
           console.log(err);
@@ -206,7 +204,7 @@ function App() {
   useEffect(() => {
     MainApi.getOriginalProfileInfo()
     .then((originalProfileInfo) => {
-      setLoggedIn(true);      
+      setLoggingIn(true);      
       setCurrentUser(originalProfileInfo);
       getSavedMovies();
       navigate("/savedMovies");
