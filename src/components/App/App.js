@@ -252,15 +252,6 @@ function App() {
       })
   }
 
-  function onMoreButtonClick() {
-    const displayedMovies = JSON.parse(localStorage.getItem("displayedMovies"))
-    setMovies(displayedMovies.slice(0, movies.length + moreMovies))
-  }
-
-  function onSearchButtonClick(movieName, shortFilm) {
-    findMovie(movieName, shortFilm)
-  }
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
@@ -292,9 +283,7 @@ function App() {
                 isLoggingIn={isLoggingIn}
                 films={movies}
                 onSaveButtonClick={handleSaveButtonClick}
-                onDeleteButtonClick={handleDeleteButtonClick}                
-                onMoreButtonClick={onMoreButtonClick}
-                onSearchButtonClick={onSearchButtonClick}  
+                onDeleteButtonClick={handleDeleteButtonClick}
                 isSaved={isSaved}              
               />
             }

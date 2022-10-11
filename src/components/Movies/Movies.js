@@ -6,7 +6,7 @@ import Footer from "../Footer/Footer";
 
 function Movies(props) {
 
-  const [foundMovies, setFoundMovies] = useState([])
+  const [foundMovies, setFoundMovies] = useState([]);
 
   function onSearchButtonClick(movieName, shortFilm) {
     const foundMovies = props.films.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
