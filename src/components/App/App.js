@@ -33,6 +33,8 @@ function App() {
 
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [moreMovies, showMoreMovies] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const navigate = useNavigate();
 
@@ -43,72 +45,6 @@ function App() {
   const closeAllPopups = () => {
     setIsOpenInfoToolTip(false);
   };
-
-  //** Movies */
-
-  /** get original movies */
-
-  function getOriginalMovies() {
-    MoviesApi.getOriginalMovies()
-      .then((movies) => {
-        setMovies(movies);
-      })
-      .catch((err) => console.log(err));
-  }
-
-  useEffect(() => {
-    MainApi.getOriginalProfileInfo()
-      .then((originalProfileInfo) => {
-        setIsLoggingIn(true);
-        setCurrentUser(originalProfileInfo);
-        getOriginalMovies();
-        navigate("/movies")
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  /** get favourite movies */
-
-  function favouriteMovies () {
-    return savedMovies.some(
-      (item) => item.movieId === movies.id && item.owner === currentUser._id
-    );
-  }
-
-  function onSaveButtonClick(movie) {
-    MainApi.addNewMovie(movie)
-      .then((movie) => {
-        setSavedMovies([movie, ...savedMovies])
-        setIsOpenInfoToolTip(true);
-          setInfoToolTipState({
-            image: success,
-            text: "Фильм успешно добавлен в избранное.",
-          });
-        })
-
-      .catch((err) => {
-        console.log(err.message)
-      })
-  }
-
-  function onDeleteButtonClick(film) {
-    const deleteCard = savedMovies.find(f => f.movieId === (film.id || film.movieId) && f.owner === currentUser._id)
-    if (!deleteCard) return
-    MainApi.deleteMyMovie(deleteCard._id)
-      .then(() => {
-        setSavedMovies(savedMovies.filter(f => f._id !== deleteCard._id))
-        setIsOpenInfoToolTip(true);
-        setInfoToolTipState({
-          image: success,
-          text: 'Фильм успешно удален из избранного.',
-        });
-      })
-      .catch((err) => {
-        console.log(err.message)
-      })
-  }
 
   /** update profile info */
 
@@ -171,7 +107,7 @@ function App() {
       Promise.all([MainApi.getOriginalProfileInfo(), MainApi.getMyMovies()])
         .then(([originalProfileInfo, allMoviesInfo]) => {
           const profileSavedMovies = allMoviesInfo.filter(
-            (movie) => movie.owner === originalProfileInfo._id
+            (film) => film.owner === originalProfileInfo._id
           );
           setCurrentUser(originalProfileInfo);
           setSavedMovies(profileSavedMovies);
@@ -230,6 +166,101 @@ function App() {
     navigate("/");
   }
 
+  //** Movies */
+
+  /** get original movies */
+
+  function getOriginalMovies() {
+    MoviesApi.getOriginalMovies()
+      .then((movies) => {
+        setMovies(movies);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  useEffect(() => {
+    MainApi.getOriginalProfileInfo()
+      .then((originalProfileInfo) => {
+        setIsLoggingIn(true);
+        setCurrentUser(originalProfileInfo);
+        getOriginalMovies();
+        navigate("/movies")
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  /** get favourite movies */
+
+  function getSavedMovies() {
+    MainApi.getMyMovies()
+      .then((savedMovies) => {
+        setSavedMovies(savedMovies)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  useEffect(() => {
+    MainApi.getOriginalProfileInfo()
+    .then((originalProfileInfo) => {
+      setLoggedIn(true);      
+      setCurrentUser(originalProfileInfo);
+      getSavedMovies();
+      navigate("/savedMovies");
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [])
+
+  function isSaved(film) {
+    return savedMovies.some(movie => movie.movieId === film.id && movie.owner === currentUser._id)
+  }
+
+  function handleSaveButtonClick(movie) {
+    MainApi.addNewMovie(movie)
+      .then((movieData) => {
+        setSavedMovies([movieData, ...savedMovies])
+        setIsOpenInfoToolTip(true);
+          setInfoToolTipState({
+            image: success,
+            text: "Фильм успешно добавлен в избранное.",
+          });
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  function handleDeleteButtonClick(film) {
+    const deleteCard = savedMovies.find(f => f.movieId === (film.id || film.movieId) && f.owner === currentUser._id)
+    if (!deleteCard) return
+    MainApi.deleteMyMovie(deleteCard._id)
+      .then(() => {
+        setSavedMovies(savedMovies.filter(f => f._id !== deleteCard._id))
+        setIsOpenInfoToolTip(true);
+        setInfoToolTipState({
+          image: success,
+          text: "Фильм успешно удален из избранного.",
+        });
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  function onMoreButtonClick() {
+    const displayedMovies = JSON.parse(localStorage.getItem("displayedMovies"))
+    setMovies(displayedMovies.slice(0, movies.length + moreMovies))
+  }
+
+  function onSearchButtonClick(movieName, shortFilm) {
+    findMovie(movieName, shortFilm)
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
@@ -259,8 +290,12 @@ function App() {
             element={
               <Movies
                 isLoggingIn={isLoggingIn}
-                movies={movies}
-                onSaveButtonClick={onSaveButtonClick}
+                films={movies}
+                onSaveButtonClick={handleSaveButtonClick}
+                onDeleteButtonClick={handleDeleteButtonClick}                
+                onMoreButtonClick={onMoreButtonClick}
+                onSearchButtonClick={onSearchButtonClick}  
+                isSaved={isSaved}              
               />
             }
           />
@@ -270,9 +305,9 @@ function App() {
             element={
               <SavedMovies
                 isLoggingIn={isLoggingIn}
-                movies={savedMovies}
-                favouriteMovies={favouriteMovies}
-                onDeleteButtonClick={onDeleteButtonClick}
+                films={savedMovies}
+                isSaved={isSaved}
+                onDeleteButtonClick={handleDeleteButtonClick}
               />
             }
           />

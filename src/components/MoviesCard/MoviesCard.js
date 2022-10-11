@@ -1,67 +1,41 @@
-import { useContext } from "react";
-import { useLocation } from "react-router-dom";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-
-function MoviesCard({ movie, onDeleteButtonClick, onSaveButtonClick, }) {
-  const location = useLocation();
-  const currentUser = useContext(CurrentUserContext);
+function MoviesCard(props) {  
 
   function handleSaveButtonClick() {
-    onSaveButtonClick(movie)
+    props.onSaveButtonClick(props.film)
   }
 
   function handleDeleteButtonClick() {
-    onDeleteButtonClick(movie)
+    props.onDeleteButtonClick(props.film)
   }
 
-  const isOwn = movie.owner === currentUser._id;
-  const deleteButtonClassName = `movieCard__delete-button ${
-    isOwn ? "movieCard__delete-button" : "movieCard__delete-button"
-  }`;
-
-  const isSaved = movie.savedMovies?.some(i => i.movieId === movie.id);
-  const saveButtonClassName = `movieCard__add-button ${
-    isSaved ? "movieCard__add-button_active" : "movieCard__add-button"
-  }`;
-
-  return (
+ return (
     <div className="movieCard">
       <div className="movieCard__box">
-        <a href={movie.trailerLink} rel="noreferrer" target="_blank">
+        <a href={props.film.trailerLink} rel="noreferrer" target="_blank">
           <img
             className="movieCard__pic"
             src={
               location.pathname === "/movies"
-                ? `https://api.nomoreparties.co/${movie.image.url}`
-                : movie.image
+                ? `https://api.nomoreparties.co/${props.film.image.url}`
+                : props.film.image
             }
             alt="moviePic"
           />
         </a>
         <div className="movieCard__about">
           <div className="movieCard__info">
-            <p className="movieCard__title">{movie.nameRU}</p>
+            <p className="movieCard__title">{props.film.nameRU}</p>
             <p className="movieCard__timeline">{`${Math.floor(
-              movie.duration / 60
-            )}ч ${movie.duration % 60}м`}</p>
+              props.film.duration / 60
+            )}ч ${props.film.duration % 60}м`}</p>
           </div>
-          
-          {location.pathname === "/movies" && (
-            <button
-              className={saveButtonClassName}
-              onClick={handleSaveButtonClick}
-              type="button"
-            ></button>
-          )}
 
-          {location.pathname === "/savedMovies" && (
-            <button
-              className={deleteButtonClassName}
-              onClick={handleDeleteButtonClick}
-              type="button"
-            ></button>
-          )}
+
+          {props.savedFilm ? <button className="movieCard__delete-button" onClick={handleDeleteButtonClick} type="button"></button> :
+          (props.isSaved(props.film) ? <button className="movieCard__add-button_active" onClick={handleDeleteButtonClick} type="button"></button> :
+            <button className="movieCard__add-button" onClick={handleSaveButtonClick} type="button"></button>)}
           
+                 
         </div>
       </div>
     </div>

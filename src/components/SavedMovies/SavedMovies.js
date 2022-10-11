@@ -5,13 +5,12 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
 function SavedMovies(props) {
-
-  const [foundMovies, setFoundMovies] = useState([]);
+  const [foundMovies, setFoundMovies] = useState([])
 
   function onSearchButtonClick(movieName, shortFilm) {
-    const foundMovies = props.movies.filter((item) => item.nameRU.toLowerCase().includes(movieName.toLowerCase()))
+    const foundMovies = props.films.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
     if (shortFilm) {
-      setFoundMovies(foundMovies.filter((item) => item.duration <= 40))
+      setFoundMovies(foundMovies.filter((movie) => movie.duration <= 40))
     }
     else {
       setFoundMovies(foundMovies)
@@ -19,29 +18,30 @@ function SavedMovies(props) {
   }
 
   function showFoundMovies() {
-    setFoundMovies(props.movies)
+    setFoundMovies(props.films)
   }
 
   useEffect(() => {
     setFoundMovies(
-      foundMovies.filter(film => props.movies.some(movie => film.movieId === movie.movieId))
+      foundMovies.filter(movie => props.films.some(film => movie.movieId === film.movieId))
     )
-  }, [props.movies])
+  }, [props.films])
 
   useEffect(() => {
     showFoundMovies()
   }, [])
 
+  
+
   return (
     <>
       <HeaderMovie />
       <section className="savedMovies">
-        <SearchForm onSearchButtonClick={onSearchButtonClick}
-        defaultValue="" />
+        <SearchForm onSearchButtonClick={onSearchButtonClick} />
         <MoviesCardList
-          movies={foundMovies}
+          films={foundMovies}
           isSaved={props.isSaved}
-          favourtieMovies={true}
+          savedFilm={true}          
           onDeleteButtonClick={props.onDeleteButtonClick}
         />
       </section>
