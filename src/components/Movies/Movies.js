@@ -27,8 +27,6 @@ function Movies(props) {
     setDisplayedMovies(displayedMovies)
   }
 
- 
-
   useEffect(() => {
     showDisplayedMovies()
   }, [props.displayedMovies])

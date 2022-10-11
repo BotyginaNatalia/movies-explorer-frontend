@@ -5,11 +5,11 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 function MoviesCardList(props) {
   const location = useLocation();
 
+  
+
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const [displayedMovies, setDisplayedMovies] = useState([]);
-
-  const [moviesQuantity, defaultMoviesQuantity] = useState(0);
 
   const [moreMovies, showMoreMovies] = useState(0);
 
@@ -17,35 +17,30 @@ function MoviesCardList(props) {
     setWindowWidth(window.innerWidth);
   }
 
-  useEffect(() => {
+  function changeWindowSize() {
     if (windowWidth >= 1280) {
-      defaultMoviesQuantity(12);
+      setDisplayedMovies(12);
       showMoreMovies(4);
     } else if (windowWidth > 480 && windowWidth < 1280) {
-      defaultMoviesQuantity(8);
+      setDisplayedMovies(8);
       showMoreMovies(2);
     } else if (windowWidth <= 480) {
-      defaultMoviesQuantity(5);
+      setDisplayedMovies(5);
       showMoreMovies(2);
     }
-  }, [windowWidth]);
+  }
+
+  function onMoreButtonClick() {
+    const films = JSON.parse(localStorage.getItem("films"));
+    setDisplayedMovies(films.slice(0, movies.length + moreMovies))
+  }
 
   useEffect(() => {
     window.addEventListener("resize", checkWindowWidth);
-    onMoreButtonClick();
+    changeWindowSize();
   }, [windowWidth]);
 
-  useEffect(() => {
-    setDisplayedMovies(props.films.slice(0, moviesQuantity));
-  }, [moviesQuantity, props.films]);
-
-  function onMoreButtonClick() {
-    setDisplayedMovies(
-      props.films.slice(0, displayedMovies.length + moreMovies)
-    );
-  }
-
-  if (props.films.length === 0) return <span className="moviesCardList__error">Ничего не найдено</span>
+  if (props.films != null && props.films.length < 1) return <span className="moviesCardList__error">Ничего не найдено</span>
 
   return (
     <>
@@ -53,7 +48,7 @@ function MoviesCardList(props) {
       <div className="moviesCardList__box">
         <div className="moviesCardList__element">
         {
-          displayedMovies.map((film) => {
+          props.films != null && props.films.map(film => {
             return (
               <MoviesCard
                 film={film}
@@ -70,7 +65,7 @@ function MoviesCardList(props) {
         </div>
  
         {location.pathname === "/movies" &&
-        props.films.length > displayedMovies.length ? (
+        props.films != null && props.films.length > displayedMovies.length ? (
           <button
             type="button"
             className="moviesCardList__box-button"

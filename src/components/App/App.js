@@ -170,8 +170,8 @@ function App() {
 
   function getOriginalMovies() {
     MoviesApi.getOriginalMovies()
-      .then((displayedMovies) => {
-        setMovies(displayedMovies);
+      .then((films) => {
+        setMovies(films);
       })
       .catch((err) => console.log(err));
   }
