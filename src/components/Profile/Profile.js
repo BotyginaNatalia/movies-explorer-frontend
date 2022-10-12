@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import HeaderMovie from "../Header/HeaderMovie";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
-import { Link } from "react-router-dom";
 
 function Profile(props) {
   const currentUser = useContext(CurrentUserContext);
@@ -31,6 +30,11 @@ function Profile(props) {
     });
   }
 
+  function handleLogOut(evt) {
+    evt.preventDefault();
+    props.signingOut(commonProfileInfo)
+  }
+
   return (
     <>
       <HeaderMovie />
@@ -48,7 +52,7 @@ function Profile(props) {
               minLength="3"
               maxLength="40"
               required
-              value={commonProfileInfo.name || ""}
+              value={commonProfileInfo.name}
               onChange={handleChange}
             />
           </div>
@@ -63,7 +67,7 @@ function Profile(props) {
               minLength="5"
               maxLength="40"
               required
-              value={commonProfileInfo.email || ""}
+              value={commonProfileInfo.email}
               onChange={handleChange}
             />
           </div>
@@ -75,7 +79,7 @@ function Profile(props) {
             Редактировать
           </button>
         </form>
-        <button className={"profile__link"} onClick={props.signingOut}>
+        <button className={"profile__link"} onClick={handleLogOut}>
           Выйти из аккаунта
         </button>
       </div>

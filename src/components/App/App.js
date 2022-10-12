@@ -169,8 +169,8 @@ function App() {
 
   function getOriginalMovies() {
     MoviesApi.getOriginalMovies()
-      .then((films) => {
-        setMovies(films);
+      .then((displayedMovies) => {
+        setMovies(displayedMovies);
       })
       .catch((err) => console.log(err));
   }
@@ -192,8 +192,8 @@ function App() {
 
   function getSavedMovies() {
     MainApi.getMyMovies()
-      .then((displayedMovies) => {
-        setSavedMovies(displayedMovies)
+      .then((savedMovies) => {
+        setSavedMovies(savedMovies)
       })
       .catch((err) => {
         console.log(err)
@@ -255,18 +255,17 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Main />} />
 
-
-
-          <Route path="/profile" element={
-            <>
-            <ProtectedRoute isLoggingIn={isLoggingIn}>
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute isLoggingIn={isLoggingIn}>
               <Profile
                 onUpdateUser={handleUpdateProfile}
                 signingOut={signingOut}
               />
-            </ProtectedRoute>
-            </>
-          }/>
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="/sign-in" element={<Login getLogin={getLogin} />} />
 
@@ -275,28 +274,31 @@ function App() {
             element={<Register getRegistration={getRegistration} />}
           />
 
+
           <Route
             path="/movies"
             element={
+              <ProtectedRoute isLoggingIn={isLoggingIn}>
               <Movies
-                isLoggingIn={isLoggingIn}
                 films={movies}
                 onSaveButtonClick={handleSaveButtonClick}
                 onDeleteButtonClick={handleDeleteButtonClick}
                 isSaved={isSaved}              
               />
+              </ProtectedRoute>
             }
           />
 
           <Route
             path="/savedMovies"
             element={
+              <ProtectedRoute isLoggingIn={isLoggingIn}>
               <SavedMovies
-                isLoggingIn={isLoggingIn}
                 films={savedMovies}
                 isSaved={isSaved}
                 onDeleteButtonClick={handleDeleteButtonClick}
               />
+              </ProtectedRoute>
             }
           />
 
