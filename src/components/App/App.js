@@ -158,14 +158,9 @@ function App() {
   }
 
   function signingOut() {
-    auth.logout()
-      .then(() => {
-        setIsLoggingIn(false)
-        navigate("/")
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    setIsLoggingIn(false);
+    localStorage.removeItem("jwt");
+    localStorage.clear();
   }
 
   //** Movies */
