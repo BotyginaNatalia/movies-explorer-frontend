@@ -158,10 +158,14 @@ function App() {
   }
 
   function signingOut() {
-    setIsLoggingIn(false);
-    localStorage.removeItem("jwt");
-    localStorage.clear();
-    navigate("/");
+    auth.logout()
+      .then(() => {
+        setIsLoggingIn(false)
+        navigate("/")
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   //** Movies */
@@ -193,8 +197,8 @@ function App() {
 
   function getSavedMovies() {
     MainApi.getMyMovies()
-      .then((savedMovies) => {
-        setSavedMovies(savedMovies)
+      .then((displayedMovies) => {
+        setSavedMovies(displayedMovies)
       })
       .catch((err) => {
         console.log(err)
@@ -204,7 +208,7 @@ function App() {
   useEffect(() => {
     MainApi.getOriginalProfileInfo()
     .then((originalProfileInfo) => {
-      setLoggedIn(true);      
+      setILoggingIn(true);      
       setCurrentUser(originalProfileInfo);
       getSavedMovies();
       navigate("/savedMovies");
@@ -256,16 +260,18 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Main />} />
 
-          <Route
-            path="/profile"
-            element={
+
+
+          <Route path="/profile" element={
+            <>
+            <ProtectedRoute isLoggingIn={isLoggingIn}>
               <Profile
-                isLoggingIn={isLoggingIn}
                 onUpdateUser={handleUpdateProfile}
                 signingOut={signingOut}
               />
-            }
-          />
+            </ProtectedRoute>
+            </>
+          }/>
 
           <Route path="/sign-in" element={<Login getLogin={getLogin} />} />
 
