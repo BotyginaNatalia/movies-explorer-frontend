@@ -140,7 +140,7 @@ function App() {
 
   function getLogin(email, password) {
     auth
-      .logNewUser(email, password)
+      .login(email, password)
       .then((res) => {
         localStorage.setItem("jwt", res.token);
         setIsLoggingIn(true);

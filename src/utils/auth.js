@@ -17,7 +17,7 @@ export function regNewUser(name, email, password) {
   }).then(checkResponse);
 }
 
-export function logNewUser(email, password) {
+export function login(email, password) {
   return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
