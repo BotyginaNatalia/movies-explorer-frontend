@@ -45,19 +45,18 @@ class mainApi {
     }).then(this._checkResponse);
   }
 
-  getOriginalProfileInfo() {
+  getUser() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers,
     }).then(this._checkResponse);
   }
 
-  changeProfileInfo(data) {
+  changeProfileInfo(commonProfileInfo) {
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: data["name"],
-        email: data["email"],
+        commonProfileInfo: commonProfileInfo,
       }),
     }).then(this._checkResponse);
   }

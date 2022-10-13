@@ -14,10 +14,12 @@ function Login(props) {
     enterPassword(evt.target.value);
   }
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    props.getLogin(email, password);
+  const handleSubmit = async (evt) => {
+    evt.preventDefault()
+
+    await props.getLogin(email, password)
   }
+
 
   return (
     <div className="login">

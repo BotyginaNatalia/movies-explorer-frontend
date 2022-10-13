@@ -5,8 +5,6 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 function MoviesCardList(props) {
   const location = useLocation();
 
-  
-
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const [displayedMovies, setDisplayedMovies] = useState([]);

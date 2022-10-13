@@ -141,6 +141,34 @@
   }
 }
 
+.login__submit-button_disabled {
+  width: 260px;
+  height: 45px;
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 500;
+  font-style: normal;
+  color: #ffffff;
+  background-color: #4a4e55;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  margin: 157px 0 14px 0;
+}
+
+@media screen and (min-width: 768px) {
+  .login__submit-button_disabled {
+    width: 396px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
 .login__text {
   font-size: 12px;
   line-height: 15px;
@@ -213,9 +241,46 @@
   }
 }
 
+.login__reg-submit-button_disabled {
+  width: 260px;
+  height: 45px;
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 500;
+  font-style: normal;
+  color: #ffffff;
+  background-color: #4a4e55;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  margin: 157px 0 14px 0;
+}
+
+@media screen and (min-width: 768px) {
+  .login__reg-submit-button_disabled {
+    width: 396px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.login__info_error {
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 400;
+  font-style: normal;
+  color: #EE3465;
+  margin-top: 6px;
+}
+
 .login__error {
-  font-size: 10px;
-  line-height: 12px;
+  font-size: 14px;
+  line-height: 17px;
   font-weight: 400;
   font-style: normal;
   color: #EE3465;

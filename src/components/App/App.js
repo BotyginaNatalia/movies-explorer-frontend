@@ -89,35 +89,6 @@ function App() {
 
   /** registration, entrance and signing out */
 
-  function getOriginalProfileInfo() {
-    MainApi.getOriginalProfileInfo()
-      .then((originalProfileInfo) => {
-        setIsLoggingIn(true);
-        setCurrentUser(originalProfileInfo);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  useEffect(() => {
-    if (isLoggingIn) {
-      Promise.all([MainApi.getOriginalProfileInfo(), MainApi.getMyMovies()])
-        .then(([originalProfileInfo, allMoviesInfo]) => {
-          const profileSavedMovies = allMoviesInfo.filter(
-            (movie) => movie.owner === originalProfileInfo._id
-          );
-          setCurrentUser(originalProfileInfo);
-          setSavedMovies(profileSavedMovies);
-          if ("movies" in localStorage)
-            setMovies(JSON.parse(localStorage.getItem("movies")));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [isLoggingIn]);
-
   function getRegistration(name, email, password) {
     auth
       .regNewUser(name, email, password)
@@ -144,7 +115,8 @@ function App() {
       .then((res) => {
         localStorage.setItem("jwt", res.token);
         setIsLoggingIn(true);
-        getOriginalProfileInfo();
+        checkingToken();
+        setCurrentUser();
         navigate("/movies");
       })
       .catch((err) => {
@@ -163,55 +135,26 @@ function App() {
     localStorage.clear();
   }
 
+  
+  function handleUpdateProfile(commonProfileInfo) {
+    MainApi.changeProfileInfo(commonProfileInfo)
+    .then((res) => {
+      localStorage.setItem("jwt", res.token);
+      setIsLoggingIn(true);
+      checkingToken();
+      setCurrentUser();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   //** Movies */
 
   /** get original movies */
 
-  function getOriginalMovies() {
-    MoviesApi.getOriginalMovies()
-      .then((displayedMovies) => {
-        setMovies(displayedMovies);
-      })
-      .catch((err) => console.log(err));
-  }
-
-  useEffect(() => {
-    MainApi.getOriginalProfileInfo()
-      .then((originalProfileInfo) => {
-        setIsLoggingIn(true);
-        setCurrentUser(originalProfileInfo);
-        getOriginalMovies();
-        navigate("/movies")
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  /** get favourite movies */
-
-  function getSavedMovies() {
-    MainApi.getMyMovies()
-      .then((savedMovies) => {
-        setSavedMovies(savedMovies)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-
-  useEffect(() => {
-    MainApi.getOriginalProfileInfo()
-    .then((originalProfileInfo) => {
-      setILoggingIn(true);      
-      setCurrentUser(originalProfileInfo);
-      getSavedMovies();
-      navigate("/savedMovies");
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }, [])
+  
+  /** get favourite movies */  
 
   function isSaved(film) {
     return savedMovies.some(movie => movie.movieId === film.id && movie.owner === currentUser._id)
@@ -316,3 +259,4 @@ function App() {
 }
 
 export default App;
+
