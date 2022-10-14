@@ -135,19 +135,27 @@ function App() {
     localStorage.clear();
   }
 
-  
+
   function handleUpdateProfile(commonProfileInfo) {
     MainApi.changeProfileInfo(commonProfileInfo)
-    .then((res) => {
-      localStorage.setItem("jwt", res.token);
-      setIsLoggingIn(true);
-      checkingToken();
-      setCurrentUser();
+      .then((res) => {
+          setInfoToolTipState({
+          image: success,
+          text: "Вы успешно обновили данные профиля",
+        });
+          setCurrentUser(res);
       })
       .catch((err) => {
+        setInfoToolTipState({
+          image: fail,
+          text: "Что-то пошло не так! Попробуйте ещё раз",
+        });
         console.log(err);
       })
+      .finally(handleInfoToolTip(true));
   }
+
+
 
   //** Movies */
 

@@ -56,7 +56,8 @@ class mainApi {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        commonProfileInfo: commonProfileInfo,
+        name: commonProfileInfo.name,
+        email: commonProfileInfo.email
       }),
     }).then(this._checkResponse);
   }
