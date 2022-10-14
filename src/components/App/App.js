@@ -44,18 +44,6 @@ function App() {
     setIsOpenInfoToolTip(false);
   };
 
-  /** update profile info */
-
-  function handleUpdateProfile(name, email) {
-    MainApi.changeProfileInfo(name, email)
-      .then((originalProfileInfo) => {
-        setCurrentUser(originalProfileInfo)
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
   /** check Token */
 
   function checkingToken() {
@@ -135,6 +123,8 @@ function App() {
     localStorage.clear();
   }
 
+  /** update profile info */
+
 
   function handleUpdateProfile(commonProfileInfo) {
     MainApi.changeProfileInfo(commonProfileInfo)
@@ -156,13 +146,57 @@ function App() {
   }
 
 
-
   //** Movies */
 
   /** get original movies */
 
-  
+  function getOriginalMovies() {
+    MoviesApi.getOriginalMovies()
+      .then((displayedMovies) => {
+        setMovies(displayedMovies);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    MainApi.getUser()
+      .then((res) => {
+        setIsLoggingIn(true);
+        setCurrentUser(res);
+        getOriginalMovies();
+        navigate("/movies")
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   /** get favourite movies */  
+
+  function getSavedMovies() {
+    MainApi.getMyMovies()
+      .then((savedMovies) => {
+        setSavedMovies(savedMovies)
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
+  }
+
+  useEffect(() => {
+    MainApi.getUser()
+    .then((res) => {
+      setIsLoggingIn(true)
+      navigate("/savedMovies")
+      setCurrentUser(res)
+      getSavedMovies()
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }, [])
 
   function isSaved(film) {
     return savedMovies.some(movie => movie.movieId === film.id && movie.owner === currentUser._id)
