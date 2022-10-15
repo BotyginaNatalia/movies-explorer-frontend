@@ -21,15 +21,18 @@ function Login(props) {
     enterEmail(evt.target.value);
   }  
 
+  const [correctPassword, enterCorrectPassword] = useState(false);
   const [enterPasswordError, showEnterPasswordError] = useState("");
 
   function handleChangeLoginPassword(evt) {
-    if (evt.target.value.length < 5) {
-      showEnterPasswordError("Что-то пошло не так");
+    const correctInputPassword = evt.target;    
+    enterCorrectPassword(correctInputPassword.validity.valid);
+    if (!correctPassword) {
+      showEnterPasswordError("Что-то пошло не так")
     } else {
       showEnterPasswordError("");
     }
-    enterPassword(evt.target.value);
+    enterPassword(correctInputPassword.value);
   }
 
   const handleSubmit = async (evt) => {
@@ -82,10 +85,10 @@ function Login(props) {
         <span className="login__error">{enterPasswordError}</span>
 
         <button
-          className={`login__submit-button ${!(correctEmail) ? "login__submit-button_disabled" : ""}`}
+          className={`login__submit-button ${!(correctEmail && correctPassword) ? "login__submit-button_disabled" : ""}`}
           type="submit"
           aria-label=""
-          disabled={!(correctEmail)}
+          disabled={!(correctEmail && correctPassword)}
         >
           Войти
         </button>

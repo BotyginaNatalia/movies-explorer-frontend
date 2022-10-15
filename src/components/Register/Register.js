@@ -8,15 +8,18 @@ function Register(props) {
   const [email, enterEmail] = useState("");
   const [password, enterPassword] = useState("");
 
+  const [correctName, enterCorrectName] = useState(false);
   const [enterNameError, showEnterNameError] = useState("");
 
   function handleChangeLoginName(evt) {
-    if (evt.target.value.length < 3) {
-      showEnterNameError("Что-то пошло не так");
+    const correctInputName = evt.target;    
+    enterCorrectName(correctInputName.validity.valid);
+    if (!correctName) {
+      showEnterNameError("Что-то пошло не так")
     } else {
       showEnterNameError("");
     }
-    enterName(evt.target.value);
+    enterName(correctInputName.value);
   }
 
   const [correctEmail, enterCorrectEmail] = useState(false);
@@ -33,15 +36,18 @@ function Register(props) {
     enterEmail(evt.target.value);
   }   
 
+  const [correctPassword, enterCorrectPassword] = useState(false);
   const [enterPasswordError, showEnterPasswordError] = useState("");
 
   function handleChangeLoginPassword(evt) {
-    if (evt.target.value.length < 5) {
-      showEnterPasswordError("Что-то пошло не так");
+    const correctInputPassword = evt.target;    
+    enterCorrectPassword(correctInputPassword.validity.valid);
+    if (!correctPassword) {
+      showEnterPasswordError("Что-то пошло не так")
     } else {
       showEnterPasswordError("");
     }
-    enterPassword(evt.target.value);
+    enterPassword(correctInputPassword.value);
   }
 
   function handleSubmit(evt) {
@@ -110,10 +116,10 @@ function Register(props) {
         <span className="login__error">{enterPasswordError}</span>
 
         <button
-          className={`login__reg-submit-button ${!(correctEmail) ? "login__reg-submit-button_disabled" : ""}`}
+          className={`login__reg-submit-button ${!(correctEmail && correctPassword && correctName) ? "login__reg-submit-button_disabled" : ""}`}
           type="submit"
           aria-label=""
-          disabled={!(correctEmail)}
+          disabled={!(correctEmail && correctPassword && correctName)}
         >
           Зарегистрироваться
         </button>
