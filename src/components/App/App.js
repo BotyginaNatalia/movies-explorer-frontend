@@ -64,18 +64,13 @@ function App() {
         });
     }
   }
-
   useEffect(() => {
     checkingToken();
   }, []);
 
   useEffect(() => {
     if (isLoggingIn) {
-      if (localStorage.getItem('savedMovies')) {
-        setSavedMovies((JSON.parse(localStorage.getItem('savedMovies'))));
-      } else {
-        getSavedMovies();
-      }
+      navigate("/movies");
     }
   }, [isLoggingIn]);
 
@@ -152,7 +147,6 @@ function App() {
       });
   }
 
-
   //** Movies */
 
   /** get original movies */
@@ -170,11 +164,11 @@ function App() {
 
   /** get favourite movies */
 
-  function getSavedMovies(displayedMovies) {
+  function getSavedMovies() {
     const jwt = localStorage.getItem('jwt');
-    auth.getMyMovies(jwt, displayedMovies)
-      .then((displayedMovies) => {
-        setSavedMovies(displayedMovies);
+    auth.getMyMovies(jwt)
+      .then((savedMovies) => {
+        setSavedMovies(savedMovies);
       })
       .catch((err) => {
         console.log(err);
@@ -185,9 +179,9 @@ function App() {
     return savedMovies.some(movie => movie.movieId === film.id && movie.owner === currentUser._id)
   }
 
-  function handleSaveButtonClick(movie) {
+  function handleSaveButtonClick(film) {
     const jwt = localStorage.getItem('jwt');
-    auth.addNewMovie(jwt, movie)
+    auth.addNewMovie(jwt, film)
       .then((newMovie) => {
         setSavedMovies([newMovie, ...savedMovies])
         setIsOpenInfoToolTip(true);
