@@ -27,16 +27,62 @@ export function logNewUser(email, password) {
   }).then(checkResponse);
 }
 
-export const changeProfileInfo = (jwt, name, email) => {
+export function changeProfileInfo(jwt, name, email) {
   return fetch(`${BASE_URL}/users/me`, {
       method: 'PATCH',
       headers: {
-          'Authorization': `Bearer ${jwt}`,
-          'Content-Type': 'application/json',
+        "Authorization": `Bearer ${jwt}`,
+        "Content-Type": 'application/json',
       },
       body: JSON.stringify({ name: name, email: email })
   })
   .then(checkResponse);
+}
+
+export function getMyMovies(jwt) {
+  return fetch(`${BASE_URL}/movies`, {
+      method: 'GET',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${jwt}`,
+      },
+  })
+  .then(checkResponse);
+}
+
+export function addNewMovie(jwt, movie) {
+  return fetch(`${BASE_URL}/movies`, {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${jwt}`,
+  },
+    body: JSON.stringify({
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: `https://api.nomoreparties.co${movie.image.url}`,
+      trailerLink: movie.trailerLink,
+      thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+      movieId: movie.id,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+    }),
+  }).then(checkResponse);
+}
+
+export function deleteMyMovie(jwt, id) {
+  return fetch(`${BASE_URL}/movies/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Authorization": `Bearer ${jwt}`,
+      "Content-Type": 'application/json',
+  },
+  }).then(checkResponse);
 }
 
 export function receiveToken(jwt) {
@@ -44,7 +90,7 @@ export function receiveToken(jwt) {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${jwt}`,
+      "Authorization": `Bearer ${jwt}`,
     },
   }).then(checkResponse);
 }

@@ -71,7 +71,11 @@ function App() {
 
   useEffect(() => {
     if (isLoggingIn) {
-      navigate("/movies");
+      if (localStorage.getItem('savedMovies')) {
+        setSavedMovies((JSON.parse(localStorage.getItem('savedMovies'))));
+      } else {
+        getSavedMovies();
+      }
     }
   }, [isLoggingIn]);
 
@@ -85,6 +89,7 @@ function App() {
           image: success,
           text: "Вы успешно зарегистрировались",
         });
+        getLogin(email, password);
         navigate("/movies");
       })
       .catch((err) => {
@@ -105,6 +110,7 @@ function App() {
         setIsLoggingIn(true);
         checkingToken();
         setCurrentUser();
+        getOriginalMovies();
         navigate("/movies");
       })
       .catch((err) => {
@@ -133,16 +139,16 @@ function App() {
         setIsOpenInfoToolTip(true);
         setInfoToolTipState({
           image: success,
-          text: "Данные успешно обновлены!",
+          text: "Вы успешно обновили данные пользователя",
         });
       })
       .catch((err) => {
-        console.log(`Ошибка обновления данных: ${err}`);
-        setIsOpenInfoToolTip(true);
         setInfoToolTipState({
           image: fail,
-          text: "Ошибка обновления данных",
+          text: "Что-то пошло не так! Попробуйте ещё раз",
         });
+        handleInfoToolTip();
+        console.log(err);
       });
   }
 
@@ -151,10 +157,9 @@ function App() {
 
   /** get original movies */
 
-  /**
-
   function getOriginalMovies() {
-    MoviesApi.getOriginalMovies()
+    const jwt = localStorage.getItem("jwt");
+    MoviesApi.getOriginalMovies(jwt)
       .then((displayedMovies) => {
         setMovies(displayedMovies);
       })
@@ -163,54 +168,28 @@ function App() {
       });
   }
 
-  useEffect(() => {
-    MainApi.getUser()
-      .then((res) => {
-        setIsLoggingIn(true);
-        setCurrentUser(res);
-        getOriginalMovies();
-        navigate("/movies")
+  /** get favourite movies */
+
+  function getSavedMovies(displayedMovies) {
+    const jwt = localStorage.getItem('jwt');
+    auth.getMyMovies(jwt, displayedMovies)
+      .then((displayedMovies) => {
+        setSavedMovies(displayedMovies);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
-
-   
-
-  function getSavedMovies() {
-    MainApi.getMyMovies()
-      .then((savedMovies) => {
-        setSavedMovies(savedMovies)
-      })
-      .catch((err) => {
-        console.log(err.message)
-      })
   }
-
-  useEffect(() => {
-    MainApi.getUser()
-    .then((res) => {
-      setIsLoggingIn(true)
-      navigate("/savedMovies")
-      setCurrentUser(res)
-      getSavedMovies()
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }, [])
-
-  */
 
   function isSaved(film) {
     return savedMovies.some(movie => movie.movieId === film.id && movie.owner === currentUser._id)
   }
 
   function handleSaveButtonClick(movie) {
-    MainApi.addNewMovie(movie)
-      .then((movieData) => {
-        setSavedMovies([movieData, ...savedMovies])
+    const jwt = localStorage.getItem('jwt');
+    auth.addNewMovie(jwt, movie)
+      .then((newMovie) => {
+        setSavedMovies([newMovie, ...savedMovies])
         setIsOpenInfoToolTip(true);
           setInfoToolTipState({
             image: success,
@@ -223,9 +202,10 @@ function App() {
   }
 
   function handleDeleteButtonClick(film) {
+    const jwt = localStorage.getItem('jwt');
     const deleteCard = savedMovies.find(f => f.movieId === (film.id || film.movieId) && f.owner === currentUser._id)
     if (!deleteCard) return
-    MainApi.deleteMyMovie(deleteCard._id)
+    auth.deleteMyMovie(jwt, deleteCard._id)
       .then(() => {
         setSavedMovies(savedMovies.filter(f => f._id !== deleteCard._id))
         setIsOpenInfoToolTip(true);
