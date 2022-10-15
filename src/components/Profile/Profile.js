@@ -19,7 +19,7 @@ function Profile(props) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    props.onUpdateUser(commonProfileInfo);
+    props.onUpdateUser(commonProfileInfo.name, commonProfileInfo.email);
   }
 
   function handleChange(evt) {

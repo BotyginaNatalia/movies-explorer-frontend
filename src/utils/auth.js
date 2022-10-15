@@ -27,6 +27,18 @@ export function logNewUser(email, password) {
   }).then(checkResponse);
 }
 
+export const changeProfileInfo = (jwt, name, email) => {
+  return fetch(`${BASE_URL}/users/me`, {
+      method: 'PATCH',
+      headers: {
+          'Authorization': `Bearer ${jwt}`,
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name: name, email: email })
+  })
+  .then(checkResponse);
+}
+
 export function receiveToken(jwt) {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",

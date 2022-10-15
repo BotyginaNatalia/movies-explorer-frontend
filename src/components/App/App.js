@@ -125,30 +125,33 @@ function App() {
 
   /** update profile info */
 
-
-  function handleUpdateProfile(commonProfileInfo) {
-    MainApi.changeProfileInfo(commonProfileInfo)
+  function handleUpdateProfile(name, email) {
+    const jwt = localStorage.getItem("jwt");
+    auth.changeProfileInfo(jwt, name, email)
       .then((res) => {
-          setInfoToolTipState({
+        setCurrentUser({ name: res.name, email: res.email })
+        setIsOpenInfoToolTip(true);
+        setInfoToolTipState({
           image: success,
-          text: "Вы успешно обновили данные профиля",
+          text: "Данные успешно обновлены!",
         });
-          setCurrentUser(res);
       })
       .catch((err) => {
+        console.log(`Ошибка обновления данных: ${err}`);
+        setIsOpenInfoToolTip(true);
         setInfoToolTipState({
           image: fail,
-          text: "Что-то пошло не так! Попробуйте ещё раз",
+          text: "Ошибка обновления данных",
         });
-        console.log(err);
-      })
-      .finally(handleInfoToolTip(true));
+      });
   }
 
 
   //** Movies */
 
   /** get original movies */
+
+  /**
 
   function getOriginalMovies() {
     MoviesApi.getOriginalMovies()
@@ -173,7 +176,7 @@ function App() {
       });
   }, []);
 
-  /** get favourite movies */  
+   
 
   function getSavedMovies() {
     MainApi.getMyMovies()
@@ -197,6 +200,8 @@ function App() {
       console.log(err);
     });
   }, [])
+
+  */
 
   function isSaved(film) {
     return savedMovies.some(movie => movie.movieId === film.id && movie.owner === currentUser._id)
