@@ -107,7 +107,7 @@ function Register(props) {
             className="login__info login__info_invalid"
             value={password}
             placeholder=""
-            minLength="4"
+            minLength="5"
             maxLength="40"
             required
             onChange={handleChangeLoginPassword}
