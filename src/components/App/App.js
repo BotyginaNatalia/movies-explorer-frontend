@@ -162,19 +162,6 @@ function App() {
       });
   }
 
-  /** get favourite movies */
-
-  function getSavedMovies() {
-    const jwt = localStorage.getItem('jwt');
-    auth.getMyMovies(jwt)
-      .then((savedMovies) => {
-        setSavedMovies(savedMovies);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
   function isSaved(film) {
     return savedMovies.some(movie => movie.movieId === film.id && movie.owner === currentUser._id)
   }
@@ -209,8 +196,13 @@ function App() {
         });
       })
       .catch((err) => {
-        console.log(err)
+        setInfoToolTipState({
+          image: fail,
+          text: "Нельзя удалить фильм, добавленный другим пользователем.",
+        });
+        console.log(err);
       })
+      .finally(handleInfoToolTip(true));
   }
 
   return (
