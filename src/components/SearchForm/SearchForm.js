@@ -32,8 +32,8 @@ function SearchForm({ defaultValue, onSearchButtonClick }) {
   }
 
   return (
-    <section className="sForm" onSubmit={handleSubmit}>
-      <form className="sForm__box">
+    <section className="sForm">
+      <form className="sForm__box" onSubmit={handleSubmit}>
         <input
           className="sForm__search_input"
           type="text"

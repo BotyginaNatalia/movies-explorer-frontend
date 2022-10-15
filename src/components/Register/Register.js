@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/header-logo.svg";
+import isEmail from "validator/lib/isEmail";
 
 function Register(props) {
   const [name, enterName] = useState("");
@@ -18,21 +19,24 @@ function Register(props) {
     enterName(evt.target.value);
   }
 
+  const [correctEmail, enterCorrectEmail] = useState(false);
   const [enterEmailError, showEnterEmailError] = useState("");
 
   function handleChangeLoginEmail(evt) {
-    if (evt.target.value.length < 5) {
+    const correctInputEmail = isEmail(evt.target.value);
+    enterCorrectEmail(correctInputEmail);
+    if (!correctInputEmail) {
       showEnterEmailError("Что-то пошло не так");
     } else {
       showEnterEmailError("");
     }
     enterEmail(evt.target.value);
-  }
+  }   
 
   const [enterPasswordError, showEnterPasswordError] = useState("");
 
   function handleChangeLoginPassword(evt) {
-    if (evt.target.value.length < 4) {
+    if (evt.target.value.length < 5) {
       showEnterPasswordError("Что-то пошло не так");
     } else {
       showEnterPasswordError("");
@@ -106,9 +110,10 @@ function Register(props) {
         <span className="login__error">{enterPasswordError}</span>
 
         <button
-          className="login__reg-submit-button"
+          className={`login__reg-submit-button ${!(correctEmail) ? "login__reg-submit-button_disabled" : ""}`}
           type="submit"
           aria-label=""
+          disabled={!(correctEmail)}
         >
           Зарегистрироваться
         </button>

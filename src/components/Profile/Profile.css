@@ -176,12 +176,3 @@
     padding-bottom: 70px;
   }
 }
-
-.profile__error {
-  font-size: 10px;
-  line-height: 12px;
-  font-weight: 400;
-  font-style: normal;
-  color: #EE3465;
-  margin-top: 6px;
-}
