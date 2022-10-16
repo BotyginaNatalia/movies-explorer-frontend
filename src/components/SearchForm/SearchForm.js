@@ -1,24 +1,31 @@
 import { useState, useEffect } from "react";
 
-function SearchForm({ defaultValue, onSearchButtonClick }) {
-  const [movieName, changeMovieName] = useState("");
+function SearchForm({ onSearchButtonClick, inputMovieName }) {
+  const [movieName, changeMovieName] = useState(inputMovieName);
   const [changeCheckButton, setChangeCheckButton] = useState(false);
   const [enterMovieNameError, showEnterMovieNameError] = useState("");
 
-  useEffect(() => {
-    changeMovieName(defaultValue);
-    setChangeCheckButton(
-      JSON.parse(localStorage.getItem("shortFilm")) || false);
-  }, []);
+  function fixEnterMovieNameError() {
+    showEnterMovieNameError(null);
+  }
 
   function handleChangeMovieName(evt) {
-    if (evt.target.value.length < 1) {
-      showEnterMovieNameError("Нужно ввести ключевое слово");
-    } else {
-      showEnterMovieNameError("");
-    }
+    fixEnterMovieNameError();
     changeMovieName(evt.target.value);
   }
+
+  function handleSearch(evt) {
+    const shortFilm = evt.target.checked;
+    fixEnterMovieNameError();
+    evt.preventDefault();
+    if (!movieName) {
+      showEnterMovieNameError("Нужно ввести ключевое слово");
+    } else if (movieName.length < 1) {
+      showEnterMovieNameError("");
+    } else {
+      onSearchButtonClick(movieName, shortFilm);
+  }
+}  
 
   function handleChangeCheckButton(evt) {
     const shortFilm = evt.target.checked;
@@ -26,19 +33,13 @@ function SearchForm({ defaultValue, onSearchButtonClick }) {
     onSearchButtonClick(movieName, shortFilm);
   }
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    onSearchButtonClick(movieName, changeCheckButton);
-  }
-
   return (
     <section className="sForm">
-      <form className="sForm__box" onSubmit={handleSubmit}>
+      <form className="sForm__box">
         <input
           className="sForm__search_input"
           type="text"
           placeholder="Фильм"
-          required
           value={movieName || ""}
           onChange={handleChangeMovieName}
         />
@@ -46,7 +47,7 @@ function SearchForm({ defaultValue, onSearchButtonClick }) {
         <button
           className="sForm__search_button"
           type="submit"
-          onSubmit={handleSubmit}
+          onClick={handleSearch}
         ></button>
       </form>
       <div className="sForm__switch">
