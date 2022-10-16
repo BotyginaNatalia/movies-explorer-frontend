@@ -78,6 +78,7 @@
   border-radius: 6px;
   border: none;
   margin-top: 80px;
+  cursor: pointer;
 }
 
 .moviesCardList__box-button:hover {
