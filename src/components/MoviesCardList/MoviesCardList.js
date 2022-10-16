@@ -51,7 +51,7 @@ function MoviesCardList(props) {
     <section className="moviesCardList">
       <div className="moviesCardList__box">
         <div className="moviesCardList__element">
-          {displayedMovies != null && displayedMovies.map((film) => {
+          {displayedMovies && displayedMovies.map(film => {
             return (
               <MoviesCard
                 film={film}
@@ -63,8 +63,9 @@ function MoviesCardList(props) {
             );
           })}
         </div>
+        
         {location.pathname === "/movies" &&
-        props.films != null && props.films.length > displayedMovies != null && displayedMovies.length ? (
+        props.films && props.films.length < displayedMovies != null && displayedMovies?.length ? (
           <button
             type="button"
             className="moviesCardList__box-button"
