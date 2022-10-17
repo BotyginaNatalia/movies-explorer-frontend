@@ -242,7 +242,7 @@ function App() {
                 onSaveButtonClick={handleSaveButtonClick}
                 onDeleteButtonClick={handleDeleteButtonClick}
                 isSaved={isSaved}
-                defaultValue={localStorage.getItem('movieName')}              
+                defaultValue={localStorage.getItem("movieName")}              
               />
               </ProtectedRoute>
             }

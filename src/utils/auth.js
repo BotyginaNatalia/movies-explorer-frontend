@@ -60,17 +60,17 @@ export function addNewMovie(jwt, movie) {
       "Authorization": `Bearer ${jwt}`,
   },
     body: JSON.stringify({
-      country: movie.country,
+      country: movie.country || "undefined",
       director: movie.director,
       duration: movie.duration,
       year: movie.year,
       description: movie.description,
       image: `https://api.nomoreparties.co${movie.image.url}`,
-      trailerLink: movie.trailerLink,
+      trailerLink: movie.trailerLink || "undefined",
       thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
       movieId: movie.id,
-      nameRU: movie.nameRU,
-      nameEN: movie.nameEN,
+      nameRU: movie.nameRU || "undefined",
+      nameEN: movie.nameEN || "undefined",
     }),
   }).then(checkResponse);
 }
