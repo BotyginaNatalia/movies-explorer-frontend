@@ -36,7 +36,8 @@ function Movies(props) {
   return (
     <>
       <section className="movies">
-        <SearchForm onSearchButtonClick={onSearchButtonClick} />
+        <SearchForm onSearchButtonClick={onSearchButtonClick} 
+        defaultValue={props.defaultValue} />
         <MoviesCardList
           films={displayedMovies}
           onMoreButtonClick={props.onMoreButtonClick}
