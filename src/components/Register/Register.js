@@ -43,7 +43,7 @@ function Register(props) {
     const correctInputPassword = evt.target;    
     enterCorrectPassword(correctInputPassword.validity.valid);
     if (!correctPassword) {
-      showEnterPasswordError("Что-то пошло не так")
+      showEnterPasswordError(correctInputPassword.validationMessage)
     } else {
       showEnterPasswordError("");
     }

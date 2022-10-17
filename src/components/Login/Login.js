@@ -16,8 +16,7 @@ function Login(props) {
     if (!correctInputEmail) {
       showEnterEmailError("Что-то пошло не так");
     } else {
-      showEnterEmailError("");
-    }
+      showEnterEmailError("");    }
     enterEmail(evt.target.value);
   }  
 
@@ -25,10 +24,10 @@ function Login(props) {
   const [enterPasswordError, showEnterPasswordError] = useState("");
 
   function handleChangeLoginPassword(evt) {
-    const correctInputPassword = evt.target;    
+    const correctInputPassword = evt.target;        
     enterCorrectPassword(correctInputPassword.validity.valid);
     if (!correctPassword) {
-      showEnterPasswordError("Что-то пошло не так")
+      showEnterPasswordError(correctInputPassword.validationMessage)
     } else {
       showEnterPasswordError("");
     }
