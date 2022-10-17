@@ -134,7 +134,7 @@ function App() {
 
   function handleUpdateProfile(name, email) {
     const jwt = localStorage.getItem("jwt");
-    MainApi.changeProfileInfo(jwt, name, email)
+    auth.changeProfileInfo(jwt, name, email)
       .then((res) => {
         setCurrentUser({ name: res.name, email: res.email })
         setIsOpenInfoToolTip(true);
