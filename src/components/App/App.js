@@ -71,7 +71,7 @@ function App() {
 
   useEffect(() => {
     if (isLoggingIn) {
-      navigate("/");
+      navigate("/movies");
     }
   }, [isLoggingIn]);
 
@@ -85,8 +85,8 @@ function App() {
           image: success,
           text: "Вы успешно зарегистрировались",
         });
-        
-        navigate("/");
+        getLogin(email, password);
+        navigate("/movies");
       })
       .catch((err) => {
         setInfoToolTipState({
