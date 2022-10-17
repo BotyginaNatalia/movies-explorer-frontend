@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/header-logo.svg";
 import isEmail from "validator/lib/isEmail";
@@ -15,7 +15,7 @@ function Register(props) {
     const correctInputName = evt.target;    
     enterCorrectName(correctInputName.validity.valid);
     if (!correctName) {
-      showEnterNameError("Что-то пошло не так")
+      showEnterNameError(correctInputName.validationMessage)
     } else {
       showEnterNameError("");
     }

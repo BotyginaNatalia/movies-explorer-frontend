@@ -119,10 +119,6 @@
   margin-top: 6px;
 }
 
-.login__input_error {
-  color: #EE3465;
-}
-
 .login__submit-button {
   width: 260px;
   height: 45px;
