@@ -19,13 +19,10 @@ function MoviesCardList(props) {
     windowWidth, addEventListener("resize", checkWindowWidth);
     if (windowWidth >= 1280) {
       defaultMoviesQuantity(12);
-      defaultMoviesQuantity(moviesQuantity + 3)
     } else if (windowWidth > 480 && windowWidth < 1280) {
       defaultMoviesQuantity(8);
-      defaultMoviesQuantity(moviesQuantity + 2);
     } else if (windowWidth <= 480) {
       defaultMoviesQuantity(5);
-      defaultMoviesQuantity(moviesQuantity + 2);
     }
 
     return () => {
