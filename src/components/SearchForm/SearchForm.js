@@ -43,12 +43,13 @@ function SearchForm({ onSearchButtonClick, inputMovieName }) {
           value={movieName || ""}
           onChange={handleChangeMovieName}
         />
-        <span className="sForm__error">{enterMovieNameError}</span> 
+        
         <button
           className="sForm__search_button"
           type="submit"
           onClick={handleSearch}
         ></button>
+        <span className="sForm__error">{enterMovieNameError}</span> 
       </form>
       <div className="sForm__switch">
         <div className="sForm__switch-button">

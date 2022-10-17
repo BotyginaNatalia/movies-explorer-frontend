@@ -23,6 +23,7 @@
 }
 
 .sForm__box {
+  position: relative;
   width: 300px;
   height: 48px;
   margin: 0 auto;
@@ -114,7 +115,6 @@
   left: 15px;
 }
 
-
 .sForm__switch-button_state {  
   display: inline-block;
   width: 36px; 
@@ -151,22 +151,23 @@
 }
 
 .sForm__error {
+  position: absolute;
   font-size: 10px;
   line-height: 12px;
   font-weight: 400;
   font-style: normal;
   color: #EE3465;
-  margin: 11% 0 0 -95%;
+  margin: 10% 0 0 5.5%;
 }
 
 @media screen and (min-width: 768px) {
   .sForm__error {
-    margin: 4% 0 0 -98%;
+    margin: 4% 0 0 2.5%;
   }
 }
 
 @media screen and (min-width: 1280px) {
   .sForm__error {
-    margin: 3.5% 0 0 -98.5%;
+    margin: 30px 0 0 17px;
   }
 }
