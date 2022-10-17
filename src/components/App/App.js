@@ -50,7 +50,6 @@ function App() {
   /** check Token */
 
   function checkingToken() {
-    const myWay = location.pathname
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
       auth
@@ -60,7 +59,7 @@ function App() {
             setIsLoggingIn(true);
             setEmailInfo(res.email);
             setCurrentUser(res);
-            navigate(myWay);
+            navigate(location.pathname);
           }
         })
         .catch((err) => {
@@ -73,11 +72,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const myWay = location.pathname
-    if (isLoggingIn) {
-      navigate(myWay);
+    if (isLoggingIn && location.pathname === "/sign-up") {
+      navigate('/movies')
     }
-  }, [isLoggingIn]);
+    if (isLoggingIn && location.pathname === "/sign-in") {
+      navigate('/movies')
+    }
+  }, [isLoggingIn, navigate])
 
   /** registration, entrance and signing out */
 
