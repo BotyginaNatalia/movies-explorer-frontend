@@ -20,7 +20,7 @@ function MoviesCardList(props) {
   useEffect(() => {
     if (windowWidth >= 1280) {
       defaultMoviesQuantity(12);
-      showMoreMovies(3);
+      showMoreMovies(4);
     } else if (windowWidth > 480 && windowWidth < 1280) {
       defaultMoviesQuantity(8);
       showMoreMovies(2);
@@ -31,8 +31,7 @@ function MoviesCardList(props) {
   }, [windowWidth]);
 
   useEffect(() => {
-    window.addEventListener("resize", checkWindowWidth);
-    onMoreButtonClick();
+    window.addEventListener("resize", checkWindowWidth);    
   }, [windowWidth]);
 
   useEffect(() => {
