@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
@@ -37,6 +37,8 @@ function App() {
 
   const navigate = useNavigate();
 
+  const location = useLocation();
+
   const handleInfoToolTip = () => {
     setIsOpenInfoToolTip(true);
   };
@@ -48,6 +50,7 @@ function App() {
   /** check Token */
 
   function checkingToken() {
+    const myWay = location.pathname
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
       auth
@@ -57,7 +60,7 @@ function App() {
             setIsLoggingIn(true);
             setEmailInfo(res.email);
             setCurrentUser(res);
-            navigate("/");
+            navigate(myWay);
           }
         })
         .catch((err) => {
@@ -70,8 +73,9 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const myWay = location.pathname
     if (isLoggingIn) {
-      navigate("/movies");
+      navigate(myWay);
     }
   }, [isLoggingIn]);
 

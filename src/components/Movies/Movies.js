@@ -36,8 +36,7 @@ function Movies(props) {
   return (
     <>
       <section className="movies">
-        <SearchForm onSearchButtonClick={onSearchButtonClick} 
-        defaultValue={props.defaultValue} />
+        <SearchForm onSearchButtonClick={onSearchButtonClick} />
         <MoviesCardList
           films={displayedMovies}
           onMoreButtonClick={props.onMoreButtonClick}
@@ -53,4 +52,3 @@ function Movies(props) {
 }
 
 export default Movies;
-
