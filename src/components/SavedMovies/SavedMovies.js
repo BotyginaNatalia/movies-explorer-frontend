@@ -4,7 +4,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
 function SavedMovies(props) {
-  const [displayedMovies, setDisplayedMovies] = useState([]);
+  const [displayedMovies, setDisplayedMovies] = useState([])
 
   function onSearchButtonClick(movieName, shortFilm) {
     const displayedMovies = props.films.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
@@ -30,7 +30,7 @@ function SavedMovies(props) {
     showDisplayedMovies()
   }, [])
 
-
+  
 
   return (
     <>
@@ -39,7 +39,7 @@ function SavedMovies(props) {
         <MoviesCardList
           films={displayedMovies}
           isSaved={props.isSaved}
-          savedFilm={true}
+          savedFilm={true}          
           onDeleteButtonClick={props.onDeleteButtonClick}
         />
       </section>
