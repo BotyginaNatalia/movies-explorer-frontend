@@ -167,7 +167,7 @@ function App() {
   }
 
   function handleSaveButtonClick(film) {
-    const jwt = localStorage.getItem('jwt');
+    const jwt = localStorage.getItem("jwt");
     auth.addNewMovie(jwt, film)
       .then((newMovie) => {
         setSavedMovies([newMovie, ...savedMovies])
@@ -183,7 +183,7 @@ function App() {
   }
 
   function handleDeleteButtonClick(film) {
-    const jwt = localStorage.getItem('jwt');
+    const jwt = localStorage.getItem("jwt");
     const deleteCard = savedMovies.find(f => f.movieId === (film.id || film.movieId) && f.owner === currentUser._id)
     if (!deleteCard) return
     auth.deleteMyMovie(jwt, deleteCard._id)
