@@ -11,7 +11,7 @@ import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import NotFound from "../NotFound/NotFound";
 
-import { MainApi } from "../../utils/mainApi";
+import * as MainApi from "../../utils/mainApi";
 import { MoviesApi } from "../../utils/moviesApi";
 import * as auth from "../../utils/auth";
 
@@ -174,7 +174,7 @@ function App() {
 
   function handleSaveButtonClick(film) {
     const jwt = localStorage.getItem("jwt");
-    auth.addNewMovie(jwt, film)
+    MainApi.addNewMovie(jwt, film)
       .then((newMovie) => {
         setSavedMovies([newMovie, ...savedMovies])
         setIsOpenInfoToolTip(true);
@@ -192,7 +192,7 @@ function App() {
     const jwt = localStorage.getItem("jwt");
     const deleteCard = savedMovies.find(f => f.movieId === (film.id || film.movieId) && f.owner === currentUser._id)
     if (!deleteCard) return
-    auth.deleteMyMovie(jwt, deleteCard._id)
+    MainApi.deleteMyMovie(jwt, deleteCard._id)
       .then(() => {
         setSavedMovies(savedMovies.filter(f => f._id !== deleteCard._id))
         setIsOpenInfoToolTip(true);
