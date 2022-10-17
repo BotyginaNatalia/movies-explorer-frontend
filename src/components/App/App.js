@@ -20,6 +20,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import InfoToolTip from "../InfoToolTip/InfoToolTip";
 import success from "../../images/success.svg";
 import fail from "../../images/fail.svg";
+import Header from "../Header/Header";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -56,7 +57,7 @@ function App() {
             setIsLoggingIn(true);
             setEmailInfo(res.email);
             setCurrentUser(res);
-            navigate("/movies");
+            navigate("/");
           }
         })
         .catch((err) => {
@@ -70,7 +71,7 @@ function App() {
 
   useEffect(() => {
     if (isLoggingIn) {
-      navigate("/movies");
+      navigate("/");
     }
   }, [isLoggingIn]);
 
@@ -84,8 +85,8 @@ function App() {
           image: success,
           text: "Вы успешно зарегистрировались",
         });
-        getLogin(email, password);
-        navigate("/movies");
+        
+        navigate("/");
       })
       .catch((err) => {
         setInfoToolTipState({
@@ -128,7 +129,7 @@ function App() {
 
   function handleUpdateProfile(name, email) {
     const jwt = localStorage.getItem("jwt");
-    auth.changeProfileInfo(jwt, name, email)
+    MainApi.changeProfileInfo(jwt, name, email)
       .then((res) => {
         setCurrentUser({ name: res.name, email: res.email })
         setIsOpenInfoToolTip(true);
@@ -208,6 +209,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
+        <Header isLoggingIn={isLoggingIn} />
         <Routes>
           <Route exact path="/" element={<Main />} />
 

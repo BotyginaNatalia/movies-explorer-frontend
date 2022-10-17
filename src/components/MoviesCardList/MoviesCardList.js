@@ -75,7 +75,7 @@ function MoviesCardList(props) {
             Ещё
           </button>
         ) : (
-          ""
+          <></>
         )}
       </div>
     </section>

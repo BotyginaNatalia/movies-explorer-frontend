@@ -1,10 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-import HeaderMovie from "../Header/HeaderMovie";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
 function Profile(props) {
   const currentUser = useContext(CurrentUserContext);
-  
+
   const [commonProfileInfo, setCommonProfileInfo] = useState({
     name: currentUser.name || "",
     email: currentUser.email || "",
@@ -37,7 +36,7 @@ function Profile(props) {
 
   return (
     <>
-      <HeaderMovie />
+
       <div className="profile">
         <h2 className="profile__title">Привет, {currentUser.name}!</h2>
         <form className="profile__box" onSubmit={handleSubmit}>
