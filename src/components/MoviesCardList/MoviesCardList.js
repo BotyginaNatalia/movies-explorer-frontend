@@ -7,65 +7,72 @@ function MoviesCardList(props) {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const [displayedMovies, setDisplayedMovies] = useState([]);
+  const [displayedMovies, setDisplayedMovies] = useState(true);
 
   const [moviesQuantity, defaultMoviesQuantity] = useState(0);
-
-  const [moreMovies, showMoreMovies] = useState(0);
 
   function checkWindowWidth() {
     setWindowWidth(window.innerWidth);
   }
 
   useEffect(() => {
+    windowWidth, addEventListener("resize", checkWindowWidth);
     if (windowWidth >= 1280) {
       defaultMoviesQuantity(12);
-      showMoreMovies(4);
     } else if (windowWidth > 480 && windowWidth < 1280) {
       defaultMoviesQuantity(8);
-      showMoreMovies(2);
     } else if (windowWidth <= 480) {
       defaultMoviesQuantity(5);
-      showMoreMovies(2);
     }
-  }, [windowWidth]);
 
-  useEffect(() => {
-    window.addEventListener("resize", checkWindowWidth);    
+    return () => {
+      window.removeEventListener("resize", checkWindowWidth);
+    };
   }, [windowWidth]);
-
-  useEffect(() => {
-    setDisplayedMovies(props.films && props.films.slice(0, moviesQuantity));
-  }, [moviesQuantity, props.films]);
 
   function onMoreButtonClick() {
-    setDisplayedMovies(
-      props.films && props.films.slice(0, displayedMovies.length + moreMovies)
-    );
+    if (windowWidth > 768) {
+      defaultMoviesQuantity(moviesQuantity + 3);
+    } else {
+      (windowWidth <=480 && windowWidth <= 768)
+      defaultMoviesQuantity(moviesQuantity + 2);
+    }
   }
 
-  if (props.films != null && props.films.length < 1) return <span className="moviesCardList__error">Ничего не найдено</span>
+  useEffect(() => {
+    if (moviesQuantity >= props.films.length) {
+      setDisplayedMovies(false);
+    } else {
+      setDisplayedMovies(true);
+    }
+    if (moviesQuantity === null) {
+      setDisplayedMovies(false);
+    }
+  }, [moviesQuantity, props.films]);
+
+  if (props.films != null && props.films.length < 1)
+    return <span className="moviesCardList__error">Ничего не найдено</span>;
 
   return (
     <section className="moviesCardList">
       <div className="moviesCardList__box">
         <div className="moviesCardList__element">
-          {displayedMovies && displayedMovies.map(film => {
-            return (
-              <MoviesCard
-                film={film}
-                key={props.savedFilm ? film.movieId : film.id}
-                isSaved={props.isSaved}
-                savedFilm={props.savedFilm}
-                onSaveButtonClick={props.onSaveButtonClick}
-                onDeleteButtonClick={props.onDeleteButtonClick}
-              />
-            );
-          })}
+          {props.films &&
+            props.films.slice(0, moviesQuantity).map((film) => {
+              return (
+                <MoviesCard
+                  film={film}
+                  key={props.savedFilm ? film.movieId : film.id}
+                  isSaved={props.isSaved}
+                  savedFilm={props.savedFilm}
+                  onSaveButtonClick={props.onSaveButtonClick}
+                  onDeleteButtonClick={props.onDeleteButtonClick}
+                />
+              );
+            })}
         </div>
-        
-        {location.pathname === "/movies" &&
-        props.films && props.films.length < displayedMovies != null && displayedMovies?.length ? (
+
+        {location.pathname === "/movies" && displayedMovies ? (
           <button
             type="button"
             className="moviesCardList__box-button"
