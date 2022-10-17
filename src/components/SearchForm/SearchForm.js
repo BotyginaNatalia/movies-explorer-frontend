@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function SearchForm({ onSearchButtonClick, inputMovieName }) {
+function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
   const [movieName, changeMovieName] = useState(inputMovieName);
   const [changeCheckButton, setChangeCheckButton] = useState(false);
   const [enterMovieNameError, showEnterMovieNameError] = useState("");
@@ -24,8 +24,12 @@ function SearchForm({ onSearchButtonClick, inputMovieName }) {
       showEnterMovieNameError("");
     } else {
       onSearchButtonClick(movieName, shortFilm);
+    }
   }
-}  
+
+  useEffect(() => {
+    changeMovieName(defaultValue);        
+  }, [])
 
   function handleChangeCheckButton(evt) {
     const shortFilm = evt.target.checked;
@@ -43,13 +47,13 @@ function SearchForm({ onSearchButtonClick, inputMovieName }) {
           value={movieName || ""}
           onChange={handleChangeMovieName}
         />
-        
+
         <button
           className="sForm__search_button"
           type="submit"
           onClick={handleSearch}
         ></button>
-        <span className="sForm__error">{enterMovieNameError}</span> 
+        <span className="sForm__error">{enterMovieNameError}</span>
       </form>
       <div className="sForm__switch">
         <div className="sForm__switch-button">
