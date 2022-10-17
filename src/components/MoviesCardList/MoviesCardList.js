@@ -19,10 +19,13 @@ function MoviesCardList(props) {
     windowWidth, addEventListener("resize", checkWindowWidth);
     if (windowWidth >= 1280) {
       defaultMoviesQuantity(12);
+      defaultMoviesQuantity(moviesQuantity + 3)
     } else if (windowWidth > 480 && windowWidth < 1280) {
       defaultMoviesQuantity(8);
+      defaultMoviesQuantity(moviesQuantity + 2);
     } else if (windowWidth <= 480) {
       defaultMoviesQuantity(5);
+      defaultMoviesQuantity(moviesQuantity + 2);
     }
 
     return () => {
@@ -32,10 +35,13 @@ function MoviesCardList(props) {
 
   function onMoreButtonClick() {
     if (windowWidth > 768) {
-      defaultMoviesQuantity(moviesQuantity + 3);
-    } else {
-      (windowWidth <=480 && windowWidth <= 768)
-      defaultMoviesQuantity(moviesQuantity + 2);
+      defaultMoviesQuantity(moviesQuantity + 3)
+    } else if 
+      (windowWidth <= 768) {
+      defaultMoviesQuantity(moviesQuantity + 2)
+    } else if 
+      (windowWidth <= 320) {
+      defaultMoviesQuantity(moviesQuantity + 2)
     }
   }
 
