@@ -111,6 +111,7 @@ function App() {
         setIsLoggingIn(true);
         checkingToken();
         setCurrentUser();
+        getSavedMovies();
         getOriginalMovies();
         navigate("/movies");
       })
@@ -167,6 +168,18 @@ function App() {
         console.log(err);
       });
   }
+
+  function getSavedMovies() {
+    const jwt = localStorage.getItem("jwt");
+    MainApi.getMyMovies(jwt)
+      .then((displayedMovies) => {
+        setSavedMovies(displayedMovies);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
 
   function isSaved(film) {
     return savedMovies.some(movie => movie.movieId === film.id && movie.owner === currentUser._id)
