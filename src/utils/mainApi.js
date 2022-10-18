@@ -1,7 +1,5 @@
 export const BASE_URL = "https://api.movie.nb.nomoredomains.sbs";
 
-import { receiveToken } from "./auth";
-
 function checkResponse(res) {
   if (res.ok) {
     return res.json();
@@ -11,7 +9,7 @@ function checkResponse(res) {
 
 export function getMyMovies(jwt) {
   return fetch(`${BASE_URL}/movies`, {
-      method: 'GET',
+      method: "GET",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -50,7 +48,7 @@ export function deleteMyMovie(jwt, id) {
     method: "DELETE",
     headers: {
       "Authorization": `Bearer ${jwt}`,
-      "Content-Type": 'application/json',
+      "Content-Type": "application/json",
   },
   }).then(checkResponse);
 }

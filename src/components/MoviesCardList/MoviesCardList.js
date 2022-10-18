@@ -43,7 +43,7 @@ function MoviesCardList(props) {
   }
 
   useEffect(() => {
-    if (moviesQuantity >= props.films.length) {
+    if (moviesQuantity >= props.films != null && props.films?.length) {
       setDisplayedMovies(false);
     } else {
       setDisplayedMovies(true);
@@ -92,3 +92,4 @@ function MoviesCardList(props) {
 }
 
 export default MoviesCardList;
+

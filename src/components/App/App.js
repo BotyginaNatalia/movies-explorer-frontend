@@ -73,10 +73,10 @@ function App() {
 
   useEffect(() => {
     if (isLoggingIn && location.pathname === "/sign-up") {
-      navigate('/movies')
+      navigate("/movies")
     }
     if (isLoggingIn && location.pathname === "/sign-in") {
-      navigate('/movies')
+      navigate("/movies")
     }
   }, [isLoggingIn, navigate])
 
@@ -90,7 +90,7 @@ function App() {
           image: success,
           text: "Вы успешно зарегистрировались",
         });
-        getLogin(email, password);
+        getLogin(email, password)
         navigate("/movies");
       })
       .catch((err) => {
