@@ -148,9 +148,9 @@ function App() {
           image: fail,
           text: "Что-то пошло не так! Попробуйте ещё раз",
         });
-        handleInfoToolTip();
         console.log(err);
-      });
+      })
+      .finally(handleInfoToolTip(true));
   }
 
   //** Movies */

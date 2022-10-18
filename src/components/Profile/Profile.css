@@ -132,13 +132,39 @@
   }
 }
 
-.profile__submit-button_disbled {
+.profile__submit-button_disabled {
   width: 260px;
   font-size: 12px;
   line-height: 15px;
   font-weight: 400;
   font-style: normal;
-  color: #136bdf;
+  color: #EE3465;
+}
+
+.profile__submit-button_disabled:hover {
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 768px) {
+  .profile__submit-button_disabled {
+    width: 396px;
+    font-size: 13px;
+    line-height: 16px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .profile__submit-button_disbled {
+    width: 358px;
+    padding: 210px 0 16px 0;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .profile__submit-button_disabled {
+    width: 358px;
+    padding: 220px 0 16px 0;
+  }
 }
 
 .profile__link {
@@ -175,4 +201,13 @@
   .profile__profile__link {
     padding-bottom: 70px;
   }
+}
+
+.profile__message {
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 400;
+  font-style: normal;
+  color: #136bdf;
+  text-decoration: none;
 }

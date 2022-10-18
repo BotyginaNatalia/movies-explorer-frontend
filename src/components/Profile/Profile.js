@@ -1,37 +1,55 @@
 import { useState, useEffect, useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
+import isEmail from "validator/lib/isEmail";
 
 function Profile(props) {
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);  
+  const [changedProfileInfo, getChangedProfileInfo] = useState(false);
 
-  const [commonProfileInfo, setCommonProfileInfo] = useState({
-    name: currentUser.name || "",
-    email: currentUser.email || "",
-  });
+  const [name, enterName] = useState(currentUser.name);
+  const [email, enterEmail] = useState(currentUser.email);
 
-  useEffect(() => {
-    setCommonProfileInfo({
-      name: currentUser.name || "",
-      email: currentUser.email || "",
-    });
-  }, [currentUser]);
+  const [correctName, enterCorrectName] = useState(false);
+  const [enterNameError, showEnterNameError] = useState("");
+
+  function handleChangeLoginName(evt) {    
+    const correctInputName = evt.target;    
+    enterCorrectName(correctInputName.validity.valid);
+    if (!correctName) {
+      showEnterNameError(correctInputName.validationMessage)
+    } else {
+      showEnterNameError("");
+    }
+    enterName(correctInputName.value);
+  }
+
+  const [correctEmail, enterCorrectEmail] = useState(false);
+  const [enterEmailError, showEnterEmailError] = useState("");
+
+  function handleChangeLoginEmail(evt) {    
+    const correctInputEmail = isEmail(evt.target.value);
+    enterCorrectEmail(correctInputEmail);
+    if (!correctInputEmail) {
+      showEnterEmailError("Что-то пошло не так");
+    } else {
+      showEnterEmailError("");
+    }
+    enterEmail(evt.target.value);
+  }   
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    props.onUpdateUser(commonProfileInfo.name, commonProfileInfo.email);
-  }
-
-  function handleChange(evt) {
-    const { name, value } = evt.target;
-    setCommonProfileInfo({
-      ...commonProfileInfo,
-      [name]: value,
-    });
+    if (name != currentUser.name || email != currentUser.email) {
+      getChangedProfileInfo(true) 
+    } else {
+      getChangedProfileInfo(false);
+    }
+    props.onUpdateUser(name, email);  
   }
 
   function handleLogOut(evt) {
     evt.preventDefault();
-    props.signingOut(commonProfileInfo)
+    props.signingOut(name, email)
   }
 
   return (
@@ -51,10 +69,11 @@ function Profile(props) {
               minLength="3"
               maxLength="40"
               required
-              value={commonProfileInfo.name}
-              onChange={handleChange}
+              value={name}
+              onChange={handleChangeLoginName}
             />
           </div>
+          <span className="login__error">{enterNameError}</span>
           <div className="profile__input">
             <p className="profile__placeholder">E-mail</p>
             <input
@@ -66,14 +85,16 @@ function Profile(props) {
               minLength="5"
               maxLength="40"
               required
-              value={commonProfileInfo.email}
-              onChange={handleChange}
+              value={email}
+              onChange={handleChangeLoginEmail}
             />
           </div>
+          <span className="login__error">{enterEmailError}</span>          
           <button
-            className="profile__submit-button"
+          className={`profile__submit-button ${!(correctEmail && correctName) ? "profile__submit-button_disabled" : ""}`}            
             type="submit"
             aria-label=""
+            disabled={!(correctEmail && correctName)}
           >
             Редактировать
           </button>
