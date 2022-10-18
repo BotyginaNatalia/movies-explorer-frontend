@@ -7,6 +7,16 @@ function checkResponse(res) {
   return Promise.reject(`Ошибка ${res.status}`);
 }
 
+export function getUser(jwt) {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      "Content-Type": 'application/json',
+      "Authorization": `Bearer ${jwt}`,
+    },    
+  }).then(checkResponse);
+}
+
 export function getMyMovies(jwt) {
   return fetch(`${BASE_URL}/movies`, {
       method: "GET",

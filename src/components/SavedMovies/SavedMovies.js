@@ -17,17 +17,18 @@ function SavedMovies(props) {
   }
 
   function showDisplayedMovies() {
-    const displayedMovies = JSON.parse(localStorage.getItem("displayedMovies"))
-    setDisplayedMovies(displayedMovies)
+    setDisplayedMovies(props.films)
   }
 
   useEffect(() => {
-    showDisplayedMovies(
+    setDisplayedMovies(
       displayedMovies.filter(movie => props.films.some(film => movie.movieId === film.movieId))
     )
-  }, [props.displayedMovies])
+  }, [props.films])
 
-
+  useEffect(() => {
+    showDisplayedMovies()
+  }, [])
 
   
 
