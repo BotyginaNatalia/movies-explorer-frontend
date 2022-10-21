@@ -11,7 +11,7 @@ function MoviesCard(props) {
  return (
     <div className="movieCard">
       <div className="movieCard__box">
-        <a href={props.film.trailerLink} rel="noreferrer" target="_blank">
+        <a href={props.film.trailerLink || ""} rel="noreferrer" target="_blank">
           <img
             className="movieCard__pic"
             src={

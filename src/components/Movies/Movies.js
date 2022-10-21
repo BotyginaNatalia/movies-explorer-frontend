@@ -7,7 +7,7 @@ import Preloader from "../Preloader/Preloader";
 
 function Movies(props) {
   const [displayedMovies, setDisplayedMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(props.loadingMovies);  
+  const [isLoading, setIsLoading] = useState(props.loadingMovies);
 
   function onSearchButtonClick(movieName, shortFilm) {
     setIsLoading(true);

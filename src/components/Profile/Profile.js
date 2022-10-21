@@ -91,10 +91,10 @@ function Profile(props) {
           </div>
           <span className="login__error">{enterEmailError}</span>          
           <button
-          className={`profile__submit-button ${!(correctEmail && correctName) ? "profile__submit-button_disabled" : ""}`}            
+          className={`profile__submit-button ${!(correctEmail || correctName) ? "profile__submit-button_disabled" : ""}`}            
             type="submit"
             aria-label=""
-            disabled={!(correctEmail && correctName)}
+            disabled={!(correctEmail || correctName)}
           >
             Редактировать
           </button>

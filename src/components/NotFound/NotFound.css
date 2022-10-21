@@ -101,6 +101,10 @@
   cursor: pointer;
   margin: 0;
   padding: 284px 0 0 0;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  height: 18px;
 }
 
 .nFound__button:hover {

@@ -64,12 +64,13 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
+          setIsLoggingIn(false);
         });
     }
   }
   useEffect(() => {
     checkingToken();
-  }, []);
+  }, [isLoggingIn]);
 
   useEffect(() => {
     if (isLoggingIn && location.pathname === "/sign-up") {
@@ -90,7 +91,7 @@ function App() {
           image: success,
           text: "Вы успешно зарегистрировались",
         });
-        getLogin(email, password)
+        getLogin(email, password);
         navigate("/movies");
       })
       .catch((err) => {
@@ -111,7 +112,7 @@ function App() {
         setIsLoggingIn(true);
         checkingToken();
         setCurrentUser();
-        getOriginalMovies();
+        getSavedMovies();
         navigate("/movies");
       })
       .catch((err) => {
@@ -148,25 +149,14 @@ function App() {
           image: fail,
           text: "Что-то пошло не так! Попробуйте ещё раз",
         });
+        handleInfoToolTip();
         console.log(err);
-      })
-      .finally(handleInfoToolTip(true));
+      });
   }
 
   //** Movies */
 
-  /** get original movies */
-
-  function getOriginalMovies() {
-    const jwt = localStorage.getItem("jwt");
-    MoviesApi.getOriginalMovies(jwt)
-      .then((displayedMovies) => {
-        setMovies(displayedMovies);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  /** save and delete movie */
 
   function isSaved(film) {
     return savedMovies.some(movie => movie.movieId === film.id && movie.owner === currentUser._id)
@@ -216,7 +206,7 @@ function App() {
       <div className="app">
         <Header isLoggingIn={isLoggingIn} />
         <Routes>
-          <Route exact path="/" element={<Main />} />
+          <Route path="/" element={<Main />} />
 
           <Route
             path="/profile"
@@ -280,3 +270,4 @@ function App() {
 }
 
 export default App;
+
