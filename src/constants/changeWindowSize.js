@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function changeWindowSize(films) {
+export default function ChangeWindowSize(films) {
     
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
      
@@ -37,7 +37,7 @@ export default function changeWindowSize(films) {
       }
     }
 
-   const displayedMovies = films.length > 0 ? films.slice(0, moviesQuantity) : []; 
+   const displayedMovies = films != null && films.length > 0 ? films.slice(0, moviesQuantity) : []; 
 
    return {
     displayedMovies, onMoreButtonClick

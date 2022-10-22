@@ -64,13 +64,12 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
-          setIsLoggingIn(false);
         });
     }
   }
   useEffect(() => {
     checkingToken();
-  }, [isLoggingIn]);
+  }, []);
 
   useEffect(() => {
     if (isLoggingIn && location.pathname === "/sign-up") {
@@ -91,7 +90,7 @@ function App() {
           image: success,
           text: "Вы успешно зарегистрировались",
         });
-        getLogin(email, password);
+        getLogin(email, password)
         navigate("/movies");
       })
       .catch((err) => {
@@ -111,8 +110,7 @@ function App() {
         localStorage.setItem("jwt", res.token);
         setIsLoggingIn(true);
         checkingToken();
-        setCurrentUser();
-        getSavedMovies();
+        getUserInfo();
         navigate("/movies");
       })
       .catch((err) => {
@@ -130,6 +128,18 @@ function App() {
     localStorage.removeItem("jwt");
     localStorage.clear();
   }
+
+  function getUserInfo(name, email) {
+    const jwt = localStorage.getItem("jwt");
+    MainApi.getUser(jwt, name, email)
+    .then((res) => {
+      setIsLoggingIn(true);
+      setCurrentUser({ name: res.name, email: res.email })
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
 
   /** update profile info */
 
@@ -149,21 +159,18 @@ function App() {
           image: fail,
           text: "Что-то пошло не так! Попробуйте ещё раз",
         });
-        handleInfoToolTip();
         console.log(err);
-      });
+      })
+      .finally(handleInfoToolTip(true));
   }
 
   //** Movies */
 
-  /** save and delete movie */
-
-  function isSaved(film) {
-    return savedMovies.some(movie => movie.movieId === film.id && movie.owner === currentUser._id)
-  }
-
+  /** get original movies */
+  
   function handleSaveButtonClick(film) {
     const jwt = localStorage.getItem("jwt");
+    
     MainApi.addNewMovie(jwt, film)
       .then((newMovie) => {
         setSavedMovies([newMovie, ...savedMovies])
@@ -201,12 +208,16 @@ function App() {
       .finally(handleInfoToolTip(true));
   }
 
+  function isSaved(film) {
+    return savedMovies.some(item => item.movieId === film.id && item.owner === currentUser._id)
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
         <Header isLoggingIn={isLoggingIn} />
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route exact path="/" element={<Main />} />
 
           <Route
             path="/profile"
@@ -250,7 +261,7 @@ function App() {
               <SavedMovies
                 films={savedMovies}
                 isSaved={isSaved}
-                onDeleteButtonClick={handleDeleteButtonClick}
+                onDeleteButtonClick={handleDeleteButtonClick}                
               />
               </ProtectedRoute>
             }
@@ -270,4 +281,3 @@ function App() {
 }
 
 export default App;
-

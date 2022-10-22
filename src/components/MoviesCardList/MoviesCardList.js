@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import changeWindowSize from "../../constants/changeWindowSize";
+import ChangeWindowSize from "../../constants/ChangeWindowSize";
 
 function MoviesCardList(props) {
   const location = useLocation();
 
-  const {displayedMovies, onMoreButtonClick} = changeWindowSize(props.films);
+  const {displayedMovies, onMoreButtonClick} = ChangeWindowSize(props.films);
 
   if (props.films != null && props.films.length < 1)
     return <span className="moviesCardList__error">Ничего не найдено</span>;
@@ -19,7 +18,7 @@ function MoviesCardList(props) {
               return (
                 <MoviesCard
                   film={film}
-                  key={props.savedFilm ? film.movieId : film.id}
+                  key={film.id}
                   isSaved={props.isSaved}
                   savedFilm={props.savedFilm}
                   onSaveButtonClick={props.onSaveButtonClick}
@@ -29,7 +28,7 @@ function MoviesCardList(props) {
             })}
         </div>
 
-        {location.pathname === "/movies" && (props.films.length > displayedMovies.length) &&  (
+        {location.pathname === "/movies" && (props.films != null && props.films.length > displayedMovies.length) && (
           <button
             type="button"
             className="moviesCardList__box-button"

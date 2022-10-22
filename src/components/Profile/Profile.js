@@ -54,7 +54,6 @@ function Profile(props) {
 
   return (
     <>
-
       <div className="profile">
         <h2 className="profile__title">Привет, {currentUser.name}!</h2>
         <form className="profile__box" onSubmit={handleSubmit}>

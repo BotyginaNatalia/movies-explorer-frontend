@@ -2,33 +2,55 @@ import { useState, useEffect } from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
+import * as MainApi from "../../utils/mainApi";
+import Preloader from "../Preloader/Preloader";
 
 function SavedMovies(props) {
-  const [displayedMovies, setDisplayedMovies] = useState([])
+  const [favMovies, setFavMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(props.loadingMovies);  
 
   function onSearchButtonClick(movieName, shortFilm) {
-    const displayedMovies = props.films.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
-    if (shortFilm) {
-      setDisplayedMovies(displayedMovies.filter((movie) => movie.duration <= 40))
-    }
-    else {
-      setDisplayedMovies(displayedMovies)
-    }
-  }
+    const jwt = localStorage.getItem("jwt");
+    setIsLoading(true);
+    MainApi.getMyMovies(jwt, movieName, shortFilm)
+    .then(() => {
+    const favMovies = props.films.filter((item) => item.nameRU.toLowerCase().includes(movieName.toLowerCase()))
+    localStorage.setItem("favMovies", JSON.stringify(favMovies))
+    localStorage.setItem("movieName", movieName)
+    localStorage.setItem("shortFilm", shortFilm)
+    if (movieName, shortFilm) {
+      setFavMovies(favMovies.filter((movie) => props.films.some(film => movie.movieId === film.movieId)))
+    } else {
+      setFavMovies(favMovies.filter((movie) => props.films.some(film => movie.movieId === film.movieId)))
+    }  
+  })
+}
 
-  function showDisplayedMovies() {
-    setDisplayedMovies(props.films)
+
+  function showFavMovies() {
+    const favMovies = JSON.parse(localStorage.getItem("favMovies"))
+    setFavMovies(favMovies)
   }
 
   useEffect(() => {
-    setDisplayedMovies(
-      displayedMovies.filter(movie => props.films.some(film => movie.movieId === film.movieId))
-    )
-  }, [props.films])
+    showFavMovies()
+  }, [props.favMovies])
+
+
+
+
+
+  
 
   useEffect(() => {
-    showDisplayedMovies()
-  }, [])
+    setIsLoading(props.loadingMovies);
+  }, [props.loadingMovies])
+
+  useEffect(() => {
+    if(favMovies){
+      setIsLoading(false);
+    }
+  }, [favMovies])
 
   
 
@@ -36,12 +58,15 @@ function SavedMovies(props) {
     <>
       <section className="savedMovies">
         <SearchForm onSearchButtonClick={onSearchButtonClick} />
+        {isLoading ?
+        <Preloader /> :
         <MoviesCardList
-          films={displayedMovies}
+          films={favMovies}
           isSaved={props.isSaved}
           savedFilm={true}          
           onDeleteButtonClick={props.onDeleteButtonClick}
         />
+        }
       </section>
       <Footer />
     </>

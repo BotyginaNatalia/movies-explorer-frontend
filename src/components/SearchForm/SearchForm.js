@@ -14,7 +14,7 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
     changeMovieName(evt.target.value);
   }
 
-  function handleSearch(evt) {
+  function handleChangeCheckButton(evt) {
     const shortFilm = evt.target.checked;
     fixEnterMovieNameError();
     evt.preventDefault();
@@ -23,7 +23,9 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
     } else if (movieName.length < 1) {
       showEnterMovieNameError("");
     } else {
+      setChangeCheckButton(shortFilm);
       onSearchButtonClick(movieName, shortFilm);
+      
     }
   }
 
@@ -31,15 +33,19 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
     changeMovieName(defaultValue);        
   }, [])
 
-  function handleChangeCheckButton(evt) {
-    const shortFilm = evt.target.checked;
-    setChangeCheckButton(shortFilm);
-    onSearchButtonClick(movieName, shortFilm);
+  function handleSubmit(evt) {
+    evt.preventDefault()
+    onSearchButtonClick(movieName, changeCheckButton)
   }
+  
+  useEffect(() => {
+    changeMovieName(defaultValue);
+    setChangeCheckButton(JSON.parse(localStorage.getItem("shortFilm")) || false)            
+  }, [])
 
   return (
     <section className="sForm">
-      <form className="sForm__box">
+      <form className="sForm__box" onSubmit={handleSubmit}>
         <input
           className="sForm__search_input"
           type="text"
@@ -51,7 +57,7 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
         <button
           className="sForm__search_button"
           type="submit"
-          onClick={handleSearch}
+          onClick={onSearchButtonClick}
         ></button>
         <span className="sForm__error">{enterMovieNameError}</span>
       </form>

@@ -7,14 +7,15 @@ import Preloader from "../Preloader/Preloader";
 
 function Movies(props) {
   const [displayedMovies, setDisplayedMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(props.loadingMovies);
+  const [isLoading, setIsLoading] = useState(props.loadingMovies);  
 
   function onSearchButtonClick(movieName, shortFilm) {
+    const jwt = localStorage.getItem("jwt");
     setIsLoading(true);
-    MoviesApi.getOriginalMovies()
+    MoviesApi.getOriginalMovies(jwt, movieName, shortFilm)
   .then((films) => {    
-    const searchOptions = films.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
-    const displayedMovies = shortFilm ? searchOptions.filter((movie) => movie.duration <= 40) : searchOptions
+    const searchOptions = films.filter((item) => item.nameRU.toLowerCase().includes(movieName.toLowerCase()))
+    const displayedMovies = shortFilm ? searchOptions.filter((item) => item.duration <= 40) : searchOptions
         localStorage.setItem("displayedMovies", JSON.stringify(displayedMovies))
         localStorage.setItem("movieName", movieName)
         localStorage.setItem("shortFilm", shortFilm)
@@ -23,7 +24,7 @@ function Movies(props) {
     }
     else {
       setDisplayedMovies(displayedMovies)
-    }
+    }  
   })
 }
 
@@ -51,7 +52,7 @@ function Movies(props) {
       <section className="movies">
         <SearchForm onSearchButtonClick={onSearchButtonClick} 
         defaultValue={props.defaultValue} />
-         {isLoading ?
+        {isLoading ?
         <Preloader /> :
         <MoviesCardList
           films={displayedMovies}
