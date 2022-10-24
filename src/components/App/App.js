@@ -78,7 +78,7 @@ function App() {
     if (isLoggingIn && location.pathname === "/sign-in") {
       navigate("/movies")
     }
-  }, [isLoggingIn, navigate])
+  }, [isLoggingIn, navigate])  
 
   /** registration, entrance and signing out */
 
@@ -110,7 +110,7 @@ function App() {
         localStorage.setItem("jwt", res.token);
         setIsLoggingIn(true);
         checkingToken();
-        getUserInfo();
+        setCurrentUser();
         navigate("/movies");
       })
       .catch((err) => {
@@ -128,18 +128,6 @@ function App() {
     localStorage.removeItem("jwt");
     localStorage.clear();
   }
-
-  function getUserInfo(name, email) {
-    const jwt = localStorage.getItem("jwt");
-    MainApi.getUser(jwt, name, email)
-    .then((res) => {
-      setIsLoggingIn(true);
-      setCurrentUser({ name: res.name, email: res.email })
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
 
   /** update profile info */
 
@@ -167,10 +155,13 @@ function App() {
   //** Movies */
 
   /** get original movies */
-  
+
+  function isSaved(film) {
+    return savedMovies.some(movie => movie.movieId === film.id && movie.owner === currentUser._id)
+  }
+
   function handleSaveButtonClick(film) {
     const jwt = localStorage.getItem("jwt");
-    
     MainApi.addNewMovie(jwt, film)
       .then((newMovie) => {
         setSavedMovies([newMovie, ...savedMovies])
@@ -208,14 +199,10 @@ function App() {
       .finally(handleInfoToolTip(true));
   }
 
-  function isSaved(film) {
-    return savedMovies.some(item => item.movieId === film.id && item.owner === currentUser._id)
-  }
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
-        <Header isLoggingIn={isLoggingIn} />
+      <Header isLoggingIn={isLoggingIn} />
         <Routes>
           <Route exact path="/" element={<Main />} />
 
@@ -245,9 +232,8 @@ function App() {
               <ProtectedRoute isLoggingIn={isLoggingIn}>
               <Movies
                 films={movies}
-                onSaveButtonClick={handleSaveButtonClick}
-                onDeleteButtonClick={handleDeleteButtonClick}
                 isSaved={isSaved}
+                onSaveButtonClick={handleSaveButtonClick}                
                 defaultValue={localStorage.getItem("movieName")}              
               />
               </ProtectedRoute>
@@ -261,7 +247,7 @@ function App() {
               <SavedMovies
                 films={savedMovies}
                 isSaved={isSaved}
-                onDeleteButtonClick={handleDeleteButtonClick}                
+                onDeleteButtonClick={handleDeleteButtonClick}                               
               />
               </ProtectedRoute>
             }

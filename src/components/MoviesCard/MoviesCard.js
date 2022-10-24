@@ -34,7 +34,8 @@ function MoviesCard(props) {
           {props.savedFilm ? <button className="movieCard__delete-button" onClick={handleDeleteButtonClick} type="button"></button> :
           (props.isSaved(props.film) ? <button className="movieCard__add-button_active" onClick={handleDeleteButtonClick} type="button"></button> :
             <button className="movieCard__add-button" onClick={handleSaveButtonClick} type="button"></button>)}
-                
+          
+                 
         </div>
       </div>
     </div>
