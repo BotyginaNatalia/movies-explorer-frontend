@@ -1,4 +1,8 @@
-function MoviesCard(props) {  
+import { useLocation } from "react-router-dom";
+
+function MoviesCard(props) {
+  
+  const location = useLocation();
 
   function handleSaveButtonClick() {
     props.onSaveButtonClick(props.film)
@@ -30,11 +34,9 @@ function MoviesCard(props) {
             )}ч ${props.film.duration % 60}м`}</p>
           </div>
 
-
           {props.savedFilm ? <button className="movieCard__delete-button" onClick={handleDeleteButtonClick} type="button"></button> :
           (props.isSaved(props.film) ? <button className="movieCard__add-button_active" onClick={handleDeleteButtonClick} type="button"></button> :
             <button className="movieCard__add-button" onClick={handleSaveButtonClick} type="button"></button>)}
-          
                  
         </div>
       </div>

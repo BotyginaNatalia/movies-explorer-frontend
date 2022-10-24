@@ -7,16 +7,7 @@ import * as MainApi from "../../utils/mainApi";
 
 function SavedMovies(props) {
   const [favMovies, setFavMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(props.loadingMovies);  
-
-  useEffect(() => {
-    updateFavMovies(JSON.parse(localStorage.getItem("favMovies") || "[]"));
-  }, []);
-
-  function updateFavMovies(favMovies) {
-    setFavMovies(favMovies);
-    localStorage.setItem("favMovies", JSON.stringify(favMovies));
-  }
+  const [isLoading, setIsLoading] = useState(props.loadingMovies);
 
   function onSearchButtonClick(movieName, shortFilm) {
     const jwt = localStorage.getItem("jwt");
@@ -28,9 +19,10 @@ function SavedMovies(props) {
       const favMovies = shortFilm
         ? searchOptions.filter((item) => item.duration <= 40)
         : searchOptions;
+      setFavMovies(favMovies);  
       localStorage.setItem("favMovies", JSON.stringify(favMovies));
       localStorage.setItem("movieName", movieName);
-      localStorage.setItem("shortFilm", shortFilm);
+      localStorage.setItem("shortFilm", JSON.stringify(shortFilm));
       if ((movieName, shortFilm)) {
         setFavMovies(favMovies);
       } else {
@@ -39,8 +31,17 @@ function SavedMovies(props) {
     });
   }
 
+  function renderFavMovies(favMovies) {
+    setFavMovies(favMovies);
+    localStorage.setItem("favMovies", JSON.stringify(favMovies));
+  }
+
   useEffect(() => {
-    updateFavMovies(props.films);    
+    renderFavMovies(JSON.parse(localStorage.getItem("favMovies" || "[]")));
+  }, [props.films]);
+
+  useEffect(() => {
+    renderFavMovies(props.films);
   }, [props.films]);
 
   useEffect(() => {
@@ -57,15 +58,16 @@ function SavedMovies(props) {
     <>
       <section className="savedMovies">
         <SearchForm onSearchButtonClick={onSearchButtonClick} />
-        {isLoading ?
-        <Preloader /> :
-        <MoviesCardList
-          films={favMovies}
-          isSaved={props.isSaved}
-          savedFilm={true}          
-          onDeleteButtonClick={props.onDeleteButtonClick}          
-        />
-        }
+        {isLoading ? (
+          <Preloader />
+        ) : (
+          <MoviesCardList
+            films={favMovies}
+            isSaved={props.isSaved}
+            savedFilm={true}
+            onDeleteButtonClick={props.onDeleteButtonClick}
+          />
+        )}
       </section>
       <Footer />
     </>

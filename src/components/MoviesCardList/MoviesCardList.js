@@ -9,6 +9,7 @@ function MoviesCardList(props) {
 
   if (props.films != null && props.films.length < 1)
     return <span className="moviesCardList__error">Ничего не найдено</span>;
+    
 
   return (
     <section className="moviesCardList">

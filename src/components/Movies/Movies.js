@@ -10,9 +10,11 @@ function Movies(props) {
   const [isLoading, setIsLoading] = useState(props.loadingMovies);
 
   function onSearchButtonClick(movieName, shortFilm) {
-    MoviesApi.getOriginalMovies().then((films) => {
+    const jwt = localStorage.getItem("jwt");
+    setIsLoading(true);
+    MoviesApi.getOriginalMovies(jwt, movieName, shortFilm).then((films) => {
       const searchOptions = films.filter((movie) =>
-        movie.nameRU.toLowerCase().includes(movieName.toLowerCase())
+        movie.nameRU.toLowerCase().includes(movieName)
       );
       const displayedMovies = shortFilm
         ? searchOptions.filter((movie) => movie.duration <= 40)
@@ -50,9 +52,13 @@ function Movies(props) {
   return (
     <>
       <section className="movies">
-        <SearchForm onSearchButtonClick={onSearchButtonClick} />
-        {isLoading ?
-        <Preloader /> :
+        <SearchForm
+          onSearchButtonClick={onSearchButtonClick}
+          defaultValue={props.defaultValue}
+        />
+        {isLoading ? (
+          <Preloader />
+        ) : (
           <MoviesCardList
             films={displayedMovies}
             onMoreButtonClick={props.onMoreButtonClick}
@@ -61,7 +67,7 @@ function Movies(props) {
             onSaveButtonClick={props.onSaveButtonClick}
             onDeleteButtonClick={props.onDeleteButtonClick}
           />
-        }
+        )}
       </section>
       <Footer />
     </>

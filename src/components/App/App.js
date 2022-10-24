@@ -154,8 +154,7 @@ function App() {
 
   //** Movies */
 
-  /** get original movies */
-
+ 
   function isSaved(film) {
     return savedMovies.some(movie => movie.movieId === film.id && movie.owner === currentUser._id)
   }
@@ -253,7 +252,11 @@ function App() {
             }
           />
 
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={
+          <>
+          <NotFound /> 
+          </>}
+          />
         </Routes>
         <InfoToolTip
           image={infoToolTipState.image}
