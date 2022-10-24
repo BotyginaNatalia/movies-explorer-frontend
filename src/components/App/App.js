@@ -125,7 +125,11 @@ function App() {
 
   function signingOut() {
     setIsLoggingIn(false);
+    setCurrentUser({});
     localStorage.removeItem("jwt");
+    localStorage.removeItem("favMovies");
+    localStorage.removeItem("savedMovies");
+    localStorage.removeItem("movies");
     localStorage.clear();
   }
 
