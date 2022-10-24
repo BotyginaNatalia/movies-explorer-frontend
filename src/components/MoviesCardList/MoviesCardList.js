@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import ChangeWindowSize from "../../constants/ChangeWindowSize";
+import ChangeWindowSize from "../../constants/changeWindowSize";
 
 function MoviesCardList(props) {
   const location = useLocation();
