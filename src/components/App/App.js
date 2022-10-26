@@ -133,7 +133,8 @@ function App() {
     localStorage.removeItem("movies");
     localStorage.removeItem("movieName");
     localStorage.removeItem("shortFilm");
-    localStorage.removeItem("savedMovies");    
+    localStorage.removeItem("savedMovies"); 
+    localStorage.removeItem("favMovies")   
     localStorage.removeItem("displayedMovies");
   }
 
