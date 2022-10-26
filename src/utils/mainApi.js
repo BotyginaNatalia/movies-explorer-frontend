@@ -53,8 +53,8 @@ export function addNewMovie(jwt, movie) {
   }).then(checkResponse);
 }
 
-export function deleteMyMovie(jwt, id) {
-  return fetch(`${BASE_URL}/movies/${id}`, {
+export function deleteMyMovie(jwt, movieId) {
+  return fetch(`${BASE_URL}/movies/${movieId}`, {
     method: "DELETE",
     headers: {
       "Authorization": `Bearer ${jwt}`,

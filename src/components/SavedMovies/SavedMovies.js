@@ -3,41 +3,40 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import Footer from "../Footer/Footer";
-import * as MainApi from "../../utils/mainApi";
+
 
 function SavedMovies(props) {
-  const [favMovies, setFavMovies] = useState([]);
+  const [displayedMovies, setDisplayedMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(props.loadingMovies);
 
   function onSearchButtonClick(movieName, shortFilm) {
-    const jwt = localStorage.getItem("jwt");
+    
     setIsLoading(true);
-    MainApi.getMyMovies(jwt, movieName, shortFilm).then((films) => {
-      const searchOptions = films.filter((item) =>
+    
+      const searchOptions = props.films.filter((item) =>
         item.nameRU.toLowerCase().includes(movieName)
       );
-      const favMovies = shortFilm
+      const displayedMovies = shortFilm
         ? searchOptions.filter((item) => item.duration <= 40)
         : searchOptions;
-      setFavMovies(favMovies);  
-      localStorage.setItem("favMovies", JSON.stringify(favMovies));
+      setDisplayedMovies(displayedMovies);  
+      localStorage.setItem("displayedMovies", JSON.stringify(displayedMovies));
       localStorage.setItem("movieName", movieName);
       localStorage.setItem("shortFilm", JSON.stringify(shortFilm));
       if ((movieName, shortFilm)) {
-        setFavMovies(favMovies);
+        setDisplayedMovies(displayedMovies);
       } else {
-        setFavMovies(favMovies);
+        setDisplayedMovies(displayedMovies);
       }
-    });
   }
 
-  function renderFavMovies(favMovies) {
-    setFavMovies(favMovies);
-    localStorage.setItem("favMovies", JSON.stringify(favMovies));
+  function renderFavMovies(displayedMovies) {
+    setDisplayedMovies(displayedMovies);
+    localStorage.setItem("favMovies", JSON.stringify(displayedMovies));
   }
 
   useEffect(() => {
-    renderFavMovies(JSON.parse(localStorage.getItem("favMovies" || "[]")));
+    renderFavMovies(JSON.parse(localStorage.getItem("displayedMovies" || "[]")));
   }, [props.films]);
 
   useEffect(() => {
@@ -49,10 +48,10 @@ function SavedMovies(props) {
   }, [props.loadingMovies]);
 
   useEffect(() => {
-    if (favMovies) {
+    if (displayedMovies) {
       setIsLoading(false);
     }
-  }, [favMovies]);
+  }, [displayedMovies]);
 
   return (
     <>
@@ -62,7 +61,7 @@ function SavedMovies(props) {
           <Preloader />
         ) : (
           <MoviesCardList
-            films={favMovies}
+            films={displayedMovies}
             isSaved={props.isSaved}
             savedFilm={true}
             onDeleteButtonClick={props.onDeleteButtonClick}

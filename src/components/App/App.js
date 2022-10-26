@@ -32,8 +32,8 @@ function App() {
   });
   const [isOpenInfoToolTip, setIsOpenInfoToolTip] = useState(false);
 
-  const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [updateProfile , setUpdateProfile ] = useState(false);
 
   const navigate = useNavigate();
 
@@ -64,6 +64,7 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
+          setIsLoggingIn(false);
         });
     }
   }
@@ -110,7 +111,7 @@ function App() {
         localStorage.setItem("jwt", res.token);
         setIsLoggingIn(true);
         checkingToken();
-        setCurrentUser();
+        getUserInfo();
         navigate("/movies");
       })
       .catch((err) => {
@@ -135,12 +136,17 @@ function App() {
 
   /** update profile info */
 
+  function handleUpdateProfileInfo() {
+    setUpdateProfile(true);
+  }
+
   function handleUpdateProfile(name, email) {
     const jwt = localStorage.getItem("jwt");
     auth.changeProfileInfo(jwt, name, email)
       .then((res) => {
-        setCurrentUser({ name: res.name, email: res.email })
-        setIsOpenInfoToolTip(true);
+        setCurrentUser({ name: res.name, email: res.email });
+        setUpdateProfile(false);
+        setIsOpenInfoToolTip(true);        
         setInfoToolTipState({
           image: success,
           text: "Вы успешно обновили данные пользователя",
@@ -156,8 +162,60 @@ function App() {
       .finally(handleInfoToolTip(true));
   }
 
+  useEffect(() => {
+    setUpdateProfile(false);    
+  }, [navigate])
+
+  useEffect((name, email) => {
+    const jwt = localStorage.getItem("jwt");
+    MainApi.getUser(jwt, name, email)
+      .then((res) => {
+        setIsLoggingIn(true);
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        setIsLoggingIn(false)
+        console.log(err);
+      })
+  }, [])
+
   //** Movies */
 
+  function getUserInfo() {
+    const jwt = localStorage.getItem("jwt");
+    MainApi.getUser(jwt)
+      .then((res) => {
+        setIsLoggingIn(true)
+        setCurrentUser(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  function getSavedMovies() {
+    const jwt = localStorage.getItem("jwt");
+    MainApi.getMyMovies(jwt)
+      .then((savedMovies) => {
+        setSavedMovies(savedMovies)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  useEffect(() => {    
+    const jwt = localStorage.getItem("jwt");
+    MainApi.getUser(jwt)
+    .then((res) => {
+      setIsLoggingIn(true)
+      setCurrentUser(res)
+      getSavedMovies()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [])
  
   function isSaved(film) {
     return savedMovies.some(movie => movie.movieId === film.id && movie.owner === currentUser._id)
@@ -214,18 +272,20 @@ function App() {
             element={
               <ProtectedRoute isLoggingIn={isLoggingIn}>
               <Profile
+                updateProfile={updateProfile}
                 onUpdateUser={handleUpdateProfile}
                 signingOut={signingOut}
+                handleUpdateProfileInfo={handleUpdateProfileInfo}
               />
               </ProtectedRoute>
             }
           />
 
-          <Route path="/sign-in" element={<Login getLogin={getLogin} />} />
+          <Route path="/sign-in" element={<Login getLogin={getLogin} isLoggingIn={isLoggingIn} />} />
 
           <Route
             path="/sign-up"
-            element={<Register getRegistration={getRegistration} />}
+            element={<Register getRegistration={getRegistration} isLoggingIn={isLoggingIn} />}
           />
 
 
@@ -234,7 +294,7 @@ function App() {
             element={
               <ProtectedRoute isLoggingIn={isLoggingIn}>
               <Movies
-                films={movies}
+                savedMovies={savedMovies}
                 isSaved={isSaved}
                 onSaveButtonClick={handleSaveButtonClick}                
                 defaultValue={localStorage.getItem("movieName")}              

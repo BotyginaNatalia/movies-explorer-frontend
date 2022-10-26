@@ -4,15 +4,18 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 import Preloader from "../Preloader/Preloader";
 import { MoviesApi } from "../../utils/moviesApi";
+import FilterFilm from "../../constants/filterFilm";
 
 function Movies(props) {
+  
   const [displayedMovies, setDisplayedMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(props.loadingMovies);
 
   function onSearchButtonClick(movieName, shortFilm) {
     const jwt = localStorage.getItem("jwt");
     setIsLoading(true);
-    MoviesApi.getOriginalMovies(jwt, movieName, shortFilm).then((films) => {
+    MoviesApi.getOriginalMovies(jwt, movieName, shortFilm)
+    .then((films) => {
       const searchOptions = films.filter((movie) =>
         movie.nameRU.toLowerCase().includes(movieName)
       );
@@ -61,9 +64,9 @@ function Movies(props) {
         ) : (
           <MoviesCardList
             films={displayedMovies}
-            onMoreButtonClick={props.onMoreButtonClick}
             isSaved={props.isSaved}
             savedFilm={false}
+            onMoreButtonClick={props.onMoreButtonClick}
             onSaveButtonClick={props.onSaveButtonClick}
             onDeleteButtonClick={props.onDeleteButtonClick}
           />
@@ -75,3 +78,46 @@ function Movies(props) {
 }
 
 export default Movies;
+
+
+/*
+  const [originalMovies, setOriginalMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(props.loadingMovies);
+  const {displayedMovies, onSearchButtonClick} = FilterFilm("originalMovies", getOriginalMovies, originalMovies); 
+
+  function getOriginalMovies() {
+    if (localStorage.getItem("originalMovies")) {
+      setOriginalMovies(JSON.parse(localStorage.getItem("originalMovies")));
+      onSearchButtonClick(JSON.parse(localStorage.getItem("originalMovies")), movieName, shortFilm)
+    } else {
+      setIsLoading(true);
+      MoviesApi
+        .getOriginalMovies()
+        .then(movieName, shortFilm => {
+          setOriginalMovies(movieName, shortFilm);
+          localStorage.setItem("originalMovies", JSON.stringify(movieName, shortFilm));
+          onSearchButtonClick(movieName, shortFilm);         
+        }
+        ).catch(err => {
+          
+          console.log(err)
+        })
+        .finally(() => setIsLoading(false));
+    }
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem("originalMovies")) {
+      setOriginalMovies((JSON.parse(localStorage.getItem("originalMovies"))));
+    }
+  }, [])
+
+  useEffect(() => {
+    setIsLoading(props.loadingMovies);
+  }, [props.loadingMovies]);
+
+  useEffect(() => {
+    if (displayedMovies) {
+      setIsLoading(false);
+    }
+  }, [displayedMovies]);*/

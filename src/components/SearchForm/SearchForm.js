@@ -14,7 +14,7 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
     changeMovieName(evt.target.value);
   }
 
-  function handleChangeCheckButton(evt) {
+  function handleSearch(evt) {
     const shortFilm = evt.target.checked;
     fixEnterMovieNameError();
     evt.preventDefault();
@@ -23,25 +23,27 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
     } else if (movieName.length < 1) {
       showEnterMovieNameError("");
     } else {
-      setChangeCheckButton(shortFilm);
       onSearchButtonClick(movieName, shortFilm);
-      
     }
   }
 
-  useEffect(() => {
-    changeMovieName(defaultValue);        
-  }, [])
-
-  function handleSubmit(evt) {
-    evt.preventDefault()
-    onSearchButtonClick(movieName, changeCheckButton)
+  function handleChangeCheckButton(evt) {
+    const shortFilm = evt.target.checked;
+    setChangeCheckButton(shortFilm);
+    onSearchButtonClick(movieName, shortFilm);
   }
   
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    handleSearch(movieName, changeCheckButton);
+  }
+
   useEffect(() => {
     changeMovieName(defaultValue);
-    setChangeCheckButton(JSON.parse(localStorage.getItem("shortFilm")) || false)    
-  }, [])
+    /*setChangeCheckButton(
+      JSON.parse(localStorage.getItem("shortFilm")) || false
+    );*/
+  }, []);
 
   return (
     <section className="sForm">
@@ -53,13 +55,12 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
           value={movieName || ""}
           onChange={handleChangeMovieName}
         />
-
+        <span className="sForm__error">{enterMovieNameError}</span>
         <button
           className="sForm__search_button"
           type="submit"
-          onClick={onSearchButtonClick}
+          onClick={handleSearch}
         ></button>
-        <span className="sForm__error">{enterMovieNameError}</span>
       </form>
       <div className="sForm__switch">
         <div className="sForm__switch-button">
@@ -72,8 +73,8 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
           />
           <label
             htmlFor="sForm__switch-button"
-            className="sForm__switch-button_state">
-          </label>
+            className="sForm__switch-button_state"
+          ></label>
         </div>
         <p className="sForm__switch-button_text">Короткометражки</p>
       </div>
