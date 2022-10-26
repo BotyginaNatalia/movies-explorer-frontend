@@ -125,13 +125,16 @@ function App() {
   }
 
   function signingOut() {
+    setEmailInfo("");
+    setCurrentUser("");    
     setIsLoggingIn(false);
-    setCurrentUser({});
-    localStorage.removeItem("jwt");
-    localStorage.removeItem("favMovies");
-    localStorage.removeItem("savedMovies");
-    localStorage.removeItem("movies");
     localStorage.clear();
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("movies");
+    localStorage.removeItem("movieName");
+    localStorage.removeItem("shortFilm");
+    localStorage.removeItem("savedMovies");    
+    localStorage.removeItem("displayedMovies");
   }
 
   /** update profile info */
