@@ -1,27 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function FilterFilm(films) {
+export default function FilterFilm(props) {
   const [displayedMovies, setDisplayedMovies] = useState([]);
 
-  function onSearchButtonClick(movieName, shortFilm) {    
-    const searchOptions = films.filter((movie) =>
-      movie.nameRU.toLowerCase().includes(movieName)
+  useEffect(() => {
+    updateDisplayedMovies(
+      JSON.parse(
+        localStorage.getItem(`${props.isSaved}DisplayedMovies`) || "[]"
+      )
     );
-    const displayedMovies = shortFilm
-      ? searchOptions.filter((movie) => movie.duration <= 40)
-      : searchOptions;
-    localStorage.setItem("displayedMovies", JSON.stringify(displayedMovies));
-    localStorage.setItem("movieName", movieName);
-    localStorage.setItem("shortFilm", shortFilm);
-    if ((movieName, shortFilm)) {
-      setDisplayedMovies(displayedMovies);
+  }, []);
+
+  function updateDisplayedMovies(displayedMovies) {
+    setDisplayedMovies(displayedMovies);
+    localStorage.setItem(
+      `${props.isSaved}DisplayedMovies`,
+      JSON.stringify(displayedMovies)
+    );
+  }
+
+  function searchFilter(movieName, shortFilm) {
+    if (
+      movieName != null &&
+      movieName.length === 0 &&
+      !props.initialStateRender
+    ) {
+      !props.initialStateRender && updateFilteredMovies([]);
     } else {
-      setDisplayedMovies(displayedMovies);
+      updateDisplayedMovies(
+        props.films.filter(
+          ({ nameRU, nameEN, duration }) =>
+            (nameRU.toLowerCase().includes(movieName) ||
+              nameEN?.toLowerCase().includes(movieName)) &
+            (!shortFilm || duration <= 40)
+        )
+      );
     }
+  }
+
+  function onSearchButtonClick(movieName, shortFilm) {
+    searchFilter(movieName, shortFilm)
   }
 
   return {
     displayedMovies,
+    setDisplayedMovies,
+    updateDisplayedMovies,
     onSearchButtonClick,
+    searchFilter,
   };
 }
