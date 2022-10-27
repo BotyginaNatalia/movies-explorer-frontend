@@ -126,8 +126,9 @@ function App() {
 
   function signingOut() {
     setEmailInfo("");
-    setCurrentUser("");    
-    setIsLoggingIn(false);
+    setCurrentUser("");
+    setSavedMovies([]);    
+    setIsLoggingIn(false);    
     localStorage.clear();
     localStorage.removeItem("jwt");
     localStorage.removeItem("movies");
@@ -136,6 +137,7 @@ function App() {
     localStorage.removeItem("savedMovies"); 
     localStorage.removeItem("favMovies")   
     localStorage.removeItem("displayedMovies");
+    localStorage.removeItem("savedFilm");
   }
 
   /** update profile info */

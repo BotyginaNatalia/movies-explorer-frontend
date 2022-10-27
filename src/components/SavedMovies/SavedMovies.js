@@ -22,9 +22,9 @@ function SavedMovies(props) {
     localStorage.setItem("movieName", movieName);
     localStorage.setItem("shortFilm", JSON.stringify(shortFilm));
     if ((movieName, shortFilm)) {
-      setFavMovies(favMovies);
+      setFavMovies(favMovies.filter(movie => props.films.some(film => movie.movieId === film.movieId)));
     } else {
-      setFavMovies(favMovies);
+      setFavMovies(favMovies.filter(movie => props.films.some(film => movie.movieId === film.movieId)));
     }
   }
 
@@ -54,7 +54,8 @@ function SavedMovies(props) {
   return (
     <>
       <section className="savedMovies">
-        <SearchForm onSearchButtonClick={onSearchButtonClick} />
+        <SearchForm onSearchButtonClick={onSearchButtonClick} 
+        defaultValue=""/>
         {isLoading ? (
           <Preloader />
         ) : (

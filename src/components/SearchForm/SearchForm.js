@@ -40,9 +40,7 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
 
   useEffect(() => {
     changeMovieName(defaultValue);
-    /*setChangeCheckButton(
-      JSON.parse(localStorage.getItem("shortFilm")) || false
-    );*/
+    setChangeCheckButton(JSON.parse(localStorage.getItem("shortFilm")) || false)
   }, []);
 
   return (
