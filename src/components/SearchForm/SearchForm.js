@@ -39,8 +39,7 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
   }
 
   useEffect(() => {
-    changeMovieName(defaultValue);
-    setChangeCheckButton(JSON.parse(localStorage.getItem("shortFilm")) || false)
+    changeMovieName(defaultValue);    
   }, []);
 
   return (
