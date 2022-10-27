@@ -146,9 +146,9 @@ function App() {
 
   function handleUpdateProfile(name, email) {
     const jwt = localStorage.getItem("jwt");
-    auth.changeProfileInfo(jwt, name, email)
+    MainApi.changeProfileInfo(jwt, name, email)
       .then((res) => {
-        setCurrentUser({ name: res.name, email: res.email });
+        setCurrentUser(res);
         setUpdateProfile(false);
         setIsOpenInfoToolTip(true);        
         setInfoToolTipState({
@@ -276,9 +276,9 @@ function App() {
             element={
               <ProtectedRoute isLoggingIn={isLoggingIn}>
               <Profile
-                updateProfile={updateProfile}
-                onUpdateUser={handleUpdateProfile}
                 signingOut={signingOut}
+                updateProfile={updateProfile}
+                onUpdateUser={handleUpdateProfile}                
                 handleUpdateProfileInfo={handleUpdateProfileInfo}
               />
               </ProtectedRoute>
@@ -298,9 +298,10 @@ function App() {
             element={
               <ProtectedRoute isLoggingIn={isLoggingIn}>
               <Movies
-                savedMovies={savedMovies}
                 isSaved={isSaved}
-                onSaveButtonClick={handleSaveButtonClick}                
+                savedMovies={savedMovies}                
+                onSaveButtonClick={handleSaveButtonClick}
+                onDeleteButtonClick={handleDeleteButtonClick}                
                 defaultValue={localStorage.getItem("movieName")}              
               />
               </ProtectedRoute>
@@ -312,8 +313,9 @@ function App() {
             element={
               <ProtectedRoute isLoggingIn={isLoggingIn}>
               <SavedMovies
-                films={savedMovies}
                 isSaved={isSaved}
+                films={savedMovies}
+                savedMovies={savedMovies}                
                 onDeleteButtonClick={handleDeleteButtonClick}                               
               />
               </ProtectedRoute>

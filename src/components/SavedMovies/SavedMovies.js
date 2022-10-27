@@ -59,6 +59,7 @@ function SavedMovies(props) {
           <Preloader />
         ) : (
           <MoviesCardList
+            savedFilm={true}
             films={favMovies}
             isSaved={props.isSaved}
             savedMovies={props.savedMovies}

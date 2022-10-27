@@ -17,6 +17,18 @@ export function getUser(jwt) {
   }).then(checkResponse);
 }
 
+export function changeProfileInfo(jwt, name, email) {
+  return fetch(`${BASE_URL}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        "Authorization": `Bearer ${jwt}`,
+        "Content-Type": 'application/json',
+      },
+      body: JSON.stringify({ name: name, email: email })
+  })
+  .then(checkResponse);
+}
+
 export function getMyMovies(jwt) {
   return fetch(`${BASE_URL}/movies`, {
       method: "GET",
