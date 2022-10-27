@@ -125,12 +125,15 @@ function App() {
   }
 
   function signingOut() {
+    isSaved([]); 
     setEmailInfo("");
     setCurrentUser("");
-    setSavedMovies([]);    
+    setSavedMovies([]);
+    getSavedMovies([]);       
     setIsLoggingIn(false);    
     localStorage.clear();
     localStorage.removeItem("jwt");
+    localStorage.removeItem("films")
     localStorage.removeItem("movies");
     localStorage.removeItem("movieName");
     localStorage.removeItem("shortFilm");
