@@ -63,7 +63,7 @@ function Profile(props) {
 
   function handleLogOut(evt) {
     evt.preventDefault();
-    props.signingOut(name, email);
+    props.signOut(name, email);
   }
 
   return (

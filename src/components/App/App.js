@@ -129,8 +129,8 @@ function App() {
     setEmailInfo("");
     setCurrentUser("");
     setSavedMovies([]);
-    getSavedMovies([]);       
-    setIsLoggingIn(false);    
+    getSavedMovies([]);     
+    setIsLoggingIn(false);
     localStorage.clear();
     localStorage.removeItem("jwt");
     localStorage.removeItem("films")
@@ -140,7 +140,7 @@ function App() {
     localStorage.removeItem("savedMovies"); 
     localStorage.removeItem("favMovies")   
     localStorage.removeItem("displayedMovies");
-    localStorage.removeItem("savedFilm");
+    localStorage.removeItem("[]");
   }
 
   /** update profile info */
@@ -281,7 +281,7 @@ function App() {
             element={
               <ProtectedRoute isLoggingIn={isLoggingIn}>
               <Profile
-                signingOut={signingOut}
+                signOut={signingOut}
                 updateProfile={updateProfile}
                 onUpdateUser={handleUpdateProfile}                
                 handleUpdateProfileInfo={handleUpdateProfileInfo}
