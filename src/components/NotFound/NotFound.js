@@ -10,7 +10,7 @@ function NotFound() {
       <div className="nFound__box">
         <h2 className="nFound__title">404</h2>
         <p className="nFound__text">Страница не найдена</p>
-        <a href="/*" onClick={() => navigate(-1)} className="nFound__button">Назад</a>       
+        <button onClick={() => navigate(-1)} className="nFound__button">Назад</button>       
       </div>
     </div>
     </>
