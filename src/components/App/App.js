@@ -320,7 +320,7 @@ function App() {
             }
           />
 
-          <Route path="/*" element={
+          <Route path="*" element={
           <>
           <NotFound /> 
           </>}
