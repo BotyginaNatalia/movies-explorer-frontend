@@ -60,7 +60,6 @@ function Movies(props) {
           <Preloader />
         ) : (
           <MoviesCardList
-            savedFilm={false}
             isSaved={props.isSaved}
             films={displayedMovies}
             savedMovies={props.savedMovies}

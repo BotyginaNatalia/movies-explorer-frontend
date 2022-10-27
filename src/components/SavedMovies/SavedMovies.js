@@ -4,30 +4,28 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import Footer from "../Footer/Footer";
 
-
 function SavedMovies(props) {
   const [favMovies, setFavMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(props.loadingMovies);
 
   function onSearchButtonClick(movieName, shortFilm) {
-    
     setIsLoading(true);
-    
-      const searchOptions = props.films.filter((item) =>
-        item.nameRU.toLowerCase().includes(movieName)
-      );
-      const favMovies = shortFilm
-        ? searchOptions.filter((item) => item.duration <= 40)
-        : searchOptions;
-      setFavMovies(favMovies);  
-      localStorage.setItem("favMovies", JSON.stringify(favMovies));
-      localStorage.setItem("movieName", movieName);
-      localStorage.setItem("shortFilm", JSON.stringify(shortFilm));
-      if ((movieName, shortFilm)) {
-        setFavMovies(favMovies);
-      } else {
-        setFavMovies(favMovies);
-      }
+
+    const searchOptions = props.films.filter((item) =>
+      item.nameRU.toLowerCase().includes(movieName)
+    );
+    const favMovies = shortFilm
+      ? searchOptions.filter((item) => item.duration <= 40)
+      : searchOptions;
+    setFavMovies(favMovies);
+    localStorage.setItem("favMovies", JSON.stringify(favMovies));
+    localStorage.setItem("movieName", movieName);
+    localStorage.setItem("shortFilm", JSON.stringify(shortFilm));
+    if ((movieName, shortFilm)) {
+      setFavMovies(favMovies);
+    } else {
+      setFavMovies(favMovies);
+    }
   }
 
   function renderFavMovies(favMovies) {
@@ -63,7 +61,7 @@ function SavedMovies(props) {
           <MoviesCardList
             films={favMovies}
             isSaved={props.isSaved}
-            savedFilm={true}
+            savedMovies={props.savedMovies}
             onDeleteButtonClick={props.onDeleteButtonClick}
           />
         )}
