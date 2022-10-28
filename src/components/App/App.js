@@ -234,12 +234,7 @@ function App() {
     const jwt = localStorage.getItem("jwt");
     MainApi.addNewMovie(jwt, film)
       .then((newMovie) => {
-        setSavedMovies([newMovie, ...savedMovies])
-        setIsOpenInfoToolTip(true);
-          setInfoToolTipState({
-            image: success,
-            text: "Фильм успешно добавлен в избранное.",
-          });
+        setSavedMovies([newMovie, ...savedMovies])        
       })
       .catch((err) => {
         console.log(err)
