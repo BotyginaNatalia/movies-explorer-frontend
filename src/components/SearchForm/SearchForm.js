@@ -15,15 +15,14 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
   }
 
   function handleSearch(evt) {
-    const shortFilm = evt.target.checked;
-    fixEnterMovieNameError();
     evt.preventDefault();
+    fixEnterMovieNameError();    
     if (!movieName) {
       showEnterMovieNameError("Нужно ввести ключевое слово");
     } else if (movieName.length < 1) {
       showEnterMovieNameError("");
     } else {
-      onSearchButtonClick(movieName, shortFilm);
+      onSearchButtonClick(movieName);
     }
   }
 
@@ -32,10 +31,14 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
     setChangeCheckButton(shortFilm);
     onSearchButtonClick(movieName, shortFilm);
   }
-  
+
+  useEffect(() => {
+    setChangeCheckButton(JSON.parse(localStorage.getItem("shortFilm")) || false)
+  }, []);
+    
   function handleSubmit(evt) {
     evt.preventDefault();
-    handleSearch(movieName, changeCheckButton);
+    handleSearch(movieName, shortFilm);
   }
 
   useEffect(() => {

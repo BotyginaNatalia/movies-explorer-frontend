@@ -6,14 +6,15 @@ import Preloader from "../Preloader/Preloader";
 import { MoviesApi } from "../../utils/moviesApi";
 
 function Movies(props) {
-  const [displayedMovies, setDisplayedMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(props.loadingMovies);
   
   function onSearchButtonClick(movieName, shortFilm) {
     const jwt = localStorage.getItem("jwt");
     setIsLoading(true);
-    MoviesApi.getOriginalMovies(jwt, movieName, shortFilm).then((films) => {
-      const searchOptions = films.filter((movie) =>
+    MoviesApi.getOriginalMovies(jwt)
+    .then((movies) => {
+      const searchOptions = movies.filter((movie) =>
         movie.nameRU.toLowerCase().includes(movieName)
       );
       const displayedMovies = shortFilm
@@ -23,29 +24,28 @@ function Movies(props) {
       localStorage.setItem("movieName", movieName);
       localStorage.setItem("shortFilm", shortFilm);
       if ((movieName, shortFilm)) {
-        setDisplayedMovies(displayedMovies);
+        setMovies(displayedMovies);
       } else {
-        setDisplayedMovies(displayedMovies);
-      }
+        setMovies(displayedMovies);
+      }    
     });
-  }
+}
 
   useEffect(() => {   
     if (localStorage.getItem("displayedMovies")) {
-      setDisplayedMovies((JSON.parse(localStorage.getItem("displayedMovies"))));
+      setMovies((JSON.parse(localStorage.getItem("displayedMovies"))));
     }
   }, [])
-
 
   useEffect(() => {
     setIsLoading(props.loadingMovies);
   }, [props.loadingMovies]);
 
   useEffect(() => {
-    if (displayedMovies) {
+    if (movies) {
       setIsLoading(false);
     }
-  }, [displayedMovies]);
+  }, [movies]);
 
   return (
     <>
@@ -60,7 +60,7 @@ function Movies(props) {
           <MoviesCardList
             savedFilm={false}
             isSaved={props.isSaved}
-            films={displayedMovies}
+            films={movies}
             savedMovies={props.savedMovies}
             onMoreButtonClick={props.onMoreButtonClick}
             onSaveButtonClick={props.onSaveButtonClick}
