@@ -10,7 +10,6 @@ function SavedMovies(props) {
 
   function onSearchButtonClick(movieName, shortFilm) {
     setIsLoading(true);
-
     const favMovies = props.films.filter((movie) => movie.nameRU.toLowerCase().includes(movieName));
     if ((movieName, shortFilm)) {
       setFavMovies(favMovies.filter((movie) => movie.duration <= 40));
@@ -41,7 +40,9 @@ function SavedMovies(props) {
     <>
       <section className="savedMovies">
         <SearchForm onSearchButtonClick={onSearchButtonClick} 
-        defaultValue=""/>
+        defaultValue=""
+        shortFilm={[]}   
+        />
         {isLoading ? (
           <Preloader />
         ) : (

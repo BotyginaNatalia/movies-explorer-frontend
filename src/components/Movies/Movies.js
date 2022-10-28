@@ -14,17 +14,12 @@ function Movies(props) {
     setIsLoading(true);
     MoviesApi.getOriginalMovies(jwt)
     .then((movies) => {
-      const searchOptions = movies.filter((movie) =>
-        movie.nameRU.toLowerCase().includes(movieName)
-      );
-      const displayedMovies = shortFilm
-        ? searchOptions.filter((movie) => movie.duration <= 40)
-        : searchOptions;
+      const displayedMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName));
       localStorage.setItem("displayedMovies", JSON.stringify(displayedMovies));
       localStorage.setItem("movieName", movieName);
       localStorage.setItem("shortFilm", shortFilm);
       if ((movieName, shortFilm)) {
-        setMovies(displayedMovies);
+        setMovies(movies.filter((movie) => movie.duration <= 40));
       } else {
         setMovies(displayedMovies);
       }    
@@ -33,7 +28,7 @@ function Movies(props) {
 
   useEffect(() => {   
     if (localStorage.getItem("displayedMovies")) {
-      setMovies((JSON.parse(localStorage.getItem("displayedMovies"))));
+      setMovies((JSON.parse(localStorage.getItem("displayedMovies"))));      
     }
   }, [])
 
@@ -51,7 +46,7 @@ function Movies(props) {
     <>
       <section className="movies">
         <SearchForm
-          onSearchButtonClick={onSearchButtonClick}
+          onSearchButtonClick={onSearchButtonClick}          
           defaultValue={props.defaultValue}
         />
         {isLoading ? (

@@ -28,17 +28,13 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
 
   function handleChangeCheckButton(evt) {
     const shortFilm = evt.target.checked;
-    setChangeCheckButton(shortFilm);
-    onSearchButtonClick(movieName, shortFilm);
+    setChangeCheckButton(JSON.parse(localStorage.getItem("shortFilm")) || false);
+    onSearchButtonClick(shortFilm);
   }
-
-  useEffect(() => {
-    setChangeCheckButton(JSON.parse(localStorage.getItem("shortFilm")) || false)
-  }, []);
-    
+  
   function handleSubmit(evt) {
     evt.preventDefault();
-    handleSearch(movieName, shortFilm);
+    handleSearch(movieName, changeCheckButton);
   }
 
   useEffect(() => {
