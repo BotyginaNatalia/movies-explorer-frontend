@@ -8,7 +8,7 @@ import { MoviesApi } from "../../utils/moviesApi";
 function Movies(props) {
   const [displayedMovies, setDisplayedMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(props.loadingMovies);
-
+  
   function onSearchButtonClick(movieName, shortFilm) {
     const jwt = localStorage.getItem("jwt");
     setIsLoading(true);
@@ -30,14 +30,12 @@ function Movies(props) {
     });
   }
 
-  function showDisplayedMovies() {
-    const displayedMovies = JSON.parse(localStorage.getItem("displayedMovies"));
-    setDisplayedMovies(displayedMovies);
-  }
+  useEffect(() => {   
+    if (localStorage.getItem("displayedMovies")) {
+      setDisplayedMovies((JSON.parse(localStorage.getItem("displayedMovies"))));
+    }
+  }, [])
 
-  useEffect(() => {
-    showDisplayedMovies();
-  }, [props.displayedMovies]);
 
   useEffect(() => {
     setIsLoading(props.loadingMovies);

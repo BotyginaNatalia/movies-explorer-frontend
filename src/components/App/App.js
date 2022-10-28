@@ -129,7 +129,7 @@ function App() {
     setEmailInfo("");
     setCurrentUser("");
     setSavedMovies([]);
-    getSavedMovies([]);     
+    getSavedMovies([]);  
     setIsLoggingIn(false);
     localStorage.clear();
     localStorage.removeItem("jwt");
@@ -315,7 +315,8 @@ function App() {
               <SavedMovies
                 isSaved={isSaved}
                 films={savedMovies}
-                savedMovies={savedMovies}                
+                savedMovies={savedMovies}
+                getMyMovies={getSavedMovies}                
                 onDeleteButtonClick={handleDeleteButtonClick}                               
               />
               </ProtectedRoute>

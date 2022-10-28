@@ -16,11 +16,7 @@ function SavedMovies(props) {
     );
     const favMovies = shortFilm
       ? searchOptions.filter((item) => item.duration <= 40)
-      : searchOptions;
-    setFavMovies(favMovies);
-    localStorage.setItem("favMovies", JSON.stringify(favMovies));
-    localStorage.setItem("movieName", movieName);
-    localStorage.setItem("shortFilm", JSON.stringify(shortFilm));
+      : searchOptions;    
     if ((movieName, shortFilm)) {
       setFavMovies(favMovies.filter(movie => props.films.some(film => movie.movieId === film.movieId)));
     } else {
@@ -28,7 +24,15 @@ function SavedMovies(props) {
     }
   }
 
-  function renderFavMovies(favMovies) {
+  useEffect(() => {
+    props.getMyMovies();
+  }, [])
+
+  useEffect(() => {
+    setFavMovies(props.films);   
+}, [props.films]);
+
+  /*function renderFavMovies(favMovies) {
     setFavMovies(favMovies);
     localStorage.setItem("favMovies", JSON.stringify(favMovies));
   }
@@ -39,7 +43,7 @@ function SavedMovies(props) {
 
   useEffect(() => {
     renderFavMovies(props.films);
-  }, [props.films]);
+  }, [props.films]);*/
 
   useEffect(() => {
     setIsLoading(props.loadingMovies);
