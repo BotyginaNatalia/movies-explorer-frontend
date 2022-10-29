@@ -18,7 +18,9 @@ function Movies(props) {
       const displayedMovies = shortFilm
         ? searchOptions.filter((movie) => movie.duration <= 40)
         : searchOptions;
-      localStorage.setItem("displayedMovies", JSON.stringify(displayedMovies));      
+      localStorage.setItem("displayedMovies", JSON.stringify(displayedMovies));
+      localStorage.setItem("movieName", movieName);
+      localStorage.setItem("shortFilm", shortFilm)
       if ((movieName, shortFilm)) {
         setMovies(displayedMovies);
       } else {
@@ -48,7 +50,9 @@ function Movies(props) {
       <section className="movies">
         <SearchForm
           onSearchButtonClick={onSearchButtonClick}
+          handleChangeCheckButton={props.handleChangeCheckButton}
           defaultValue={props.defaultValue}
+          shortFilm={props.shortFilm}
         />
         {isLoading ? (
           <Preloader />

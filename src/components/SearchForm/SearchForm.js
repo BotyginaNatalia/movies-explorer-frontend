@@ -92,7 +92,7 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
             id="sForm__switch-button"
             type="checkbox"
             className="sForm__switch-button_defaultbutton"
-            
+            checked={shortFilm}
             onChange={handleChangeCheckButton}
           />
           <label
@@ -111,7 +111,7 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
             id="sForm__switch-button"
             type="checkbox"
             className="sForm__switch-button_defaultbutton"
-                        
+            checked={shortFilmSaved}            
             onChange={handleChangeCheckButtonSaved}
           />
           <label
