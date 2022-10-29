@@ -20,7 +20,6 @@ function Movies(props) {
         : searchOptions;
       localStorage.setItem("displayedMovies", JSON.stringify(displayedMovies));
       localStorage.setItem("movieName", movieName);
-      localStorage.setItem("shortFilm", shortFilm)
       if ((movieName, shortFilm)) {
         setMovies(displayedMovies);
       } else {

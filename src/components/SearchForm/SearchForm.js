@@ -12,7 +12,8 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
   }, []);
 
   function updateShortFilm(shortFilm) {
-    setShortFilm(shortFilm);    
+    setShortFilm(shortFilm);
+    localStorage.setItem("shortFilm", JSON.stringify(shortFilm));
   }
 
   function fixEnterMovieNameError() {
