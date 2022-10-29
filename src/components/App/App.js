@@ -137,6 +137,7 @@ function App() {
     localStorage.removeItem("movies");
     localStorage.removeItem("movieName");
     localStorage.removeItem("shortFilm");
+    localStorage.removeItem("shortFilmSaved");
     localStorage.removeItem("savedMovies"); 
     localStorage.removeItem("favMovies")   
     localStorage.removeItem("displayedMovies");
@@ -298,8 +299,7 @@ function App() {
               <ProtectedRoute isLoggingIn={isLoggingIn}>
               <Movies
                 isSaved={isSaved}
-                savedMovies={savedMovies}
-                getMovies={getSavedMovies}                
+                savedMovies={savedMovies}               
                 onSaveButtonClick={handleSaveButtonClick}
                 onDeleteButtonClick={handleDeleteButtonClick}                
                 defaultValue={localStorage.getItem("movieName")}              
@@ -313,7 +313,6 @@ function App() {
             element={
               <ProtectedRoute isLoggingIn={isLoggingIn}>
               <SavedMovies
-                getMovies={getSavedMovies}
                 isSaved={isSaved}
                 films={savedMovies}
                 savedMovies={savedMovies}
