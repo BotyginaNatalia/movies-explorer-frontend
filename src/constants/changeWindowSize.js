@@ -11,11 +11,11 @@ export default function ChangeWindowSize(films) {
 
   useEffect(() => {
     windowWidth, addEventListener("resize", checkWindowWidth);
-    if (windowWidth > 768) {
+    if (windowWidth >= 1280) {
       defaultMoviesQuantity(12);
-    } else if (windowWidth > 480 && windowWidth < 768) {
+    } else if (windowWidth > 480 && windowWidth < 1280) {
       defaultMoviesQuantity(8);
-    } else if (windowWidth <= 480) {
+    } else {
       defaultMoviesQuantity(5);
     }
 
@@ -25,7 +25,7 @@ export default function ChangeWindowSize(films) {
   }, [windowWidth]);
 
   function onMoreButtonClick() {
-    if (windowWidth > 768) {
+    if (windowWidth > 1024) {
       defaultMoviesQuantity(moviesQuantity + 3);
     } else {
       defaultMoviesQuantity(moviesQuantity + 2);    

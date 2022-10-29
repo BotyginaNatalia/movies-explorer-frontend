@@ -129,7 +129,7 @@ function App() {
     setEmailInfo("");
     setCurrentUser("");
     setSavedMovies([]);
-    getSavedMovies([]);  
+    getSavedMovies([]);
     setIsLoggingIn(false);
     localStorage.clear();
     localStorage.removeItem("jwt");
@@ -292,14 +292,14 @@ function App() {
             element={<Register getRegistration={getRegistration} isLoggingIn={isLoggingIn} />}
           />
 
-
           <Route
             path="/movies"
             element={
               <ProtectedRoute isLoggingIn={isLoggingIn}>
               <Movies
                 isSaved={isSaved}
-                savedMovies={savedMovies}                
+                savedMovies={savedMovies}
+                getMovies={getSavedMovies}                
                 onSaveButtonClick={handleSaveButtonClick}
                 onDeleteButtonClick={handleDeleteButtonClick}                
                 defaultValue={localStorage.getItem("movieName")}              
@@ -313,6 +313,7 @@ function App() {
             element={
               <ProtectedRoute isLoggingIn={isLoggingIn}>
               <SavedMovies
+                getMovies={getSavedMovies}
                 isSaved={isSaved}
                 films={savedMovies}
                 savedMovies={savedMovies}

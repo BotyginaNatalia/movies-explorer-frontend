@@ -10,21 +10,27 @@ function SavedMovies(props) {
 
   function onSearchButtonClick(movieName, shortFilm) {
     setIsLoading(true);
-    const favMovies = props.films.filter((movie) => movie.nameRU.toLowerCase().includes(movieName));
+    const favMovies = props.films.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(movieName)
+    );
     if ((movieName, shortFilm)) {
       setFavMovies(favMovies.filter((movie) => movie.duration <= 40));
     } else {
-      setFavMovies(favMovies.filter(movie => props.films.some(film => movie.movieId === film.movieId)));
+      setFavMovies(
+        favMovies.filter((movie) =>
+          props.films.some((film) => movie.movieId === film.movieId)
+        )
+      );
     }
   }
 
   useEffect(() => {
     props.getMyMovies();
-  }, [])
+  }, []);
 
   useEffect(() => {
-    setFavMovies(props.films);   
-}, [props.films]);
+    setFavMovies(props.films);
+  }, [props.films]);
 
   useEffect(() => {
     setIsLoading(props.loadingMovies);
@@ -39,9 +45,11 @@ function SavedMovies(props) {
   return (
     <>
       <section className="savedMovies">
-        <SearchForm onSearchButtonClick={onSearchButtonClick} 
-        defaultValue=""
-        shortFilm={[]}   
+        <SearchForm
+          onSearchButtonClick={onSearchButtonClick}
+          handleChangeCheckButton={props.handleChangeCheckButton}
+          defaultValue=""
+          shortFilm={props.shortFilm}
         />
         {isLoading ? (
           <Preloader />

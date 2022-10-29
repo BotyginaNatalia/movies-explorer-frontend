@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function NotFound() {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ function NotFound() {
       <div className="nFound__box">
         <h2 className="nFound__title">404</h2>
         <p className="nFound__text">Страница не найдена</p>
-        <a href="/*" onClick={() => navigate(-1)} className="nFound__button">Назад</a>       
+        <a href="/movies" onClick={() => navigate(-1)} className="nFound__button">Назад</a>                
       </div>
     </div>
     </>

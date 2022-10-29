@@ -8,29 +8,32 @@ import { MoviesApi } from "../../utils/moviesApi";
 function Movies(props) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(props.loadingMovies);
-  
+
   function onSearchButtonClick(movieName, shortFilm) {
-    const jwt = localStorage.getItem("jwt");
     setIsLoading(true);
-    MoviesApi.getOriginalMovies(jwt)
-    .then((movies) => {
-      const displayedMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName));
+    MoviesApi.getOriginalMovies(movieName, shortFilm).then((films) => {
+      const searchOptions = films.filter((movie) =>
+        movie.nameRU.toLowerCase().includes(movieName)
+      );
+      const displayedMovies = shortFilm
+        ? searchOptions.filter((movie) => movie.duration <= 40)
+        : searchOptions;
       localStorage.setItem("displayedMovies", JSON.stringify(displayedMovies));
       localStorage.setItem("movieName", movieName);
-      localStorage.setItem("shortFilm", shortFilm);
+      localStorage.setItem("shortFilm", shortFilm)
       if ((movieName, shortFilm)) {
-        setMovies(movies.filter((movie) => movie.duration <= 40));
+        setMovies(displayedMovies);
       } else {
         setMovies(displayedMovies);
-      }    
+      }
     });
-}
+  }
 
-  useEffect(() => {   
+  useEffect(() => {
     if (localStorage.getItem("displayedMovies")) {
-      setMovies((JSON.parse(localStorage.getItem("displayedMovies"))));      
+      setMovies(JSON.parse(localStorage.getItem("displayedMovies")));
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     setIsLoading(props.loadingMovies);
@@ -46,16 +49,18 @@ function Movies(props) {
     <>
       <section className="movies">
         <SearchForm
-          onSearchButtonClick={onSearchButtonClick}          
+          onSearchButtonClick={onSearchButtonClick}
+          handleChangeCheckButton={props.handleChangeCheckButton}
           defaultValue={props.defaultValue}
+          shortFilm={props.shortFilm}
         />
         {isLoading ? (
           <Preloader />
         ) : (
           <MoviesCardList
+            films={movies}
             savedFilm={false}
             isSaved={props.isSaved}
-            films={movies}
             savedMovies={props.savedMovies}
             onMoreButtonClick={props.onMoreButtonClick}
             onSaveButtonClick={props.onSaveButtonClick}

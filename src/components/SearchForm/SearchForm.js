@@ -1,9 +1,19 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
+  const location = useLocation();
   const [movieName, changeMovieName] = useState(inputMovieName);
-  const [changeCheckButton, setChangeCheckButton] = useState(false);
+  const [shortFilm, setShortFilm] = useState(false);
   const [enterMovieNameError, showEnterMovieNameError] = useState("");
+
+  useEffect(() => {    
+    updateShortFilm(JSON.parse(localStorage.getItem("shortFilm" || "false")));
+  }, []);
+
+  function updateShortFilm(shortFilm) {
+    setShortFilm(shortFilm);    
+  }
 
   function fixEnterMovieNameError() {
     showEnterMovieNameError(null);
@@ -14,8 +24,7 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
     changeMovieName(evt.target.value);
   }
 
-  function handleSearch(evt) {
-    evt.preventDefault();
+  function handleSearch() {
     fixEnterMovieNameError();    
     if (!movieName) {
       showEnterMovieNameError("Нужно ввести ключевое слово");
@@ -27,19 +36,19 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
   }
 
   function handleChangeCheckButton(evt) {
-    const shortFilm = evt.target.checked;
-    setChangeCheckButton(JSON.parse(localStorage.getItem("shortFilm")) || false);
-    onSearchButtonClick(shortFilm);
-  }
-  
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    handleSearch(movieName, changeCheckButton);
+    const switchShortFilm = evt.target.checked;
+    updateShortFilm(switchShortFilm);
+    onSearchButtonClick(movieName, switchShortFilm);
   }
 
+  function handleSubmit(evt) {
+    evt.preventDefault()
+    handleSearch(movieName)
+  }
+  
   useEffect(() => {
-    changeMovieName(defaultValue);    
-  }, []);
+    changeMovieName(defaultValue)
+  }, [])
 
   return (
     <section className="sForm">
@@ -58,22 +67,43 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue }) {
           onClick={handleSearch}
         ></button>
       </form>
+
+      {location.pathname === "/movies" && (
       <div className="sForm__switch">
         <div className="sForm__switch-button">
           <input
             id="sForm__switch-button"
             type="checkbox"
             className="sForm__switch-button_defaultbutton"
-            checked={changeCheckButton}
+            checked={shortFilm}
             onChange={handleChangeCheckButton}
           />
           <label
             htmlFor="sForm__switch-button"
             className="sForm__switch-button_state"
-          ></label>
-        </div>
+          ></label>           
+        </div>       
         <p className="sForm__switch-button_text">Короткометражки</p>
       </div>
+      )}
+
+      {location.pathname === "/savedMovies" && (
+      <div className="sForm__switch">
+        <div className="sForm__switch-button">
+          <input
+            id="sForm__switch-button"
+            type="checkbox"
+            className="sForm__switch-button_defaultbutton"            
+            onChange={handleChangeCheckButton}
+          />
+          <label
+            htmlFor="sForm__switch-button"
+            className="sForm__switch-button_state"
+          ></label>           
+        </div>       
+        <p className="sForm__switch-button_text">Короткометражки</p>
+      </div>
+      )}
     </section>
   );
 }
