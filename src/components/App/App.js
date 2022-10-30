@@ -299,7 +299,7 @@ function App() {
               <ProtectedRoute isLoggingIn={isLoggingIn}>
               <Movies
                 isSaved={isSaved}
-                savedMovies={savedMovies}               
+                savedMovies={savedMovies}
                 onSaveButtonClick={handleSaveButtonClick}
                 onDeleteButtonClick={handleDeleteButtonClick}                
                 defaultValue={localStorage.getItem("movieName")}              
