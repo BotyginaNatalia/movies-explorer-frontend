@@ -10,7 +10,9 @@ function Movies(props) {
   const [isLoading, setIsLoading] = useState(props.loadingMovies);
 
   function onSearchButtonClick(movieName, shortFilm) {
+
     setIsLoading(true);
+    if (!localStorage.getItem("films")) {
     MoviesApi.getOriginalMovies(movieName, shortFilm).then((films) => {
       const searchOptions = films.filter((movie) =>
         movie.nameRU.toLowerCase().includes(movieName)
@@ -18,9 +20,10 @@ function Movies(props) {
       const displayedMovies = shortFilm
         ? searchOptions.filter((movie) => movie.duration <= 40)
         : searchOptions;
+
       localStorage.setItem("displayedMovies", JSON.stringify(displayedMovies));
       localStorage.setItem("movieName", movieName);
-      localStorage.setItem("shortFilm", shortFilm)
+      localStorage.setItem("shortFilm", shortFilm);
       if ((movieName, shortFilm)) {
         setMovies(displayedMovies);
       } else {
@@ -28,6 +31,7 @@ function Movies(props) {
       }
     });
   }
+} 
 
   useEffect(() => {
     props.getMyMovies();
