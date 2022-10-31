@@ -4,8 +4,8 @@ import { useLocation } from "react-router-dom";
 function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue, isSaved }) {
   const location = useLocation();
   const [movieName, changeMovieName] = useState(inputMovieName);
-  const [shortFilm, setShortFilm] = useState(true);
-  const [shortFilmSaved, setShortFilmSaved] = useState(true);
+  const [shortFilm, setShortFilm] = useState(false);
+  const [shortFilmSaved, setShortFilmSaved] = useState(false);
   const [enterMovieNameError, showEnterMovieNameError] = useState("");
 
   useEffect(() => {    
@@ -14,7 +14,7 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue, isSaved
 
   function updateShortFilm(shortFilm) {
     setShortFilm(shortFilm);
-    localStorage.setItem("shortFilm", JSON.stringify(shortFilm));
+    localStorage.setItem(`${isSaved}shortFilm`, JSON.stringify(shortFilm));
   }
 
   useEffect(() => {    
@@ -23,7 +23,7 @@ function SearchForm({ onSearchButtonClick, inputMovieName, defaultValue, isSaved
 
   function updateShortFilmSaved(shortFilmSaved) {
     setShortFilmSaved(shortFilmSaved);
-    localStorage.setItem("shortFilmSaved", JSON.stringify(shortFilmSaved));
+    localStorage.setItem(`${isSaved}shortFilmSaved`, JSON.stringify(shortFilmSaved));
   }
 
   function fixEnterMovieNameError() {
