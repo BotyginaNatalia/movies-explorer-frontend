@@ -30,6 +30,10 @@ function Movies(props) {
   }
 
   useEffect(() => {
+    props.getMyMovies();
+  }, []);
+
+  useEffect(() => {
     if (localStorage.getItem("displayedMovies")) {
       setMovies(JSON.parse(localStorage.getItem("displayedMovies")));
     }
