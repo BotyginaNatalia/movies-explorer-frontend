@@ -13,7 +13,8 @@ export function getUser(jwt) {
     headers: {
       "Content-Type": 'application/json',
       "Authorization": `Bearer ${jwt}`,
-    },    
+    },
+    credentials: "include",    
   }).then(checkResponse);
 }
 
@@ -24,6 +25,7 @@ export function changeProfileInfo(jwt, name, email) {
         "Authorization": `Bearer ${jwt}`,
         "Content-Type": 'application/json',
       },
+      credentials: "include",
       body: JSON.stringify({ name: name, email: email })
   })
   .then(checkResponse);
@@ -32,6 +34,7 @@ export function changeProfileInfo(jwt, name, email) {
 export function getMyMovies(jwt) {
   return fetch(`${BASE_URL}/movies`, {
       method: "GET",
+      credentials: "include",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -44,6 +47,7 @@ export function getMyMovies(jwt) {
 export function addNewMovie(jwt, movie) {
   return fetch(`${BASE_URL}/movies`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
@@ -68,6 +72,7 @@ export function addNewMovie(jwt, movie) {
 export function deleteMyMovie(jwt, movieId) {
   return fetch(`${BASE_URL}/movies/${movieId}`, {
     method: "DELETE",
+    credentials: "include",
     headers: {
       "Authorization": `Bearer ${jwt}`,
       "Content-Type": "application/json",

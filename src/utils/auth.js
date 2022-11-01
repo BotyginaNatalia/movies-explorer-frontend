@@ -13,6 +13,7 @@ export function regNewUser(name, email, password) {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({ name, email, password }),
   }).then(checkResponse);
 }
@@ -23,6 +24,7 @@ export function logNewUser(email, password) {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({ email, password }),
   }).then(checkResponse);
 }
@@ -30,6 +32,7 @@ export function logNewUser(email, password) {
 export function receiveToken(jwt) {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${jwt}`,
