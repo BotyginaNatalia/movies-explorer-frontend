@@ -15,19 +15,28 @@ function MoviesCardList(props) {
     <section className="moviesCardList">
       <div className="moviesCardList__box">
         <div className="moviesCardList__element">
-          {displayedMovies.map((film) => {
-            return (
-              <MoviesCard
-                film={film}
-                key={film.id || film._id}                
-                isSaved={props.isSaved}
-                savedFilm={props.savedFilm}
-                savedMovies={props.savedMovies}
-                onSaveButtonClick={props.onSaveButtonClick}
-                onDeleteButtonClick={props.onDeleteButtonClick}
-              />
-            );
-          })}
+          {location.pathname === "/movies"
+            ? displayedMovies.map((film) => (
+                <MoviesCard
+                  film={film}
+                  key={film.id || film._id}
+                  isSaved={props.isSaved}
+                  savedFilm={props.savedFilm}
+                  savedMovies={props.savedMovies}
+                  onSaveButtonClick={props.onSaveButtonClick}
+                  onDeleteButtonClick={props.onDeleteButtonClick}
+                />
+              ))
+            : props.savedMovies.map((film) => (
+                <MoviesCard
+                  film={film}
+                  key={film._id}
+                  isSaved={props.isSaved}
+                  savedFilm={props.savedFilm}
+                  savedMovies={props.savedMovies}
+                  onDeleteButtonClick={props.onDeleteButtonClick}
+                />
+              ))}
         </div>
 
         {location.pathname === "/movies" &&
