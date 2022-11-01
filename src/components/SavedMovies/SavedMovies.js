@@ -9,20 +9,28 @@ function SavedMovies(props) {
   const [isLoading, setIsLoading] = useState(props.loadingMovies);
 
   function onSearchButtonClick(movieName, shortFilmSaved) {
+
     setIsLoading(true);
-    const favMovies = props.films.filter((movie) =>
-      movie.nameRU.toLowerCase().includes(movieName)
-    );
-    if ((movieName, shortFilmSaved)) {
-      setFavMovies(favMovies.filter((movie) => movie.duration <= 40));
-    } else {
-      setFavMovies(
-        favMovies.filter((movie) =>
-          props.films.some((film) => movie.movieId === film.movieId)
-        )
+    if (!localStorage.getItem("savedMovies")) {
+    
+      const searchOptions = props.films.filter((movie) =>
+        movie.nameRU.toLowerCase().includes(movieName)
       );
-    }
+      const favMovies = shortFilmSaved
+        ? searchOptions.filter((movie) => movie.duration <= 40)
+        : searchOptions;
+
+      localStorage.setItem("favMovies", JSON.stringify(favMovies));
+      localStorage.setItem("movieName", movieName);
+      localStorage.setItem("shortFilmSaved", shortFilmSaved);
+      if ((movieName, shortFilmSaved)) {
+        setFavMovies(favMovies);
+      } else {
+        setFavMovies(favMovies);
+      }
+
   }
+} 
 
   useEffect(() => {
     props.getMyMovies();
@@ -47,7 +55,9 @@ function SavedMovies(props) {
       <section className="savedMovies">
         <SearchForm
           onSearchButtonClick={onSearchButtonClick}
+          handleChangeCheckButtonSaved={props.handleChangeCheckButtonSaved}
           defaultValue=""
+          shortFilmSaved={props.shortFilmSaved}
         />
         {isLoading ? (
           <Preloader />
