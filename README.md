@@ -33,6 +33,9 @@ ___
   <li>Удалить фильм из избранного</li>
   </p>
 
+
+=======
+Ссылка на макет: (https://cloud.mail.ru/public/euAZ/dw1YGQsho)
 ___
 ### Как установить проект:
 
@@ -41,8 +44,11 @@ ___
   <li>Установить зависимости: npm i</>
   <li>Запустить проект: npm start</li>
 
+
 Ссылка на макет: (https://cloud.mail.ru/public/euAZ/dw1YGQsho)
 
 Pull-request: https://github.com/BotyginaNatalia/movies-explorer-frontend/pull/2#issue-1394500423
 
 Адрес фронтенда: https://movie.nb.nomoredomains.sbs/
+=======
+
