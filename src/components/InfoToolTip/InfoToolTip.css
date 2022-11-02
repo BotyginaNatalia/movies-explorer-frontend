@@ -1,0 +1,122 @@
+.popup {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 1s ease;
+  font-family: "Inter", "Arial", sans-serif;
+}
+
+.popup_opened {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup__main {
+  position: relative;
+  background: #fff;
+  width: 282px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  margin: 0 auto;
+  padding: 0;
+}
+
+@media screen and (min-width: 1280px) {
+  .popup__main {
+    width: 430px;
+  }
+}
+
+.popup__close-button {
+  position: absolute;
+  background-image: url(../../images/Close2.svg);
+  background-color: transparent;
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border: none;
+  top: -37px;
+  right: -1px;
+  margin: 0;
+  padding: 0;
+}
+
+.popup__close-button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (min-width: 1280px) {
+  .popup__close-button {
+    width: 32px;
+    height: 32px;
+    top: -40px;
+    right: -40px;
+  }
+}
+
+.popup__tool-container {
+  position: relative;
+  max-width: 280px;
+  margin: auto 20px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+@media screen and (min-width: 1280px) {
+  .popup__tool-container {
+    max-width: 430px;
+    margin: auto 425px;
+  }
+}
+
+.popup__img-message {
+  width: 120px;
+  height: 120px;
+  margin: 50px 80px 40px 80px;
+  padding: 0;
+}
+
+@media screen and (min-width: 1280px) {
+  .popup__img-message {
+    margin: 60px 155px 32px 155px;
+  }
+}
+
+.popup__text {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 900;
+  max-width: 260px;
+  margin: 0 18px 50px 18px;
+  color: #000000;
+  text-align: center;
+}
+
+@media screen and (min-width: 1280px) {
+  .popup__text {
+    font-size: 24px;
+    line-height: 29px;
+    max-width: 358px;
+    margin: 0 36px 60px 36px;
+  }
+}

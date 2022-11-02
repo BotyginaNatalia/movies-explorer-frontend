@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Menu({ menuClose }) {
   return (
@@ -11,20 +11,20 @@ function Menu({ menuClose }) {
           onClick={menuClose}
         ></button>
         <div className="menu__links">
-          <Link className="menu__link" to="/">
+          <NavLink className="menu__link" to="/">
             Главная
-          </Link>
-          <Link className="menu__link" to="/movies">
+          </NavLink>
+          <NavLink className="menu__link" to="/movies">
             Фильмы
-          </Link>
-          <Link className="menu__link" to="/savedMovies">
+          </NavLink>
+          <NavLink className="menu__link" to="/savedMovies">
             Сохраненные фильмы
-          </Link>
+          </NavLink>
         </div>
         <div className="menu__acc">
-          <Link className="menu__acc-button" type="button" to="/profile">
+          <NavLink className="menu__acc-button" type="button" to="/profile">
             Аккаунт
-          </Link>
+          </NavLink>
         </div>
       </div>
     </section>

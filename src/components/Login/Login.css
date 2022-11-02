@@ -81,6 +81,7 @@
 }
 
 .login__input {
+  margin-top: 1px;
   border-bottom: 1px solid #8B8B8B;
 }
 
@@ -94,7 +95,7 @@
 
 .login__info {
   width: 260px;
-  margin: 0;
+  margin-bottom: 2px;
   border: none;
   background-color: transparent;
   outline: none;
@@ -107,6 +108,15 @@
 
 .login__info:invalid {
   color: #EE3465;
+}
+
+.login__error {
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 400;
+  font-style: normal;
+  color: #EE3465;
+  margin-top: 6px;
 }
 
 .login__submit-button {
@@ -135,6 +145,34 @@
 
 @media screen and (min-width: 768px) {
   .login__submit-button {
+    width: 396px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.login__submit-button_disabled {
+  width: 260px;
+  height: 45px;
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 500;
+  font-style: normal;
+  color: #ffffff;
+  background-color: #4a4e55;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  margin: 157px 0 14px 0;
+}
+
+@media screen and (min-width: 768px) {
+  .login__submit-button_disabled {
     width: 396px;
     font-size: 14px;
     line-height: 17px;
@@ -207,6 +245,34 @@
 
 @media screen and (min-width: 768px) {
   .login__reg-submit-button {
+    width: 396px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.login__reg-submit-button_disabled {
+  width: 260px;
+  height: 45px;
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 500;
+  font-style: normal;
+  color: #ffffff;
+  background-color: #4a4e55;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  margin: 157px 0 14px 0;
+}
+
+@media screen and (min-width: 768px) {
+  .login__reg-submit-button_disabled {
     width: 396px;
     font-size: 14px;
     line-height: 17px;
